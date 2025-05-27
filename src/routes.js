@@ -10,7 +10,7 @@ const LoginSingUp = React.lazy(()=> import("./components/auth/Auth.jsx"));
 const Blog = React.lazy(()=> import("./components/blog/Blog.jsx"));
 
 
-const Cart = React.lazy(()=> import("./components/Cart/Cart.jsx"));
+const Cart = React.lazy(()=> import("./components/cart/Cart.jsx"));
 const CheckoutStepper = React.lazy(()=> import("./components/checkout/CheckoutStepper.jsx"));
 const MyOrders = React.lazy(()=> import("./components/orders/MyOrder.jsx"));
 const OrderDetails = React.lazy(()=> import("./components/orders/OrderDetails.jsx"));
