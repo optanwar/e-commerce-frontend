@@ -62,7 +62,7 @@ const Navbar = () => {
           <li><a href="#about" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">About</a></li>
           <li><a href="#services" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">Blogs</a></li>
           <li><a href="#contact" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">Contact</a></li>
-          <button className="bg-primary text-white px-4 py-2 rounded w-full mt-4">Where to buy</button>
+
         </ul>
       </div>
 
