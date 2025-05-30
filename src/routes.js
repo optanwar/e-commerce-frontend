@@ -17,6 +17,13 @@ const OrderDetails = React.lazy(()=> import("./components/orders/OrderDetails.js
 
 
 
+// dashboard 
+
+const Dashboard = React.lazy(() => import("./components/dashboard/Index.jsx"));
+const DashboardProductsList = React.lazy(() => import("./components/dashboard/product/ProductsList.jsx"));
+
+
+
 export const route = [
   {
     id: 1,
@@ -107,6 +114,23 @@ export const route = [
     name: "Order Details",
     path: "/order/:id",    
     component: OrderDetails
-  }
+  },
+
+
+  // Dashboard Routes
+
+  // {
+  //   id: 21,
+  //   name: "Dashboard",
+  //   path: "/dashboard",
+  //   component: Dashboard, // Do not wrap with <Dashboard /> here
+  // },
+ 
+  // {
+  //   id: 21,
+  //   name: "Products List",
+  //   path: "/dashboard/products",
+  //   component: DashboardProductsList, // Do not wrap with <Dashboard /> here
+  // }
  
 ];

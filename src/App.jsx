@@ -1,15 +1,19 @@
-import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AnnouncementBar from "./layout/AnnouncementBar";
-import Loader from "./layout/Loader";
-import Navbar from "./layout/Navbar";
-import Footer from "./layout/Footer";
+import MainLayout from "./layout/MainLayout";
+import DashboardLayout from "./layout/DashboardLayout";
+
+import Dashboard from "./components/dashboard/Dashboard";
 import { route } from "./routes";
+import { Suspense, useEffect, useState } from "react";
+import Loader from "./layout/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { fetchStripeApiKey } from './slices/stripeSlice'; // import the new thunk
 import { setCredentials } from './slices/authSlice';
+import './App.css'; // Import your global styles if any
+import DashboardProduct from "./components/dashboard/product/ProductsList";
+
 const App = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
@@ -17,16 +21,15 @@ const App = () => {
 
   const [stripePromise, setStripePromise] = useState(null);
 
-
   useEffect(() => {
-  const authData = JSON.parse(localStorage.getItem('persist:root'))?.auth;
-  if (authData) {
-    const parsed = JSON.parse(authData);
-    if (parsed.token) {
-      dispatch(setCredentials({ token: parsed.token }));
+    const authData = JSON.parse(localStorage.getItem('persist:root'))?.auth;
+    if (authData) {
+      const parsed = JSON.parse(authData);
+      if (parsed.token) {
+        dispatch(setCredentials({ token: parsed.token }));
+      }
     }
-  }
-}, [dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (token) {
@@ -40,39 +43,40 @@ const App = () => {
     }
   }, [apiKey]);
 
-  
-
   if (loading) {
     return <Loader />;
   }
 
+  const routesWithElements = (
+    <Routes>
+      {/* Wrap all routes inside MainLayout except dashboard */}
+      <Route element={<MainLayout />}>
+        {route.map(({ id, path, component: Component }) => (
+          <Route key={id} path={path} element={<Component />} />
+        ))}
+      </Route>
+
+      {/* Dashboard route with separate layout */}
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<Dashboard />} />
+         <Route path="products" element={<DashboardProduct />} />
+    
+      </Route>
+    </Routes>
+  );
+
   return (
-    <div>
-      <Router>
-        <AnnouncementBar />
-        <Navbar />
-
-        <Suspense fallback={<Loader />}>
-          {stripePromise ? (
-            <Elements stripe={stripePromise}>
-              <Routes>
-                {route.map(({ id, path, component: Component }) => (
-                  <Route key={id} path={path} element={<Component />} />
-                ))}
-              </Routes>
-            </Elements>
-          ) : (
-            <Routes>
-              {route.map(({ id, path, component: Component }) => (
-                <Route key={id} path={path} element={<Component />} />
-              ))}
-            </Routes>
-          )}
-        </Suspense>
-
-        <Footer />
-      </Router>
-    </div>
+    <Router>
+      <Suspense fallback={<Loader />}>
+        {stripePromise ? (
+          <Elements stripe={stripePromise}>
+            {routesWithElements}
+          </Elements>
+        ) : (
+          routesWithElements
+        )}
+      </Suspense>
+    </Router>
   );
 };
 

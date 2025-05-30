@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoCartSharp } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
-import { IoSearch } from "react-icons/io5";
+import { FiHeart } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,15 +22,26 @@ const Navbar = () => {
           </ul>
 
           <div className='hidden md:flex items-center space-x-4'>
-            <button className="bg-primary text-white px-4 py-2 rounded"><IoSearch />           </button>
+          
             <Link to={`/login`} className="text-gray-700 hover:text-primary"><FaRegUserCircle />    </Link>
+            <Link to={`/`} className="text-gray-700 hover:text-primary"><FiHeart />
+     </Link>
             <Link to={`/my-cart`} className="text-gray-700 hover:text-primary"><IoCartSharp />     </Link>
            
            
           </div>
 
           {/* Hamburger icon */}
-          <div className='md:hidden'>
+          <div className='md:hidden flex items-center justify-end w-full gap-4'>
+              <div className='flex md:hidden items-center space-x-4'>
+          
+            <Link to={`/login`} className="text-gray-700 hover:text-primary"><FaRegUserCircle />    </Link>
+            <Link to={`/`} className="text-gray-700 hover:text-primary"><FiHeart />
+     </Link>
+            <Link to={`/my-cart`} className="text-gray-700 hover:text-primary"><IoCartSharp />     </Link>
+           
+           
+          </div>
             <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 focus:outline-none">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
                    viewBox="0 0 24 24">
@@ -49,6 +60,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex justify-end p-4">
+          
           <button onClick={() => setIsOpen(false)} className="text-gray-700">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
                  viewBox="0 0 24 24">
