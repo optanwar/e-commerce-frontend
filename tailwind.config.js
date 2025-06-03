@@ -2,34 +2,48 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}", // Scans all relevant files for Tailwind classes
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
-      // 🖋️ Custom Font Family
-      fontFamily: {
-        roboto: ["Roboto", 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
-        mono: ['Fira Code', 'monospace'],
-        display: ['Poppins', 'sans-serif'], // Stylish font for headings
-      },
-
-      // 🎨 Custom Colors
+      // 🎨 Colors
       colors: {
-        primary: '#003327', 
-       
+        primary: '#FF6B6B',      // CTA - Buy Now, Add to Cart
+        secondary: '#FFA726',    // Accent - badges, highlights
+        accent: '#BA68C8',       // Fun titles, promos
+        trust: '#4FC3F7',        // Safe & clean background
+        health: '#A5D6A7',       // Natural vibes
+        lightBg: '#F5F5F5',      // Section backgrounds
+        darkText: '#333333',     // Body text
+        white: '#ffffff',
       },
 
-      // 🌄 Custom Background Image
-      backgroundImage: {
-        'hero-pattern': "url('/src/assets/hero-bg.jpg')",
-        'footer-texture': "url('/src/assets/footer-texture.png')",
-        'gradient-radial': 'radial-gradient(circle, #3498db, #2ecc71)',
+      // 🖋️ Fonts
+      fontFamily: {
+        heading: ['Baloo 2', 'cursive'],        // Playful, friendly
+        body: ['Quicksand', 'sans-serif'],      // Soft, readable
+        sans: ['Poppins', 'sans-serif'],        // Clean, modern
       },
 
-      // 📦 Custom Container Configuration
+      // 🌟 Shadows (Best options)
+      boxShadow: {
+        soft: '0 4px 8px rgba(0, 0, 0, 0.08)',         // Use on product cards
+        hoverCard: '0 8px 24px rgba(0, 0, 0, 0.12)',   // On hover or popups
+        cta: '0 6px 12px rgba(255, 107, 107, 0.4)',     // Red CTA glow
+        promo: '0 0 0 4px rgba(186, 104, 200, 0.3)',    // Purple outline (promo badge)
+      },
+
+      // 🧩 Spacing
+      spacing: {
+        18: '4.5rem',
+        22: '5.5rem',
+        36: '9rem',
+        72: '18rem',
+      },
+
+      // 📦 Container
       container: {
-        center: true, // Centers the container
+        center: true,
         padding: {
           DEFAULT: '1rem',
           sm: '2rem',
@@ -38,24 +52,10 @@ export default {
         },
       },
 
-      // 🔢 Custom Spacing
-      spacing: {
-        18: '4.5rem',
-        22: '5.5rem',
-        36: '9rem',
-        72: '18rem',
-      },
-
-      // 🌟 Custom Box Shadows
-      boxShadow: {
-        'soft': '0 4px 6px rgba(0, 0, 0, 0.1)',
-        'strong': '0 10px 15px rgba(0, 0, 0, 0.2)',
-      },
-
-      // 📌 Custom Animations
+      // 🎞️ Animations
       animation: {
         fadeIn: 'fadeIn 1s ease-in-out',
-        bounceSlow: 'bounce 3s infinite',
+        float: 'float 3s ease-in-out infinite',
       },
 
       keyframes: {
@@ -63,8 +63,17 @@ export default {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+      },
+
+      // 🌄 Background image (optional)
+      backgroundImage: {
+        gummiesPattern: "url('/src/assets/gummies-bg.png')",
       },
     },
   },
-  
+  plugins: [],
 };

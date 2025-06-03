@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply bg-primary text-white font-bold px-6 py-3 rounded-xl hover:bg-[#e25555] shadow-cta transition;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-soft hover:shadow-hoverCard transition p-4;
+}
+
+        

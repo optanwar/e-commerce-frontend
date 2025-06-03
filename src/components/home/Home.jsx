@@ -1,24 +1,22 @@
 import React from 'react'
-import HeroSection from './HeroSection'
-import ProductSection from './ProductSection'
-import About from './About'
-import Testimonial from './Testimonial'
-import Feedback from './Feedback'
-import FAQ from './FAQ';
-import MetaData from '../../layout/MetaData'
+import Hero from './Hero'
+import Products from './Products'
+import Benefits from './Benefits'
+import Testimonials from './Testimonial'
+import CTA from './CTA'
 
-const Home = () => {
+
+const home = () => {
   return (
-   <>
-  <MetaData title="website name title" />
-   <HeroSection/>
-   <About/>
-   <ProductSection/>
-  <Testimonial/>
-  <FAQ/>
-  <Feedback/>
-</>
+    <>
+    <Hero />
+
+    <Products/>
+    <Benefits/>
+    <Testimonials/>
+    <CTA/>
+    </>
   )
 }
 
-export default Home
+export default home

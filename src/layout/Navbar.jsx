@@ -1,92 +1,42 @@
-import React, { useState } from 'react'
-import { IoCartSharp } from "react-icons/io5";
-import { FaRegUserCircle } from "react-icons/fa";
-import { FiHeart } from "react-icons/fi";
-import { Link } from 'react-router-dom';
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+// src/components/Navbar.jsx
+import { Heart, ShoppingCart, User } from "lucide-react";
+import { useState } from "react";
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className='w-full bg-white shadow sticky top-0 z-50'>
-      <div className='container mx-auto px-4 '>
-        <nav className='flex justify-between items-center py-4'>
-          <div className='text-2xl font-bold text-primary'>  <Link to={`/`} className="text-gray-700 hover:text-primary"><img src="/logo.svg" alt="website logo" /> </Link></div>
+    <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <h1 className="text-xl font-heading text-primary">YummyGummies</h1>
 
-          {/* Desktop Menu */}
-          <ul className='hidden md:flex space-x-6'>
-            <li><Link to={`/products`} className="text-gray-700 hover:text-primary">Products</Link></li>
-            <li><Link to={`/about`}  className="text-gray-700 hover:text-primary">About</Link></li>
-           
-            <li><Link to={`/blog`} className="text-gray-700 hover:text-primary">Blogs</Link></li>
-            <li><Link to={`/contact-us`} className="text-gray-700 hover:text-primary">Contact</Link></li>
-          </ul>
+        {/* Navigation Links */}
+        <div className="hidden md:flex gap-6 items-center text-sm font-medium">
+          <a href="#" className="text-darkText hover:text-primary">Home</a>
+          <a href="#" className="text-darkText hover:text-primary">Shop</a>
+          <a href="#" className="text-darkText hover:text-primary">Contact</a>
+        </div>
 
-          <div className='hidden md:flex items-center space-x-4'>
-          
-            <Link to={`/login`} className="text-gray-700 hover:text-primary"><FaRegUserCircle />    </Link>
-            <Link to={`/`} className="text-gray-700 hover:text-primary"><FiHeart />
-     </Link>
-            <Link to={`/my-cart`} className="text-gray-700 hover:text-primary"><IoCartSharp />     </Link>
-           
-           
-          </div>
-
-          {/* Hamburger icon */}
-          <div className='md:hidden flex items-center justify-end w-full gap-4'>
-              <div className='flex md:hidden items-center space-x-4'>
-          
-            <Link to={`/login`} className="text-gray-700 hover:text-primary"><FaRegUserCircle />    </Link>
-            <Link to={`/`} className="text-gray-700 hover:text-primary"><FiHeart />
-     </Link>
-            <Link to={`/my-cart`} className="text-gray-700 hover:text-primary"><IoCartSharp />     </Link>
-           
-           
-          </div>
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 focus:outline-none">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
-                   viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-        </nav>
-      </div>
-
-      {/* Mobile Menu Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex justify-end p-4">
-          
-          <button onClick={() => setIsOpen(false)} className="text-gray-700">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
-                 viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"/>
-            </svg>
+        {/* Icons */}
+        <div className="flex gap-4 items-center">
+          <button onClick={() => setOpen(!open)} className="relative">
+            <ShoppingCart className="w-6 h-6 text-darkText" />
+            <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-1 rounded-full">
+              2
+            </span>
+          </button>
+          <button onClick={() => setOpen(!open)} className="relative">
+            <Heart className="w-6 h-6 text-darkText" />
+            <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-1 rounded-full">
+              2
+            </span>
+          </button>
+          <button onClick={() => setOpen(!open)} className="relative">
+            <User className="w-6 h-6 text-darkText" />
           </button>
         </div>
-        <ul className='flex flex-col items-start space-y-4 px-6'>
-          <li><a href="#home" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">Products</a></li>
-          <li><a href="#about" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">About</a></li>
-          <li><a href="#services" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">Blogs</a></li>
-          <li><a href="#contact" onClick={() => setIsOpen(false)} className="text-gray-700 hover:text-primary">Contact</a></li>
-
-        </ul>
       </div>
-
-      {/* Background overlay */}
-      {isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
-        />
-      )}
-    </div>
-  )
+    </nav>
+  );
 }
-
-export default Navbar
