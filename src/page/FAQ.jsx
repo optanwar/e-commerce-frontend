@@ -3,29 +3,28 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What are YummyGummies made of?",
+    question: 'What are YummyGummies made of?',
     answer:
-      "Our gummies are made with natural flavors and colors, including essential vitamins and minerals for your child’s health.",
+      'Our gummies are made with natural flavors and colors, including essential vitamins and minerals for your child’s health.',
   },
   {
-    question: "Are your products safe for all ages?",
+    question: 'Are your products safe for all ages?',
     answer:
-      "YummyGummies are designed for kids 3 years and older. Always consult your pediatrician before starting any supplement.",
+      'YummyGummies are designed for kids 3 years and older. Always consult your pediatrician before starting any supplement.',
   },
   {
-    question: "Do you offer free shipping?",
-    answer:
-      "Yes! We offer free shipping on all orders over $25 within the continental USA.",
+    question: 'Do you offer free shipping?',
+    answer: 'Yes! We offer free shipping on all orders over $25 within the continental USA.',
   },
   {
-    question: "Can I return a product?",
+    question: 'Can I return a product?',
     answer:
       "Absolutely! If you're not satisfied, you can return unopened products within 30 days for a full refund.",
   },
   {
-    question: "Where are your products manufactured?",
+    question: 'Where are your products manufactured?',
     answer:
-      "All our products are proudly made in FDA-registered, GMP-certified facilities in the USA.",
+      'All our products are proudly made in FDA-registered, GMP-certified facilities in the USA.',
   },
 ];
 
@@ -44,10 +43,7 @@ const Faq = () => {
 
       <div className="space-y-4">
         {faqs.map((faq, index) => (
-          <div
-            key={index}
-            className="border border-gray-200 rounded-lg shadow-sm bg-white"
-          >
+          <div key={index} className="border border-gray-200 rounded-lg shadow-sm bg-white">
             <button
               onClick={() => toggleAccordion(index)}
               className="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-gray-800"
@@ -61,9 +57,7 @@ const Faq = () => {
               />
             </button>
             {openIndex === index && (
-              <div className="px-6 pb-4 text-gray-600 text-sm">
-                {faq.answer}
-              </div>
+              <div className="px-6 pb-4 text-gray-600 text-sm">{faq.answer}</div>
             )}
           </div>
         ))}

@@ -1,30 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const dummyCart = [
   {
     id: 1,
-    name: "Yummy Multivitamin Gummies",
+    name: 'Yummy Multivitamin Gummies',
     price: 14.99,
     quantity: 2,
     image:
-      "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600",
+      'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 2,
-    name: "Immune Boost Gummies",
+    name: 'Immune Boost Gummies',
     price: 12.99,
     quantity: 1,
     image:
-      "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600",
+      'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
 ];
 
 export default function CheckoutPage() {
-  const total = dummyCart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total = dummyCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <main className="bg-lightBg min-h-screen py-10 px-4 md:px-20 text-darkText">
@@ -114,8 +111,8 @@ export default function CheckoutPage() {
           </div>
 
           {/* Place Order */}
-          <Link to={'/confirm-order'}
-        
+          <Link
+            to={'/confirm-order'}
             className="block w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold text-center transition"
           >
             Place Order

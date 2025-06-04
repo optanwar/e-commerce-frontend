@@ -21,10 +21,10 @@ export default function DashboardLayout() {
     { name: 'Orders', icon: <ShoppingCart size={18} />, to: '/dashboard/orders' },
     { name: 'Products', icon: <Package size={18} />, to: '/dashboard/products' },
     { name: 'Categories', icon: <ListChecks size={18} />, to: '/dashboard/categories' },
-    { name: 'Create Product', icon: <BadgePlus  size={18} />, to: '/dashboard/create-product' },
+    { name: 'Create Product', icon: <BadgePlus size={18} />, to: '/dashboard/create-product' },
     { name: 'Users', icon: <User size={18} />, to: '/dashboard/users' },
-    { name: 'Reviews', icon: <Star  size={18} />, to: '/dashboard/reviews' },
-  { name: 'Coupons', icon: <Tag size={18} />, to: '/dashboard/coupons' },
+    { name: 'Reviews', icon: <Star size={18} />, to: '/dashboard/reviews' },
+    { name: 'Coupons', icon: <Tag size={18} />, to: '/dashboard/coupons' },
   ];
 
   return (
@@ -57,9 +57,7 @@ export default function DashboardLayout() {
                 to={item.to}
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
-                    isActive
-                      ? 'bg-primary text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
+                    isActive ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
                   }`
                 }
                 onClick={() => setSidebarOpen(false)}

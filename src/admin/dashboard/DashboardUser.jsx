@@ -14,9 +14,10 @@ const DashboardUser = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editUser, setEditUser] = useState(null);
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const openEditModal = (user) => {
@@ -31,16 +32,14 @@ const DashboardUser = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditUser(prev => ({
+    setEditUser((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
   const saveChanges = () => {
-    setUsers(prevUsers =>
-      prevUsers.map(u => (u.id === editUser.id ? editUser : u))
-    );
+    setUsers((prevUsers) => prevUsers.map((u) => (u.id === editUser.id ? editUser : u)));
     closeEditModal();
   };
 
@@ -58,7 +57,7 @@ const DashboardUser = () => {
         placeholder="Search by name or email..."
         className="w-full md:w-1/3 px-4 py-2 border rounded-lg"
         value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
 
       {/* User Table */}
@@ -76,13 +75,15 @@ const DashboardUser = () => {
           </thead>
           <tbody>
             {filteredUsers.length > 0 ? (
-              filteredUsers.map(user => (
+              filteredUsers.map((user) => (
                 <tr key={user.id} className="border-t hover:bg-gray-50">
                   <td className="p-4 font-mono text-sm text-gray-600">{user.id}</td>
                   <td className="p-4">{user.name}</td>
                   <td className="p-4">{user.email}</td>
                   <td className="p-4">{user.role}</td>
-                  <td className={`p-4 font-semibold ${user.status === 'Active' ? 'text-green-600' : 'text-red-600'}`}>
+                  <td
+                    className={`p-4 font-semibold ${user.status === 'Active' ? 'text-green-600' : 'text-red-600'}`}
+                  >
                     {user.status}
                   </td>
                   <td className="p-4 flex items-center gap-3">
@@ -128,7 +129,7 @@ const DashboardUser = () => {
             <h2 className="text-xl font-semibold mb-4">Edit User</h2>
 
             <form
-              onSubmit={e => {
+              onSubmit={(e) => {
                 e.preventDefault();
                 saveChanges();
               }}

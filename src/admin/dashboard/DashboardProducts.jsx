@@ -5,7 +5,8 @@ const initialProducts = [
   {
     id: 101,
     name: 'Strawberry Gummies',
-    image: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
+    image:
+      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
     category: 'Immunity',
     stock: 120,
     price: 9.99,
@@ -13,7 +14,8 @@ const initialProducts = [
   {
     id: 102,
     name: 'Vitamin C Bears',
-    image: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
+    image:
+      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
     category: 'Daily Vitamins',
     stock: 30,
     price: 12.49,
@@ -21,7 +23,8 @@ const initialProducts = [
   {
     id: 103,
     name: 'Melatonin Sleep Gummies',
-    image: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
+    image:
+      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
     category: 'Sleep',
     stock: 15,
     price: 14.99,
@@ -29,7 +32,8 @@ const initialProducts = [
   {
     id: 104,
     name: 'Omega-3 Fishies',
-    image: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
+    image:
+      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
     category: 'Brain Health',
     stock: 5,
     price: 11.99,

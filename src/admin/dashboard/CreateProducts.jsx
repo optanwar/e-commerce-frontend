@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
 
-const categories = [
-  'Immunity',
-  'Sleep',
-  'Daily Vitamins',
-  'Brain Health',
-  'Digestive Health',
-];
+const categories = ['Immunity', 'Sleep', 'Daily Vitamins', 'Brain Health', 'Digestive Health'];
 
 const CreateProduct = () => {
   const [product, setProduct] = useState({

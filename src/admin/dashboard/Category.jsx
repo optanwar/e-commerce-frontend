@@ -30,11 +30,7 @@ const Category = () => {
   };
 
   const handleUpdateCategory = (id) => {
-    setCategories(
-      categories.map((cat) =>
-        cat.id === id ? { ...cat, name: editName } : cat
-      )
-    );
+    setCategories(categories.map((cat) => (cat.id === id ? { ...cat, name: editName } : cat)));
     setEditingId(null);
     setEditName('');
   };
@@ -88,9 +84,7 @@ const Category = () => {
           <tbody>
             {filtered.map((category) => (
               <tr key={category.id} className="border-t hover:bg-gray-50">
-                <td className="p-4 font-mono text-sm text-gray-600">
-                  {category.id}
-                </td>
+                <td className="p-4 font-mono text-sm text-gray-600">{category.id}</td>
                 <td className="p-4">
                   {editingId === category.id ? (
                     <input

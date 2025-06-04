@@ -5,18 +5,18 @@ const Benefits = () => {
   const items = [
     {
       icon: <ShieldCheck className="w-8 h-8 text-primary mb-4" />,
-      title: "No Added Sugar",
-      desc: "Trustworthy, safe, and packed with natural ingredients.",
+      title: 'No Added Sugar',
+      desc: 'Trustworthy, safe, and packed with natural ingredients.',
     },
     {
       icon: <Flag className="w-8 h-8 text-primary mb-4" />,
-      title: "Made in the USA",
-      desc: "Locally crafted with quality and care.",
+      title: 'Made in the USA',
+      desc: 'Locally crafted with quality and care.',
     },
     {
       icon: <CheckCircle className="w-8 h-8 text-primary mb-4" />,
-      title: "Doctor Approved",
-      desc: "Reviewed and approved by pediatricians.",
+      title: 'Doctor Approved',
+      desc: 'Reviewed and approved by pediatricians.',
     },
   ];
 
@@ -30,9 +30,7 @@ const Benefits = () => {
             key={i}
             className="bg-lightGray p-6 rounded-xl shadow-soft hover:shadow-hoverCard hover:bg-white transition flex flex-col items-center text-center border border-dotted border-primary"
           >
-            <div className="flex justify-center items-center">
-              {benefit.icon}
-            </div>
+            <div className="flex justify-center items-center">{benefit.icon}</div>
             <h4 className="text-lg font-bold mb-2 text-darkText">{benefit.title}</h4>
             <p className="text-sm text-gray-600">{benefit.desc}</p>
           </div>

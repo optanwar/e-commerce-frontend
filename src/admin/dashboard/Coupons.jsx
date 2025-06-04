@@ -27,9 +27,7 @@ const Coupons = () => {
   const [editingId, setEditingId] = useState(null);
   const [editCoupon, setEditCoupon] = useState({});
 
-  const filtered = coupons.filter((c) =>
-    c.code.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = coupons.filter((c) => c.code.toLowerCase().includes(search.toLowerCase()));
 
   const handleAdd = () => {
     const { code, discount, expiresAt } = newCoupon;
@@ -51,9 +49,7 @@ const Coupons = () => {
   };
 
   const handleSaveEdit = () => {
-    setCoupons(
-      coupons.map((c) => (c.id === editingId ? { ...editCoupon, id: editingId } : c))
-    );
+    setCoupons(coupons.map((c) => (c.id === editingId ? { ...editCoupon, id: editingId } : c)));
     setEditingId(null);
     setEditCoupon({});
   };
@@ -125,9 +121,7 @@ const Coupons = () => {
                       type="text"
                       className="border px-2 py-1 rounded w-full"
                       value={editCoupon.code}
-                      onChange={(e) =>
-                        setEditCoupon({ ...editCoupon, code: e.target.value })
-                      }
+                      onChange={(e) => setEditCoupon({ ...editCoupon, code: e.target.value })}
                     />
                   ) : (
                     c.code
@@ -139,9 +133,7 @@ const Coupons = () => {
                       type="number"
                       className="border px-2 py-1 rounded w-full"
                       value={editCoupon.discount}
-                      onChange={(e) =>
-                        setEditCoupon({ ...editCoupon, discount: e.target.value })
-                      }
+                      onChange={(e) => setEditCoupon({ ...editCoupon, discount: e.target.value })}
                     />
                   ) : (
                     `${c.discount}%`
@@ -153,9 +145,7 @@ const Coupons = () => {
                       type="date"
                       className="border px-2 py-1 rounded w-full"
                       value={editCoupon.expiresAt}
-                      onChange={(e) =>
-                        setEditCoupon({ ...editCoupon, expiresAt: e.target.value })
-                      }
+                      onChange={(e) => setEditCoupon({ ...editCoupon, expiresAt: e.target.value })}
                     />
                   ) : (
                     c.expiresAt

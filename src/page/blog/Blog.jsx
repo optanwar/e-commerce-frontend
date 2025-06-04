@@ -1,36 +1,36 @@
-import React from "react";
+import React from 'react';
 
 export default function Blog() {
   const blogPosts = [
     {
       id: 1,
-      title: "5 Fun Health Tips for Kids",
+      title: '5 Fun Health Tips for Kids',
       excerpt:
-        "Keeping your child healthy doesn’t have to be boring! Discover 5 creative ways to make wellness fun and tasty.",
+        'Keeping your child healthy doesn’t have to be boring! Discover 5 creative ways to make wellness fun and tasty.',
       image:
-        "https://images.pexels.com/photos/8669985/pexels-photo-8669985.jpeg?auto=compress&cs=tinysrgb&w=600",
-      date: "June 1, 2025",
-      author: "Dr. Sweet Berry",
+        'https://images.pexels.com/photos/8669985/pexels-photo-8669985.jpeg?auto=compress&cs=tinysrgb&w=600',
+      date: 'June 1, 2025',
+      author: 'Dr. Sweet Berry',
     },
     {
       id: 2,
-      title: "Why Gummies Are the New Kids’ Favorite Vitamin",
+      title: 'Why Gummies Are the New Kids’ Favorite Vitamin',
       excerpt:
-        "Learn why gummy supplements are becoming a parent-approved way to ensure your kids get the nutrients they need.",
+        'Learn why gummy supplements are becoming a parent-approved way to ensure your kids get the nutrients they need.',
       image:
-        "https://images.pexels.com/photos/8409851/pexels-photo-8409851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "May 20, 2025",
-      author: "Lisa from YummyGummies",
+        'https://images.pexels.com/photos/8409851/pexels-photo-8409851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      date: 'May 20, 2025',
+      author: 'Lisa from YummyGummies',
     },
     {
       id: 3,
-      title: "Behind the Scenes: How Our Gummies Are Made",
+      title: 'Behind the Scenes: How Our Gummies Are Made',
       excerpt:
-        "From sourcing natural ingredients to fun-shaped molds—take a look inside the sweet science of gummy making!",
+        'From sourcing natural ingredients to fun-shaped molds—take a look inside the sweet science of gummy making!',
       image:
-        "https://images.pexels.com/photos/5469204/pexels-photo-5469204.jpeg?auto=compress&cs=tinysrgb&w=600",
-      date: "May 10, 2025",
-      author: "Chef Gummy",
+        'https://images.pexels.com/photos/5469204/pexels-photo-5469204.jpeg?auto=compress&cs=tinysrgb&w=600',
+      date: 'May 10, 2025',
+      author: 'Chef Gummy',
     },
   ];
 
@@ -58,23 +58,14 @@ export default function Blog() {
               key={post.id}
               className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition border  border-primary border-dotted"
             >
-              <img
-                src={post.image}
-                alt={post.title}
-                className="w-full h-52 object-cover"
-              />
+              <img src={post.image} alt={post.title} className="w-full h-52 object-cover" />
               <div className="p-6 space-y-3">
-                <h2 className="text-xl font-semibold text-primary">
-                  {post.title}
-                </h2>
+                <h2 className="text-xl font-semibold text-primary">{post.title}</h2>
                 <p className="text-sm text-gray-600">
                   {post.date} • {post.author}
                 </p>
                 <p className="text-gray-700 text-base">{post.excerpt}</p>
-                <a
-                  href="#"
-                  className="inline-block mt-3 text-accent hover:underline font-medium"
-                >
+                <a href="#" className="inline-block mt-3 text-accent hover:underline font-medium">
                   Read More →
                 </a>
               </div>

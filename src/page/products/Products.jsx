@@ -1,43 +1,43 @@
-import { Heart } from "lucide-react";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Heart } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Products() {
   const products = [
     {
       id: 1,
-      name: "Berry Blast Gummies",
-      price: "$14.99",
+      name: 'Berry Blast Gummies',
+      price: '$14.99',
       image:
-        "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
     {
       id: 2,
-      name: "Vitamin C Citrus Bears",
-      price: "$12.49",
+      name: 'Vitamin C Citrus Bears',
+      price: '$12.49',
       image:
-        "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
     {
       id: 3,
-      name: "Omega-3 Fruity Fish",
-      price: "$16.00",
+      name: 'Omega-3 Fruity Fish',
+      price: '$16.00',
       image:
-        "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
     {
       id: 4,
-      name: "Multi-Vitamin Rainbow Drops",
-      price: "$18.75",
+      name: 'Multi-Vitamin Rainbow Drops',
+      price: '$18.75',
       image:
-        "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
     {
       id: 5,
-      name: "Iron + B12 Gummies",
-      price: "$13.50",
+      name: 'Iron + B12 Gummies',
+      price: '$13.50',
       image:
-        "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
   ];
 
@@ -84,7 +84,7 @@ export default function Products() {
             //     </button>
             //   </div>
             // </div>
-              <div
+            <div
               key={product.id}
               className="bg-white rounded-xl shadow-soft p-4 relative hover:shadow-hoverCard transition border  border-primary border-dotted"
             >
@@ -101,7 +101,10 @@ export default function Products() {
               />
 
               {/* Product Title */}
-            <Link to={`/products/${product.id}`}>  <h3 className="text-lg font-heading text-accent mb-1">{product.name}</h3></Link>
+              <Link to={`/products/${product.id}`}>
+                {' '}
+                <h3 className="text-lg font-heading text-accent mb-1">{product.name}</h3>
+              </Link>
 
               {/* Price */}
               <p className="text-md font-semibold text-darkText mb-1"> {product.price}</p>

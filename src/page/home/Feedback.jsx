@@ -5,7 +5,6 @@ const Feedback = () => {
   return (
     <div className="bg-lightBg py-16">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
-        
         {/* Image */}
         <div className="w-full md:w-1/2">
           <img
@@ -21,7 +20,8 @@ const Feedback = () => {
             Loved Our Gummies? Tell Us What You Think!
           </h2>
           <p className="text-gray-600 text-lg font-roboto">
-            We’d love to hear about your experience. Share your thoughts, suggestions, or even fun stories!
+            We’d love to hear about your experience. Share your thoughts, suggestions, or even fun
+            stories!
           </p>
 
           <a

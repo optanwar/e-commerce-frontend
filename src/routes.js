@@ -1,24 +1,19 @@
-import React from "react";
+import React from 'react';
 
-
-const Home = React.lazy(() => import("./page/home/Home.jsx"));
-const About = React.lazy(() => import("./page/About.jsx"));
-const Blog = React.lazy(() => import("./page/blog/Blog.jsx"));
-const Contact = React.lazy(() => import("./page/Contact.jsx"));
-const Products = React.lazy(() => import("./page/products/Products.jsx"));
-const ProductsDetails = React.lazy(() => import("./page/products/ProductDetail.jsx"));
-const Cart = React.lazy(() => import("./features/cart/Cart.jsx"));
-const Checkout = React.lazy(() => import("./page/checkout/Checkout.jsx"));
-const ConfirmOrder = React.lazy(() => import("./page/checkout/ConfirmOrder.jsx"));
-const Payment = React.lazy(() => import("./page/checkout/Payment.jsx"));
-const AuthPage = React.lazy(() => import("./features/auth/AuthPage.jsx"));
-const SubmitReview = React.lazy(()=> import("./page/home/SubmitReviews.jsx"));
-const FAQ = React.lazy(() => import("./page/FAQ.jsx"));
-const PageNotFound = React.lazy(() => import("./page/NotFound.jsx"));
-
-
-
-
+const Home = React.lazy(() => import('./page/home/Home.jsx'));
+const About = React.lazy(() => import('./page/About.jsx'));
+const Blog = React.lazy(() => import('./page/blog/Blog.jsx'));
+const Contact = React.lazy(() => import('./page/Contact.jsx'));
+const Products = React.lazy(() => import('./page/products/Products.jsx'));
+const ProductsDetails = React.lazy(() => import('./page/products/ProductDetail.jsx'));
+const Cart = React.lazy(() => import('./features/cart/Cart.jsx'));
+const Checkout = React.lazy(() => import('./page/checkout/Checkout.jsx'));
+const ConfirmOrder = React.lazy(() => import('./page/checkout/ConfirmOrder.jsx'));
+const Payment = React.lazy(() => import('./page/checkout/Payment.jsx'));
+const AuthPage = React.lazy(() => import('./features/auth/AuthPage.jsx'));
+const SubmitReview = React.lazy(() => import('./page/home/SubmitReviews.jsx'));
+const FAQ = React.lazy(() => import('./page/FAQ.jsx'));
+const PageNotFound = React.lazy(() => import('./page/NotFound.jsx'));
 
 // Dashboard layout + pages
 const DashboardLayout = React.lazy(() => import('./admin/dashboard/DashboardLayout.jsx'));
@@ -31,99 +26,96 @@ const ProductReviews = React.lazy(() => import('./admin/dashboard/ProductsReavie
 const Category = React.lazy(() => import('./admin/dashboard/Category.jsx'));
 const Coupons = React.lazy(() => import('./admin/dashboard/Coupons.jsx'));
 
-
-
 export const route = [
   {
     id: 1,
-    name: "Home",
-    path: "/",
-    component: Home 
+    name: 'Home',
+    path: '/',
+    component: Home,
   },
   {
     id: 2,
-    name: "About",
-    path: "/about",
-    component: About 
+    name: 'About',
+    path: '/about',
+    component: About,
   },
   {
     id: 3,
-    name: "Contact",
-    path: "/contact-us",
-    component: Contact 
+    name: 'Contact',
+    path: '/contact-us',
+    component: Contact,
   },
-  
+
   {
     id: 4,
-    name: "Blog",
-    path: "/blogs",
-    component: Blog 
+    name: 'Blog',
+    path: '/blogs',
+    component: Blog,
   },
   {
     id: 5,
-    name: "Products",
-    path: "/products",
-    component: Products 
+    name: 'Products',
+    path: '/products',
+    component: Products,
   },
   {
     id: 6,
-    name: "Products Details",
-    path: "/products/:id",
-    component: ProductsDetails 
+    name: 'Products Details',
+    path: '/products/:id',
+    component: ProductsDetails,
   },
   {
     id: 7,
-    name: "Cart",
-    path: "/my-cart",
-    component: Cart 
+    name: 'Cart',
+    path: '/my-cart',
+    component: Cart,
   },
   {
     id: 8,
-    name: "Checkout",
-    path: "/checkout",
-    component: Checkout 
+    name: 'Checkout',
+    path: '/checkout',
+    component: Checkout,
   },
-  
+
   {
     id: 9,
-    name: "Confirm Order",
-    path: "/confirm-order",
-    component: ConfirmOrder 
+    name: 'Confirm Order',
+    path: '/confirm-order',
+    component: ConfirmOrder,
   },
-  
+
   {
     id: 10,
-    name: "Payment",
-    path: "/payment",
-    component: Payment 
+    name: 'Payment',
+    path: '/payment',
+    component: Payment,
   },
   {
     id: 11,
-    name: "AuthPage",
-    path: "/login",
-    component: AuthPage
+    name: 'AuthPage',
+    path: '/login',
+    component: AuthPage,
   },
   {
     id: 12,
-    name: "Submit Review",
-    path: "/submit-review",
-    component: SubmitReview
+    name: 'Submit Review',
+    path: '/submit-review',
+    component: SubmitReview,
   },
   {
     id: 13,
-    name: "FAQ",
-    path: "/faq",
-    component: FAQ
+    name: 'FAQ',
+    path: '/faq',
+    component: FAQ,
   },
   {
     id: 20,
-    name: "Page Not Found",
-    path: "*",
-    component: PageNotFound
+    name: 'Page Not Found',
+    path: '*',
+    component: PageNotFound,
   },
 
-
-   // Dashboard wrapper
+  // Dashboard wrapper
   {
     id: 100,
     path: '/dashboard',
@@ -139,6 +131,4 @@ export const route = [
       { id: 108, path: 'coupons', component: Coupons },
     ],
   },
-  
- 
 ];

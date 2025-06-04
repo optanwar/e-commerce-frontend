@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const initialCartItems = [
   {
     id: 1,
-    name: "Yummy Multivitamin Gummies",
+    name: 'Yummy Multivitamin Gummies',
     quantity: 2,
     price: 14.99,
-    image: "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg",
+    image: 'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg',
   },
   {
     id: 2,
-    name: "Omega-3 Brain Boost Gummies",
+    name: 'Omega-3 Brain Boost Gummies',
     quantity: 1,
     price: 16.49,
-    image: "https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg",
+    image: 'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg',
   },
 ];
 
@@ -43,30 +43,17 @@ export default function CartPage() {
         {/* Cart Items List */}
         <div className="lg:col-span-2 space-y-6">
           {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center bg-white shadow rounded-xl p-4 gap-5"
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-24 h-24 object-cover rounded-lg"
-              />
+            <div key={item.id} className="flex items-center bg-white shadow rounded-xl p-4 gap-5">
+              <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-lg" />
               <div className="flex-1">
                 <h2 className="text-lg font-semibold text-darkText">{item.name}</h2>
                 <p className="text-sm text-gray-500">${item.price.toFixed(2)} each</p>
                 <div className="flex items-center mt-2 gap-2">
-                  <button
-                    className="bg-gray-200 text-gray-600 px-2 py-1 rounded"
-                    disabled
-                  >
+                  <button className="bg-gray-200 text-gray-600 px-2 py-1 rounded" disabled>
                     -
                   </button>
                   <span className="text-md font-medium">{item.quantity}</span>
-                  <button
-                    className="bg-gray-200 text-gray-600 px-2 py-1 rounded"
-                    disabled
-                  >
+                  <button className="bg-gray-200 text-gray-600 px-2 py-1 rounded" disabled>
                     +
                   </button>
                 </div>

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Payment() {
   const [formData, setFormData] = useState({
-    cardName: "",
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
+    cardName: '',
+    cardNumber: '',
+    expiry: '',
+    cvv: '',
   });
 
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ export default function Payment() {
     e.preventDefault();
     // Here you can add real payment processing logic
 
-    alert("Payment Successful! Thank you for your purchase.");
-    navigate("/order-success"); // Or wherever you want after payment
+    alert('Payment Successful! Thank you for your purchase.');
+    navigate('/order-success'); // Or wherever you want after payment
   };
 
   return (

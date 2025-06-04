@@ -1,10 +1,26 @@
 import React from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Legend, PieChart, Pie, Cell,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
 } from 'recharts';
 import {
-  TrendingUp, Users, ShoppingCart, DollarSign, AlertCircle, MessageCircle
+  TrendingUp,
+  Users,
+  ShoppingCart,
+  DollarSign,
+  AlertCircle,
+  MessageCircle,
 } from 'lucide-react';
 
 const salesData = [

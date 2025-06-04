@@ -1,30 +1,30 @@
 // src/components/TestimonialCarousel.jsx
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const testimonials = [
   {
-    name: "Sarah, Mom of 2",
-    text: "My kids LOVE these gummies! Finally something healthy they’re excited about.",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
+    name: 'Sarah, Mom of 2',
+    text: 'My kids LOVE these gummies! Finally something healthy they’re excited about.',
+    image: 'https://randomuser.me/api/portraits/women/68.jpg',
   },
   {
-    name: "John, Dad of 3",
-    text: "Great taste and no added sugar — these are a game-changer for our family!",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    name: 'John, Dad of 3',
+    text: 'Great taste and no added sugar — these are a game-changer for our family!',
+    image: 'https://randomuser.me/api/portraits/men/32.jpg',
   },
   {
-    name: "Emily, Pediatrician",
-    text: "I recommend YummyGummies to all my patients. Safe and packed with nutrients!",
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
+    name: 'Emily, Pediatrician',
+    text: 'I recommend YummyGummies to all my patients. Safe and packed with nutrients!',
+    image: 'https://randomuser.me/api/portraits/women/45.jpg',
   },
   {
-    name: "Liam, Dad of 1",
-    text: "My daughter asks for these every day. I’ve never seen her enjoy vitamins before!",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    name: 'Liam, Dad of 1',
+    text: 'My daughter asks for these every day. I’ve never seen her enjoy vitamins before!',
+    image: 'https://randomuser.me/api/portraits/men/51.jpg',
   },
 ];
 

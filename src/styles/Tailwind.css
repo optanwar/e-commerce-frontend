@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,5 +9,3 @@
 .card {
   @apply bg-white rounded-2xl shadow-soft hover:shadow-hoverCard transition p-4;
 }
-
-        

@@ -53,8 +53,6 @@ const SubmitReview = () => {
           />
         </div>
 
-      
-
         {/* Comment */}
         <div>
           <label className="block text-gray-700 mb-1 font-medium">Comment</label>

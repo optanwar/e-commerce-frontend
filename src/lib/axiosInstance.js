@@ -1,13 +1,11 @@
-
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4000/api/v1', 
-  // baseURL: 'https://e-commerce-backend-u12r.onrender.com/api/v1', 
-    withCredentials: true, /// Replace with your base URL
-    
+  // baseURL: 'http://localhost:4000/api/v1',
+  baseURL: 'https://e-commerce-backend-u12r.onrender.com/api/v1',
+  withCredentials: true, /// Replace with your base URL
   maxContentLength: Infinity,
-    maxBodyLength: Infinity
+  maxBodyLength: Infinity,
 });
 
 // Add interceptors for error handling globally
@@ -20,5 +18,3 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
-
-

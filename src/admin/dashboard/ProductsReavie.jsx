@@ -3,7 +3,7 @@ import { Search, Pencil, Trash2 } from 'lucide-react';
 
 // Dummy review data (simulate backend result)
 const dummyReviews = {
-  '101': [
+  101: [
     {
       _id: 'r1',
       user: 'u1',
@@ -19,7 +19,7 @@ const dummyReviews = {
       comment: 'My kids love them!',
     },
   ],
-  '102': [
+  102: [
     {
       _id: 'r3',
       user: 'u3',
@@ -42,9 +42,7 @@ const DashboardReviews = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    const updatedReviews = reviews.map((r) =>
-      r._id === editReview._id ? editReview : r
-    );
+    const updatedReviews = reviews.map((r) => (r._id === editReview._id ? editReview : r));
     setReviews(updatedReviews);
     setEditReview(null);
   };
@@ -136,9 +134,7 @@ const DashboardReviews = () => {
               <input
                 type="text"
                 value={editReview.name}
-                onChange={(e) =>
-                  setEditReview({ ...editReview, name: e.target.value })
-                }
+                onChange={(e) => setEditReview({ ...editReview, name: e.target.value })}
                 className="w-full border px-4 py-2 rounded-lg"
                 required
               />
@@ -151,9 +147,7 @@ const DashboardReviews = () => {
                 min="1"
                 max="5"
                 value={editReview.rating}
-                onChange={(e) =>
-                  setEditReview({ ...editReview, rating: Number(e.target.value) })
-                }
+                onChange={(e) => setEditReview({ ...editReview, rating: Number(e.target.value) })}
                 className="w-full border px-4 py-2 rounded-lg"
                 required
               />
@@ -163,9 +157,7 @@ const DashboardReviews = () => {
               <label className="text-sm text-gray-500">Comment</label>
               <textarea
                 value={editReview.comment}
-                onChange={(e) =>
-                  setEditReview({ ...editReview, comment: e.target.value })
-                }
+                onChange={(e) => setEditReview({ ...editReview, comment: e.target.value })}
                 className="w-full border px-4 py-2 rounded-lg"
                 rows={3}
                 required
@@ -180,10 +172,7 @@ const DashboardReviews = () => {
               >
                 Cancel
               </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-primary text-white rounded-lg"
-              >
+              <button type="submit" className="px-4 py-2 bg-primary text-white rounded-lg">
                 Save
               </button>
             </div>
