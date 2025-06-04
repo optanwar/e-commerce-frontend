@@ -13,6 +13,7 @@ const ConfirmOrder = React.lazy(() => import("./components/checkout/ConfirmOrder
 const Payment = React.lazy(() => import("./components/checkout/Payment.jsx"));
 const AuthPage = React.lazy(() => import("./components/auth/AuthPage.jsx"));
 const SubmitReview = React.lazy(()=> import("./components/home/SubmitReviews.jsx"));
+const FAQ = React.lazy(() => import("./components/footerPages/FAQ.jsx"));
 
 
 
@@ -105,6 +106,12 @@ export const route = [
     name: "Submit Review",
     path: "/submit-review",
     component: SubmitReview
+  },
+  {
+    id: 13,
+    name: "FAQ",
+    path: "/faq",
+    component: FAQ
   },
 
 
