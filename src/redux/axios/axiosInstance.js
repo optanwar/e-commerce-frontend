@@ -1,19 +1,34 @@
+// src/redux/axios/axiosInstance.js
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  // baseURL: 'http://localhost:4000/api/v1',
-  baseURL: 'https://e-commerce-backend-u12r.onrender.com/api/v1',
-  withCredentials: true, /// Replace with your base URL
+  baseURL: 'https://e-commerce-backend-u12r.onrender.com/api/v1', // Use env variables in production
+  withCredentials: true, // Required for cookies/session auth
   maxContentLength: Infinity,
   maxBodyLength: Infinity,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-// Add interceptors for error handling globally
+// ✅ Optional: Add auth token if available
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token'); // Or use Redux if stored there
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// ✅ Global response error handler
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    const errorMessage = error?.response?.data?.message || error.message;
-    return Promise.reject(new Error(errorMessage));
+    const message =
+      error?.response?.data?.message ||
+      error?.message ||
+      'Something went wrong!';
+    return Promise.reject(new Error(message));
   }
 );
 
