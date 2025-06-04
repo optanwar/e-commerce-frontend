@@ -8,6 +8,9 @@ const Contact = React.lazy(() => import("./components/contact/Contact.jsx"));
 const Products = React.lazy(() => import("./components/products/Products.jsx"));
 const ProductsDetails = React.lazy(() => import("./components/products/ProductDetail.jsx"));
 const Cart = React.lazy(() => import("./components/cart/Cart.jsx"));
+const Checkout = React.lazy(() => import("./components/checkout/Checkout.jsx"));
+const ConfirmOrder = React.lazy(() => import("./components/checkout/ConfirmOrder.jsx"));
+const Payment = React.lazy(() => import("./components/checkout/Payment.jsx"));
 
 
 
@@ -58,6 +61,26 @@ export const route = [
     name: "Cart",
     path: "/my-cart",
     component: Cart 
+  },
+  {
+    id: 8,
+    name: "Checkout",
+    path: "/checkout",
+    component: Checkout 
+  },
+  
+  {
+    id: 9,
+    name: "Confirm Order",
+    path: "/confirm-order",
+    component: ConfirmOrder 
+  },
+  
+  {
+    id: 10,
+    name: "Payment",
+    path: "/payment",
+    component: Payment 
   },
   
  

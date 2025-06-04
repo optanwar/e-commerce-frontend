@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const cartItems = [
+const initialCartItems = [
   {
     id: 1,
     name: "Yummy Multivitamin Gummies",
@@ -18,6 +19,12 @@ const cartItems = [
 ];
 
 export default function CartPage() {
+  const [cartItems, setCartItems] = useState(initialCartItems);
+
+  const handleRemove = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cartItems.length === 0) {
@@ -64,8 +71,17 @@ export default function CartPage() {
                   </button>
                 </div>
               </div>
-              <div className="text-accent font-bold text-lg">
-                ${(item.quantity * item.price).toFixed(2)}
+              <div className="flex flex-col items-end justify-between">
+                <div className="text-accent font-bold text-lg">
+                  ${(item.quantity * item.price).toFixed(2)}
+                </div>
+                <button
+                  onClick={() => handleRemove(item.id)}
+                  className="text-red-500 hover:text-red-700 text-sm mt-2 font-semibold"
+                  aria-label={`Remove ${item.name} from cart`}
+                >
+                  Remove
+                </button>
               </div>
             </div>
           ))}
@@ -87,9 +103,12 @@ export default function CartPage() {
             <span>Total</span>
             <span>${total.toFixed(2)}</span>
           </div>
-          <button className="bg-primary hover:bg-primary/90 text-white w-full py-3 rounded-lg font-semibold transition">
+          <Link
+            to="/checkout"
+            className="block w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold text-center transition"
+          >
             Proceed to Checkout
-          </button>
+          </Link>
         </div>
       </div>
     </main>
