@@ -3,6 +3,7 @@ import { Pencil, Trash2, Plus, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, clearErrors } from '../../redux/slices/product/productSlice';
 import { deleteProduct } from '../../redux/slices/product/deleteProductSlice';
+import { updateProduct } from '../../redux/slices/product/updateProductSlice'; // ✅ Make sure this exists
 
 export default function DashboardProducts() {
   const dispatch = useDispatch();
@@ -11,10 +12,11 @@ export default function DashboardProducts() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
+  const [newImageFile, setNewImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     dispatch(fetchProducts());
-
     return () => {
       dispatch(clearErrors());
     };
@@ -25,13 +27,17 @@ export default function DashboardProducts() {
   );
 
   function openEditModal(product) {
-    setEditProduct({ ...product }); // clone to edit safely
+    setEditProduct({ ...product });
+    setImagePreview(product.images?.[0]?.url || null);
+    setNewImageFile(null);
     setIsEditing(true);
   }
 
   function closeEditModal() {
     setIsEditing(false);
     setEditProduct(null);
+    setNewImageFile(null);
+    setImagePreview(null);
   }
 
   function handleInputChange(e) {
@@ -42,33 +48,61 @@ export default function DashboardProducts() {
     }));
   }
 
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    setNewImageFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   function saveChanges() {
-    // You should eventually dispatch an updateProduct() thunk here
-    console.log("Updated product", editProduct);
-    closeEditModal();
+    const id = editProduct._id;
+    const formData = new FormData();
+
+    formData.append('name', editProduct.name);
+    formData.append('category', editProduct.category);
+    formData.append('stock', editProduct.stock);
+    formData.append('price', editProduct.price);
+
+    if (newImageFile) {
+      formData.append('images', newImageFile);
+    }
+
+    dispatch(updateProduct({ id, updatedData: formData }))
+      .unwrap()
+      .then(() => {
+        dispatch(fetchProducts());
+        closeEditModal();
+      })
+      .catch((err) => {
+        alert(`Failed to update product: ${err}`);
+      });
   }
 
   function handleDeleteProduct(id) {
-  const confirmDelete = window.confirm('Are you sure you want to delete this product?');
-  if (!confirmDelete) return;
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (!confirmDelete) return;
 
-  dispatch(deleteProduct(id))
-    .unwrap()
-    .then(() => {
-      dispatch(fetchProducts()); // Refresh the list
-    })
-    .catch((err) => {
-      console.error('Delete failed:', err);
-      alert(`Failed to delete product: ${err}`);
-    });
-}
+    dispatch(deleteProduct(id))
+      .unwrap()
+      .then(() => {
+        dispatch(fetchProducts());
+      })
+      .catch((err) => {
+        alert(`Failed to delete product: ${err}`);
+      });
+  }
 
   if (loading) return <p>Loading products...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Products</h1>
         <button className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition">
@@ -77,7 +111,6 @@ export default function DashboardProducts() {
         </button>
       </div>
 
-      {/* Search */}
       <div className="mb-4">
         <input
           type="text"
@@ -88,7 +121,6 @@ export default function DashboardProducts() {
         />
       </div>
 
-      {/* Product Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded-lg shadow">
           <thead>
@@ -114,7 +146,6 @@ export default function DashboardProducts() {
                 </td>
                 <td className="p-4 font-mono text-sm text-gray-600">{product._id}</td>
                 <td className="p-4 flex items-center gap-3">
-                  
                   <span>{product.name}</span>
                 </td>
                 <td className="p-4">{product.category}</td>
@@ -130,19 +161,19 @@ export default function DashboardProducts() {
                   >
                     <Pencil size={18} />
                   </button>
-                 <button
-  onClick={() => handleDeleteProduct(product._id)}
-  className="text-red-600 hover:text-red-800"
-  title="Delete Product"
->
-  <Trash2 size={18} />
-</button>
+                  <button
+                    onClick={() => handleDeleteProduct(product._id)}
+                    className="text-red-600 hover:text-red-800"
+                    title="Delete Product"
+                  >
+                    <Trash2 size={18} />
+                  </button>
                 </td>
               </tr>
             ))}
             {filteredProducts.length === 0 && (
               <tr>
-                <td colSpan="6" className="p-4 text-center text-gray-500">
+                <td colSpan="7" className="p-4 text-center text-gray-500">
                   No products found.
                 </td>
               </tr>
@@ -184,20 +215,20 @@ export default function DashboardProducts() {
               </div>
 
               <div>
-                <label className="block font-medium mb-1">Image URL</label>
+                <label className="block font-medium mb-1">Image Upload</label>
                 <input
-                  type="url"
-                  name="image"
-                  value={editProduct.images?.[0]?.url || ''}
-                  onChange={(e) =>
-                    setEditProduct((prev) => ({
-                      ...prev,
-                      images: [{ ...prev.images?.[0], url: e.target.value }],
-                    }))
-                  }
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
                   className="w-full px-3 py-2 border rounded"
-                  required
                 />
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-24 h-24 mt-2 rounded object-cover border"
+                  />
+                )}
               </div>
 
               <div>
