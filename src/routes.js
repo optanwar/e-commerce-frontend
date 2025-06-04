@@ -21,6 +21,8 @@ const DashboardLayout = React.lazy(() => import('./components/dashboard/Dashboar
 const DashboardHome = React.lazy(() => import('./components/dashboard/DashboardHome.jsx'));
 const DashboardOrders = React.lazy(() => import('./components/dashboard/DashboardOrders.jsx'));
 const DashboardProducts = React.lazy(() => import('./components/dashboard/DashboardProducts.jsx'));
+const DashboardUsers = React.lazy(() => import('./components/dashboard/DashboardUser.jsx'));
+const CreateProduct = React.lazy(() => import('./components/dashboard/CreateProducts.jsx'));
 
 
 
@@ -105,6 +107,8 @@ export const route = [
       { id: 101, path: '', component: DashboardHome },
       { id: 102, path: 'orders', component: DashboardOrders },
       { id: 103, path: 'products', component: DashboardProducts },
+      { id: 104, path: 'users', component: DashboardUsers },
+      { id: 105, path: 'create-product', component: CreateProduct },
     ],
   },
   
