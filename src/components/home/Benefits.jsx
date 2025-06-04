@@ -28,7 +28,7 @@ const Benefits = () => {
         {items.map((benefit, i) => (
           <div
             key={i}
-            className="bg-lightGray p-6 rounded-xl shadow-soft hover:shadow-hoverCard hover:bg-white transition flex flex-col items-center text-center border border-dashed border-primary"
+            className="bg-lightGray p-6 rounded-xl shadow-soft hover:shadow-hoverCard hover:bg-white transition flex flex-col items-center text-center border border-dotted border-primary"
           >
             <div className="flex justify-center items-center">
               {benefit.icon}

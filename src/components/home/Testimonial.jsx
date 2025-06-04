@@ -50,7 +50,7 @@ export default function TestimonialCarousel() {
         >
           {testimonials.map((t, index) => (
             <SwiperSlide key={index}>
-              <div className="bg-white p-6 md:py-10 border border-dashed rounded-xl shadow-soft text-center mx-auto max-w-md">
+              <div className="bg-white p-6 md:py-10 border border-dotted border-primary rounded-xl shadow-soft text-center mx-auto max-w-md">
                 <img
                   src={t.image}
                   alt={t.name}

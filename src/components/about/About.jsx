@@ -1,5 +1,6 @@
 // src/pages/About.jsx
 import React from 'react';
+import { ShieldCheck, Leaf,  Handshake } from "lucide-react";
 
 export default function About() {
   return (
@@ -72,25 +73,36 @@ export default function About() {
       </section>
 
       {/* Our Values Section */}
-      <section className="max-w-6xl mx-auto py-16 px-6 md:px-12 lg:px-20">
+      <section className="max-w-6xl mx-auto py-16 px-6 md:px-12 lg:px-10">
         <h2 className="text-3xl font-heading text-accent mb-12 text-center font-semibold">
           Our Core Values
         </h2>
         <div className="grid md:grid-cols-3 gap-12">
-          <div className="bg-white p-8 rounded-xl shadow-md border border-dashed border-primary border-opacity-30 hover:shadow-lg transition">
-            <h3 className="text-xl font-semibold mb-4 text-primary">Safety First</h3>
+          <div className="bg-white p-8 rounded-xl shadow-md border border-dotted border-primary border-opacity-30 hover:shadow-lg transition">
+           <div className='flex items-center gap-2  mb-4'>
+             <ShieldCheck className='text-primary'/>
+            <h3 className="text-xl font-semibold text-primary">Safety First</h3>
+           </div>
             <p className="text-gray-700 leading-relaxed">
               Rigorous testing and quality control ensure that every gummy is safe and beneficial for your child.
             </p>
           </div>
-          <div className="bg-white p-8 rounded-xl shadow-md border border-dashed border-primary border-opacity-30 hover:shadow-lg transition">
-            <h3 className="text-xl font-semibold mb-4 text-primary">Natural Ingredients</h3>
+          <div className="bg-white p-8 rounded-xl shadow-md border border-dotted border-primary border-opacity-30 hover:shadow-lg transition">
+  
+            <div className='flex items-center gap-2  mb-4'>
+             <Leaf className='text-primary'/>
+            <h3 className="text-xl font-semibold text-primary">Natural Ingredients</h3>
+           </div>
             <p className="text-gray-700 leading-relaxed">
               Only premium natural vitamins and flavors are used—free from artificial additives or preservatives.
             </p>
           </div>
-          <div className="bg-white p-8 rounded-xl shadow-md border border-dashed border-primary border-opacity-30 hover:shadow-lg transition">
-            <h3 className="text-xl font-semibold mb-4 text-primary">Transparency & Trust</h3>
+          <div className="bg-white p-8 rounded-xl shadow-md border border-dotted border-primary border-opacity-30 hover:shadow-lg transition">
+        
+            <div className='flex items-center gap-2  mb-4'>
+             <Handshake className='text-primary'/>
+            <h3 className="text-xl font-semibold text-primary">Transparency & Trust</h3>
+           </div>
             <p className="text-gray-700 leading-relaxed">
               We believe in clear, honest communication and labeling so you know exactly what your kids are getting.
             </p>

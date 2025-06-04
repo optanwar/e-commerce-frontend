@@ -11,7 +11,7 @@ const Projects = () => {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="bg-white rounded-xl shadow-soft p-4 relative hover:shadow-hoverCard transition"
+              className="bg-white rounded-xl shadow-soft p-4 relative hover:shadow-hoverCard transition border  border-primary border-dotted"
             >
               {/* Favorite Icon */}
               <button className="absolute top-6 right-6 text-gray-400 hover:text-primary transition">

@@ -56,7 +56,7 @@ export default function Blog() {
           {blogPosts.map((post) => (
             <article
               key={post.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition"
+              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition border  border-primary border-dotted"
             >
               <img
                 src={post.image}
