@@ -7,6 +7,7 @@ const Blog = React.lazy(() => import("./components/blog/Blog.jsx"));
 const Contact = React.lazy(() => import("./components/contact/Contact.jsx"));
 const Products = React.lazy(() => import("./components/products/Products.jsx"));
 const ProductsDetails = React.lazy(() => import("./components/products/ProductDetail.jsx"));
+const Cart = React.lazy(() => import("./components/cart/Cart.jsx"));
 
 
 
@@ -51,6 +52,12 @@ export const route = [
     name: "Products Details",
     path: "/products/:id",
     component: ProductsDetails 
+  },
+  {
+    id: 7,
+    name: "Cart",
+    path: "/my-cart",
+    component: Cart 
   },
   
  

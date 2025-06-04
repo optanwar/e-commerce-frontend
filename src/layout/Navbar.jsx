@@ -22,12 +22,12 @@ export default function Navbar() {
 
         {/* Icons */}
         <div className="flex gap-4 items-center">
-          <button onClick={() => setOpen(!open)} className="relative">
+          <Link to={'/my-cart'} className="relative">
             <ShoppingCart className="w-6 h-6 text-darkText" />
             <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-1 rounded-full">
               2
             </span>
-          </button>
+          </Link>
           <button onClick={() => setOpen(!open)} className="relative">
             <Heart className="w-6 h-6 text-darkText" />
             <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-1 rounded-full">
