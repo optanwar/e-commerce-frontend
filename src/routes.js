@@ -21,15 +21,15 @@ const PageNotFound = React.lazy(() => import("./layout/NotFound.jsx"));
 
 
 // Dashboard layout + pages
-const DashboardLayout = React.lazy(() => import('./components/dashboard/DashboardLayout.jsx'));
-const DashboardHome = React.lazy(() => import('./components/dashboard/DashboardHome.jsx'));
-const DashboardOrders = React.lazy(() => import('./components/dashboard/DashboardOrders.jsx'));
-const DashboardProducts = React.lazy(() => import('./components/dashboard/DashboardProducts.jsx'));
-const DashboardUsers = React.lazy(() => import('./components/dashboard/DashboardUser.jsx'));
-const CreateProduct = React.lazy(() => import('./components/dashboard/CreateProducts.jsx'));
-const ProductReviews = React.lazy(() => import('./components/dashboard/ProductsReavie.jsx'));
-const Category = React.lazy(() => import('./components/dashboard/Category.jsx'));
-const Coupons = React.lazy(() => import('./components/dashboard/Coupons.jsx'));
+const DashboardLayout = React.lazy(() => import('./admin/dashboard/DashboardLayout.jsx'));
+const DashboardHome = React.lazy(() => import('./admin/dashboard/DashboardHome.jsx'));
+const DashboardOrders = React.lazy(() => import('./admin/dashboard/DashboardOrders.jsx'));
+const DashboardProducts = React.lazy(() => import('./admin/dashboard/DashboardProducts.jsx'));
+const DashboardUsers = React.lazy(() => import('./admin/dashboard/DashboardUser.jsx'));
+const CreateProduct = React.lazy(() => import('./admin/dashboard/CreateProducts.jsx'));
+const ProductReviews = React.lazy(() => import('./admin/dashboard/ProductsReavie.jsx'));
+const Category = React.lazy(() => import('./admin/dashboard/Category.jsx'));
+const Coupons = React.lazy(() => import('./admin/dashboard/Coupons.jsx'));
 
 
 
