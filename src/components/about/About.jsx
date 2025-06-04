@@ -77,19 +77,19 @@ export default function About() {
           Our Core Values
         </h2>
         <div className="grid md:grid-cols-3 gap-12">
-          <div className="bg-white p-8 rounded-xl shadow-md border border-primary border-opacity-30 hover:shadow-lg transition">
+          <div className="bg-white p-8 rounded-xl shadow-md border border-dashed border-primary border-opacity-30 hover:shadow-lg transition">
             <h3 className="text-xl font-semibold mb-4 text-primary">Safety First</h3>
             <p className="text-gray-700 leading-relaxed">
               Rigorous testing and quality control ensure that every gummy is safe and beneficial for your child.
             </p>
           </div>
-          <div className="bg-white p-8 rounded-xl shadow-md border border-primary border-opacity-30 hover:shadow-lg transition">
+          <div className="bg-white p-8 rounded-xl shadow-md border border-dashed border-primary border-opacity-30 hover:shadow-lg transition">
             <h3 className="text-xl font-semibold mb-4 text-primary">Natural Ingredients</h3>
             <p className="text-gray-700 leading-relaxed">
               Only premium natural vitamins and flavors are used—free from artificial additives or preservatives.
             </p>
           </div>
-          <div className="bg-white p-8 rounded-xl shadow-md border border-primary border-opacity-30 hover:shadow-lg transition">
+          <div className="bg-white p-8 rounded-xl shadow-md border border-dashed border-primary border-opacity-30 hover:shadow-lg transition">
             <h3 className="text-xl font-semibold mb-4 text-primary">Transparency & Trust</h3>
             <p className="text-gray-700 leading-relaxed">
               We believe in clear, honest communication and labeling so you know exactly what your kids are getting.

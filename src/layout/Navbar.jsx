@@ -1,6 +1,7 @@
 // src/components/Navbar.jsx
 import { Heart, ShoppingCart, User } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,13 +10,14 @@ export default function Navbar() {
     <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-xl font-heading text-primary">YummyGummies</h1>
+        <Link to={'/'}><h1 className="text-xl font-heading text-primary">YummyGummies</h1></Link>
 
         {/* Navigation Links */}
         <div className="hidden md:flex gap-6 items-center text-sm font-medium">
-          <a href="#" className="text-darkText hover:text-primary">Home</a>
-          <a href="#" className="text-darkText hover:text-primary">Shop</a>
-          <a href="#" className="text-darkText hover:text-primary">Contact</a>
+          <Link to="/about" className="text-darkText hover:text-primary">About</Link>
+          <Link to="/products" className="text-darkText hover:text-primary">Shop</Link>
+          <Link to="/blogs" className="text-darkText hover:text-primary">Blog</Link>
+          <Link to="/contact-us" className="text-darkText hover:text-primary">Contact</Link>
         </div>
 
         {/* Icons */}

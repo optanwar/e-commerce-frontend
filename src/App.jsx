@@ -3,6 +3,7 @@ import Navbar from './layout/Navbar'
 import Footer from './layout/Footer'
 import { Route, Routes } from 'react-router-dom'
 import { route } from './routes'
+import Loader from './layout/Loader'
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
   
      <div className="font-body bg-lightGray text-darkText">
       <Navbar />
-     <Suspense fallback={<div>Loading...</div>}>
+     <Suspense fallback={<div><Loader/></div>}>
               <Routes>
                 {route.map(({ id, path, component: Component }) => (
                   <Route key={id} path={path} element={<Component />} />
