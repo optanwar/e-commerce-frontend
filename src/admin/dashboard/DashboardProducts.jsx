@@ -1,50 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pencil, Trash2, Plus, X } from 'lucide-react';
-
-const initialProducts = [
-  {
-    id: 101,
-    name: 'Strawberry Gummies',
-    image:
-      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
-    category: 'Immunity',
-    stock: 120,
-    price: 9.99,
-  },
-  {
-    id: 102,
-    name: 'Vitamin C Bears',
-    image:
-      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
-    category: 'Daily Vitamins',
-    stock: 30,
-    price: 12.49,
-  },
-  {
-    id: 103,
-    name: 'Melatonin Sleep Gummies',
-    image:
-      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
-    category: 'Sleep',
-    stock: 15,
-    price: 14.99,
-  },
-  {
-    id: 104,
-    name: 'Omega-3 Fishies',
-    image:
-      'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=40&q=80',
-    category: 'Brain Health',
-    stock: 5,
-    price: 11.99,
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts, clearErrors } from '../../redux/slices/product/productSlice';
+import { deleteProduct } from '../../redux/slices/product/deleteProductSlice';
 
 export default function DashboardProducts() {
-  const [products, setProducts] = useState(initialProducts);
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state?.product);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+
+    return () => {
+      dispatch(clearErrors());
+    };
+  }, [dispatch]);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -69,11 +43,28 @@ export default function DashboardProducts() {
   }
 
   function saveChanges() {
-    setProducts((prevProducts) =>
-      prevProducts.map((p) => (p.id === editProduct.id ? editProduct : p))
-    );
+    // You should eventually dispatch an updateProduct() thunk here
+    console.log("Updated product", editProduct);
     closeEditModal();
   }
+
+  function handleDeleteProduct(id) {
+  const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+  if (!confirmDelete) return;
+
+  dispatch(deleteProduct(id))
+    .unwrap()
+    .then(() => {
+      dispatch(fetchProducts()); // Refresh the list
+    })
+    .catch((err) => {
+      console.error('Delete failed:', err);
+      alert(`Failed to delete product: ${err}`);
+    });
+}
+
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
     <div className="space-y-6">
@@ -102,6 +93,7 @@ export default function DashboardProducts() {
         <table className="min-w-full bg-white rounded-lg shadow">
           <thead>
             <tr className="text-left bg-gray-100">
+              <th className="p-4">Image</th>
               <th className="p-4">ID</th>
               <th className="p-4">Product</th>
               <th className="p-4">Category</th>
@@ -112,14 +104,17 @@ export default function DashboardProducts() {
           </thead>
           <tbody>
             {filteredProducts.map((product) => (
-              <tr key={product.id} className="border-t hover:bg-gray-50">
-                <td className="p-4 font-mono text-sm text-gray-600">{product.id}</td>
-                <td className="p-4 flex items-center gap-3">
+              <tr key={product._id} className="border-t hover:bg-gray-50">
+                <td className='p-4'>
                   <img
-                    src={product.image}
+                    src={product.images?.[0]?.url || 'https://m.media-amazon.com/images/I/719KzrpbhpL.jpg'}
                     alt={product.name}
                     className="w-10 h-10 object-cover rounded"
                   />
+                </td>
+                <td className="p-4 font-mono text-sm text-gray-600">{product._id}</td>
+                <td className="p-4 flex items-center gap-3">
+                  
                   <span>{product.name}</span>
                 </td>
                 <td className="p-4">{product.category}</td>
@@ -135,9 +130,13 @@ export default function DashboardProducts() {
                   >
                     <Pencil size={18} />
                   </button>
-                  <button className="text-red-600 hover:text-red-800" title="Delete Product">
-                    <Trash2 size={18} />
-                  </button>
+                 <button
+  onClick={() => handleDeleteProduct(product._id)}
+  className="text-red-600 hover:text-red-800"
+  title="Delete Product"
+>
+  <Trash2 size={18} />
+</button>
                 </td>
               </tr>
             ))}
@@ -189,8 +188,13 @@ export default function DashboardProducts() {
                 <input
                   type="url"
                   name="image"
-                  value={editProduct.image}
-                  onChange={handleInputChange}
+                  value={editProduct.images?.[0]?.url || ''}
+                  onChange={(e) =>
+                    setEditProduct((prev) => ({
+                      ...prev,
+                      images: [{ ...prev.images?.[0], url: e.target.value }],
+                    }))
+                  }
                   className="w-full px-3 py-2 border rounded"
                   required
                 />

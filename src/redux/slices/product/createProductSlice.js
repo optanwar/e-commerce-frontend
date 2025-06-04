@@ -1,7 +1,7 @@
 // src/redux/slices/product/createProductSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../axios/axiosInstance';
-import { store } from '../../store/index';
+
 
 // ✅ Async thunk to create a product
 export const createProduct = createAsyncThunk(
