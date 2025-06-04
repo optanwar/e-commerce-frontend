@@ -12,7 +12,7 @@ export default function Contact() {
             "url('https://images.pexels.com/photos/8409851/pexels-photo-8409851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
         }}
       >
-        <div className="absolute inset-0 bg-primary bg-opacity-70" />
+<div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-accent/80" />
         <h1 className="relative z-10 text-white text-4xl md:text-6xl font-extrabold text-center font-heading">
           Contact <span className="text-accent">Us</span>
         </h1>

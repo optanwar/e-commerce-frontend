@@ -51,7 +51,7 @@ export default function Products() {
             "url('https://images.pexels.com/photos/4094589/pexels-photo-4094589.jpeg?auto=compress&cs=tinysrgb&w=600')",
         }}
       >
-        <div className="absolute inset-0 bg-primary bg-opacity-70" />
+       <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-accent/80" />
         <h1 className="relative z-10 text-white text-4xl md:text-6xl font-extrabold text-center font-heading">
           Shop <span className="text-accent">Gummies</span>
         </h1>

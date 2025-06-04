@@ -44,7 +44,7 @@ export default function Blog() {
             "url('https://images.pexels.com/photos/5469031/pexels-photo-5469031.jpeg?auto=compress&cs=tinysrgb&w=600')",
         }}
       >
-        <div className="absolute inset-0 bg-primary bg-opacity-70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-accent/80" />
         <h1 className="relative z-10 text-white text-4xl md:text-6xl font-extrabold text-center font-heading">
           Our <span className="text-accent">Blog</span>
         </h1>

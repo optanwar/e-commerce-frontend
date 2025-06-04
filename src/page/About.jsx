@@ -14,7 +14,7 @@ export default function About() {
         }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-primary bg-opacity-70"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-accent/80" />
 
         {/* Text */}
         <div className="relative max-w-xl text-center md:text-left z-10">
