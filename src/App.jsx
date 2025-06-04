@@ -12,11 +12,25 @@ const App = () => {
      <div className="font-body bg-lightGray text-darkText">
       <Navbar />
      <Suspense fallback={<div><Loader/></div>}>
-              <Routes>
+              {/* <Routes>
                 {route.map(({ id, path, component: Component }) => (
                   <Route key={id} path={path} element={<Component />} />
                 ))}
-              </Routes>
+              </Routes> */}
+
+              <Routes>
+  {route.map(({ id, path, component: Component, children }) =>
+    children ? (
+      <Route key={id} path={path} element={<Component />}>
+        {children.map(({ id: childId, path: childPath, component: ChildComp }) => (
+          <Route key={childId} path={childPath} element={<ChildComp />} />
+        ))}
+      </Route>
+    ) : (
+      <Route key={id} path={path} element={<Component />} />
+    )
+  )}
+</Routes>
             </Suspense>
 
 

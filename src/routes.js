@@ -16,6 +16,11 @@ const AuthPage = React.lazy(() => import("./components/auth/AuthPage.jsx"));
 
 
 
+// Dashboard layout + pages
+const DashboardLayout = React.lazy(() => import('./components/dashboard/DashboardLayout.jsx'));
+const DashboardHome = React.lazy(() => import('./components/dashboard/DashboardHome.jsx'));
+const DashboardOrders = React.lazy(() => import('./components/dashboard/DashboardOrders.jsx'));
+const DashboardProducts = React.lazy(() => import('./components/dashboard/DashboardProducts.jsx'));
 
 
 
@@ -88,6 +93,19 @@ export const route = [
     name: "AuthPage",
     path: "/login",
     component: AuthPage
+  },
+
+
+   // Dashboard wrapper
+  {
+    id: 100,
+    path: '/dashboard',
+    component: DashboardLayout,
+    children: [
+      { id: 101, path: '', component: DashboardHome },
+      { id: 102, path: 'orders', component: DashboardOrders },
+      { id: 103, path: 'products', component: DashboardProducts },
+    ],
   },
   
  
