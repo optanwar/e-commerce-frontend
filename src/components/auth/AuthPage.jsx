@@ -22,7 +22,9 @@ export default function AuthPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-lightBg px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold text-center mb-6 text-primary">Welcome</h1>
+       <h1 className="text-2xl font-bold text-center mb-6 text-primary">
+  Welcome to YummyGummies🍬
+</h1>
 
         {/* Tabs */}
         <div className="flex mb-6 border-b border-gray-300">
