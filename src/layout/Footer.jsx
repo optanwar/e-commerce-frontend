@@ -7,6 +7,7 @@ import {
   Phone,
   MapPin
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -25,11 +26,11 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="/" className="hover:text-[#BA68C8] transition">Home</a></li>
-            <li><a href="/products" className="hover:text-[#BA68C8] transition">Shop</a></li>
-            <li><a href="/about" className="hover:text-[#BA68C8] transition">About Us</a></li>
-            <li><a href="/contact" className="hover:text-[#BA68C8] transition">Contact</a></li>
-            <li><a href="/faq" className="hover:text-[#BA68C8] transition">FAQ</a></li>
+     
+            <li><Link to="/products" className="hover:text-[#BA68C8] transition">Shop</Link></li>
+            <li><Link to="/about" className="hover:text-[#BA68C8] transition">About Us</Link></li>
+            <li><Link to="/contact-us" className="hover:text-[#BA68C8] transition">Contact</Link></li>
+            <li><Link to="/faq" className="hover:text-[#BA68C8] transition">FAQ</Link></li>
           </ul>
         </div>
 

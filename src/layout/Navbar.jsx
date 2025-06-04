@@ -21,21 +21,21 @@ export default function Navbar() {
         </div>
 
         {/* Icons */}
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 md:gap-6 items-center">
           <Link to={'/my-cart'} className="relative">
-            <ShoppingCart className="w-6 h-6 text-darkText" />
+            <ShoppingCart className="w-6 h-6 text-darkText hover:text-primary " />
             <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-1 rounded-full">
               2
             </span>
           </Link>
-          <button onClick={() => setOpen(!open)} className="relative">
+          {/* <button onClick={() => setOpen(!open)} className="relative">
             <Heart className="w-6 h-6 text-darkText" />
             <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-1 rounded-full">
               2
             </span>
-          </button>
+          </button> */}
           <Link to={'/login'} className="relative">
-            <User className="w-6 h-6 text-darkText" />
+            <User className="w-6 h-6 text-darkText hover:text-primary" />
           </Link>
         </div>
       </div>
