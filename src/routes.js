@@ -14,6 +14,8 @@ const Payment = React.lazy(() => import("./components/checkout/Payment.jsx"));
 const AuthPage = React.lazy(() => import("./components/auth/AuthPage.jsx"));
 const SubmitReview = React.lazy(()=> import("./components/home/SubmitReviews.jsx"));
 const FAQ = React.lazy(() => import("./components/footerPages/FAQ.jsx"));
+const PageNotFound = React.lazy(() => import("./layout/NotFound.jsx"));
+
 
 
 
@@ -112,6 +114,12 @@ export const route = [
     name: "FAQ",
     path: "/faq",
     component: FAQ
+  },
+  {
+    id: 20,
+    name: "Page Not Found",
+    path: "*",
+    component: PageNotFound
   },
 
 
