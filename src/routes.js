@@ -24,6 +24,7 @@ const DashboardProducts = React.lazy(() => import('./components/dashboard/Dashbo
 const DashboardUsers = React.lazy(() => import('./components/dashboard/DashboardUser.jsx'));
 const CreateProduct = React.lazy(() => import('./components/dashboard/CreateProducts.jsx'));
 const ProductReviews = React.lazy(() => import('./components/dashboard/ProductsReavie.jsx'));
+const Category = React.lazy(() => import('./components/dashboard/Category.jsx'));
 
 
 
@@ -111,6 +112,8 @@ export const route = [
       { id: 104, path: 'users', component: DashboardUsers },
       { id: 105, path: 'create-product', component: CreateProduct },
       { id: 106, path: 'reviews', component: ProductReviews },
+      { id: 107, path: 'categories', component: Category },
+      { id: 108, path: 'categories', component: Category },
     ],
   },
   
