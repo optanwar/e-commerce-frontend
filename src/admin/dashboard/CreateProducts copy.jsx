@@ -1,15 +1,9 @@
-// Complete CreateProduct.jsx with createProductSlice integration
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
-import { createProduct, resetCreateProductState } from '../../redux/slices/product/createProductSlice';
 
 const categories = ['Immunity', 'Sleep', 'Daily Vitamins', 'Brain Health', 'Digestive Health'];
 
 const CreateProduct = () => {
-  const dispatch = useDispatch();
-  const { loading, success, error } = useSelector((state) => state.createProduct);
- const {token } = useSelector((state) => state.auth);
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -19,19 +13,6 @@ const CreateProduct = () => {
   });
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-
-  useEffect(() => {
-    if (success) {
-      alert('Product created successfully!');
-      dispatch(resetCreateProductState());
-      setProduct({ name: '', description: '', price: '', category: '', stock: '' });
-      setImages([]);
-      setImagePreviews([]);
-    }
-    if (error) {
-      alert(`Error: ${error}`);
-    }
-  }, [success, error, dispatch]);
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -48,15 +29,9 @@ const CreateProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    // for (const key in product) formData.append(key, product[key]);
-    // images.forEach((img) => formData.append('images', img));
-    // dispatch(createProduct(formData));
-     const productData = {
-    ...product,
-    images: [], // Optional: Add URLs or handle uploads separately
-  };
-    dispatch(createProduct({ productData, token }));
-    
+    for (const key in product) formData.append(key, product[key]);
+    images.forEach((img) => formData.append('images', img));
+    // Send formData to your backend with Axios or fetch
   };
 
   return (
@@ -66,6 +41,7 @@ const CreateProduct = () => {
       </h1>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Product Name</label>
           <input
@@ -78,6 +54,7 @@ const CreateProduct = () => {
           />
         </div>
 
+        {/* Price */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Price ($)</label>
           <input
@@ -90,6 +67,7 @@ const CreateProduct = () => {
           />
         </div>
 
+        {/* Category */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Category</label>
           <select
@@ -101,11 +79,12 @@ const CreateProduct = () => {
           >
             <option value="">Select Category</option>
             {categories.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
+              <option key={cat}>{cat}</option>
             ))}
           </select>
         </div>
 
+        {/* Stock */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Stock</label>
           <input
@@ -118,6 +97,7 @@ const CreateProduct = () => {
           />
         </div>
 
+        {/* Description (full width) */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Description</label>
           <textarea
@@ -130,6 +110,7 @@ const CreateProduct = () => {
           />
         </div>
 
+        {/* Images Upload (full width) */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Upload Images</label>
           <input
@@ -140,6 +121,7 @@ const CreateProduct = () => {
             className="mt-1"
           />
 
+          {/* Preview */}
           <div className="flex gap-4 mt-4 flex-wrap">
             {imagePreviews.map((url, i) => (
               <img
@@ -152,13 +134,13 @@ const CreateProduct = () => {
           </div>
         </div>
 
+        {/* Submit Button */}
         <div className="md:col-span-2">
           <button
             type="submit"
-            disabled={loading}
             className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
           >
-            {loading ? 'Creating...' : 'Create Product'}
+            Create Product
           </button>
         </div>
       </form>

@@ -1,50 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, logout, clearError } from '../../redux/slices/auth/loginSlice';
+import { loginUser, logout, clearError } from '../redux/slices/loginSlice';
+
 
 export default function AuthPage() {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('login');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
-
-  // Controlled inputs for login
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const { user, loading, error, isAuthenticated } = useSelector(state => state.auth);
 
-  // Login form submit handler
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser({ email, password }));
-  };
-
-  // Optional: clear error on tab change or input change
-  useEffect(() => {
-    dispatch(clearError());
-  }, [activeTab, dispatch]);
-
-  // Optional: on successful login, do something (redirect, toast, etc)
-  useEffect(() => {
-    if (isAuthenticated) {
-      alert(`Welcome back, ${user?.name || user?.email || 'User'}!`);
-      // TODO: redirect to dashboard/homepage
-    }
-  }, [isAuthenticated, user]);
-
-  // Dummy social handlers remain same...
+  
+  const handleLogin = (email, password) => {
+  dispatch(loginUser({ email, password }));
+};
+  
+  // Dummy handlers
   const handleGoogleAuth = () => {
-    alert(`${activeTab === 'login' ? 'Log in' : 'Sign up'} with Google`);
+    alert(${activeTab === 'login' ? 'Log in' : 'Sign up'} with Google);
   };
 
   const handleFacebookAuth = () => {
-    alert(`${activeTab === 'login' ? 'Log in' : 'Sign up'} with Facebook`);
+    alert(${activeTab === 'login' ? 'Log in' : 'Sign up'} with Facebook);
   };
 
   const handleForgotSubmit = (e) => {
     e.preventDefault();
-    alert(`Password reset link sent to: ${forgotEmail}`);
+    alert(Password reset link sent to: ${forgotEmail});
   };
 
   return (
@@ -61,11 +43,11 @@ export default function AuthPage() {
               setActiveTab('login');
               setShowForgotPassword(false);
             }}
-            className={`flex-1 py-2 text-center font-semibold transition-colors ${
+            className={flex-1 py-2 text-center font-semibold transition-colors ${
               activeTab === 'login'
                 ? 'border-b-4 border-primary text-primary'
                 : 'text-gray-500 hover:text-primary'
-            }`}
+            }}
           >
             Login
           </button>
@@ -74,11 +56,11 @@ export default function AuthPage() {
               setActiveTab('register');
               setShowForgotPassword(false);
             }}
-            className={`flex-1 py-2 text-center font-semibold transition-colors ${
+            className={flex-1 py-2 text-center font-semibold transition-colors ${
               activeTab === 'register'
                 ? 'border-b-4 border-primary text-primary'
                 : 'text-gray-500 hover:text-primary'
-            }`}
+            }}
           >
             Create Account
           </button>
@@ -115,15 +97,12 @@ export default function AuthPage() {
             </div>
           </form>
         ) : activeTab === 'login' ? (
-          <form className="space-y-5" onSubmit={handleLoginSubmit}>
+          <form className="space-y-5">
             <div>
               <label className="block mb-1 font-medium text-gray-700">Email Address</label>
               <input
                 type="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
                 className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
@@ -132,9 +111,6 @@ export default function AuthPage() {
               <input
                 type="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
                 className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <div className="text-right mt-1">
@@ -147,19 +123,12 @@ export default function AuthPage() {
                 </button>
               </div>
             </div>
-
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold transition disabled:opacity-70"
+              className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold transition"
             >
-              {loading ? 'Logging in...' : 'Log In'}
+              Log In
             </button>
-
-            {/* Show error if any */}
-            {error && (
-              <p className="text-red-500 text-center mt-2 font-semibold">{error}</p>
-            )}
 
             <SocialLoginSection
               activeTab={activeTab}
@@ -168,7 +137,6 @@ export default function AuthPage() {
             />
           </form>
         ) : (
-          // Register form unchanged for now...
           <form className="space-y-5">
             <div>
               <label className="block mb-1 font-medium text-gray-700">Full Name</label>

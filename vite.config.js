@@ -7,7 +7,7 @@ export default defineConfig({
     host: true, // allows access via local network IP
     port: 5173, // (optional) choose your port
     proxy: {
-      '/api': 'http://localhost:4000'
+      '/api': 'https://e-commerce-backend-u12r.onrender.com'
     }
   },
   plugins: [react()],
