@@ -7,6 +7,8 @@ import {
   Package,
   LayoutDashboard,
   User,
+  Star,
+  BadgePlus,
 } from 'lucide-react';
 
 export default function DashboardLayout() {
@@ -16,9 +18,9 @@ export default function DashboardLayout() {
     { name: 'Dashboard', icon: <LayoutDashboard size={18} />, to: '/dashboard' },
     { name: 'Orders', icon: <ShoppingCart size={18} />, to: '/dashboard/orders' },
     { name: 'Products', icon: <Package size={18} />, to: '/dashboard/products' },
-    { name: 'Create Product', icon: <User size={18} />, to: '/dashboard/create-product' },
+    { name: 'Create Product', icon: <BadgePlus  size={18} />, to: '/dashboard/create-product' },
     { name: 'Users', icon: <User size={18} />, to: '/dashboard/users' },
-    { name: 'Reviews', icon: <User size={18} />, to: '/dashboard/reviews' },
+    { name: 'Reviews', icon: <Star  size={18} />, to: '/dashboard/reviews' },
   ];
 
   return (
