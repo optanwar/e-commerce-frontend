@@ -12,6 +12,7 @@ const Checkout = React.lazy(() => import("./components/checkout/Checkout.jsx"));
 const ConfirmOrder = React.lazy(() => import("./components/checkout/ConfirmOrder.jsx"));
 const Payment = React.lazy(() => import("./components/checkout/Payment.jsx"));
 const AuthPage = React.lazy(() => import("./components/auth/AuthPage.jsx"));
+const SubmitReview = React.lazy(()=> import("./components/home/SubmitReviews.jsx"));
 
 
 
@@ -25,6 +26,7 @@ const DashboardUsers = React.lazy(() => import('./components/dashboard/Dashboard
 const CreateProduct = React.lazy(() => import('./components/dashboard/CreateProducts.jsx'));
 const ProductReviews = React.lazy(() => import('./components/dashboard/ProductsReavie.jsx'));
 const Category = React.lazy(() => import('./components/dashboard/Category.jsx'));
+const Coupons = React.lazy(() => import('./components/dashboard/Coupons.jsx'));
 
 
 
@@ -98,6 +100,12 @@ export const route = [
     path: "/login",
     component: AuthPage
   },
+  {
+    id: 12,
+    name: "Submit Review",
+    path: "/submit-review",
+    component: SubmitReview
+  },
 
 
    // Dashboard wrapper
@@ -113,7 +121,7 @@ export const route = [
       { id: 105, path: 'create-product', component: CreateProduct },
       { id: 106, path: 'reviews', component: ProductReviews },
       { id: 107, path: 'categories', component: Category },
-      { id: 108, path: 'categories', component: Category },
+      { id: 108, path: 'coupons', component: Coupons },
     ],
   },
   
