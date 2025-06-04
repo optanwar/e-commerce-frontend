@@ -1,20 +1,20 @@
 import React from "react";
 
 
-const Home = React.lazy(() => import("./components/home/Home.jsx"));
-const About = React.lazy(() => import("./components/about/About.jsx"));
-const Blog = React.lazy(() => import("./components/blog/Blog.jsx"));
-const Contact = React.lazy(() => import("./components/contact/Contact.jsx"));
-const Products = React.lazy(() => import("./components/products/Products.jsx"));
-const ProductsDetails = React.lazy(() => import("./components/products/ProductDetail.jsx"));
+const Home = React.lazy(() => import("./page/home/Home.jsx"));
+const About = React.lazy(() => import("./page/About.jsx"));
+const Blog = React.lazy(() => import("./page/blog/Blog.jsx"));
+const Contact = React.lazy(() => import("./page/Contact.jsx"));
+const Products = React.lazy(() => import("./page/products/Products.jsx"));
+const ProductsDetails = React.lazy(() => import("./page/products/ProductDetail.jsx"));
 const Cart = React.lazy(() => import("./features/cart/Cart.jsx"));
-const Checkout = React.lazy(() => import("./components/checkout/Checkout.jsx"));
-const ConfirmOrder = React.lazy(() => import("./components/checkout/ConfirmOrder.jsx"));
-const Payment = React.lazy(() => import("./components/checkout/Payment.jsx"));
+const Checkout = React.lazy(() => import("./page/checkout/Checkout.jsx"));
+const ConfirmOrder = React.lazy(() => import("./page/checkout/ConfirmOrder.jsx"));
+const Payment = React.lazy(() => import("./page/checkout/Payment.jsx"));
 const AuthPage = React.lazy(() => import("./features/auth/AuthPage.jsx"));
-const SubmitReview = React.lazy(()=> import("./components/home/SubmitReviews.jsx"));
-const FAQ = React.lazy(() => import("./components/footerPages/FAQ.jsx"));
-const PageNotFound = React.lazy(() => import("./layout/NotFound.jsx"));
+const SubmitReview = React.lazy(()=> import("./page/home/SubmitReviews.jsx"));
+const FAQ = React.lazy(() => import("./page/FAQ.jsx"));
+const PageNotFound = React.lazy(() => import("./page/NotFound.jsx"));
 
 
 

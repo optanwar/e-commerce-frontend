@@ -3,7 +3,7 @@ import Navbar from './layout/Navbar'
 import Footer from './layout/Footer'
 import { Route, Routes } from 'react-router-dom'
 import { route } from './routes'
-import Loader from './layout/Loader'
+import Loader from './components/Loader'
 
 const App = () => {
   return (
