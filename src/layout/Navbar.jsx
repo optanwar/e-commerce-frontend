@@ -34,9 +34,9 @@ export default function Navbar() {
               2
             </span>
           </button>
-          <button onClick={() => setOpen(!open)} className="relative">
+          <Link to={'/login'} className="relative">
             <User className="w-6 h-6 text-darkText" />
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

@@ -11,6 +11,7 @@ const Cart = React.lazy(() => import("./components/cart/Cart.jsx"));
 const Checkout = React.lazy(() => import("./components/checkout/Checkout.jsx"));
 const ConfirmOrder = React.lazy(() => import("./components/checkout/ConfirmOrder.jsx"));
 const Payment = React.lazy(() => import("./components/checkout/Payment.jsx"));
+const AuthPage = React.lazy(() => import("./components/auth/AuthPage.jsx"));
 
 
 
@@ -81,6 +82,12 @@ export const route = [
     name: "Payment",
     path: "/payment",
     component: Payment 
+  },
+  {
+    id: 11,
+    name: "AuthPage",
+    path: "/login",
+    component: AuthPage
   },
   
  
