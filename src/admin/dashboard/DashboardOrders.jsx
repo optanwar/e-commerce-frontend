@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Search, PackageCheck, SquareArrowOutUpRight } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllOrders } from '../../redux/slices/order/orderAdminSlice';
+import { updateOrderStatus ,fetchAllOrders  } from '../../redux/slices/order/orderAdminSlice';
+import {   } from '../../redux/slices/order/orderSlice';
 import { Link } from 'react-router-dom';
 
 const statusOptions = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
@@ -18,17 +19,20 @@ export default function DashboardOrders() {
   }, [dispatch]);
 
   useEffect(() => {
-    // Sync Redux orders to local editable copy
     setLocalOrders(orders);
   }, [orders]);
 
   const handleSearch = (e) => setSearch(e.target.value);
 
   const handleStatusChange = (id, newStatus) => {
+    // Optimistic update for faster UI response
     const updated = localOrders.map((order) =>
       order._id === id ? { ...order, orderStatus: newStatus } : order
     );
     setLocalOrders(updated);
+
+    // API call
+    dispatch(updateOrderStatus({ id, status: newStatus }));
   };
 
   const filteredOrders = localOrders.filter((order) =>
@@ -102,12 +106,16 @@ export default function DashboardOrders() {
                       ))}
                     </select>
                   </td>
-                   <td className="p-2 text-darkText hover:text-primary cursor-pointer"><Link to={`/dashboard/order/${order._id}`}><SquareArrowOutUpRight size={18} /></Link></td>
+                  <td className="p-2 text-darkText hover:text-primary cursor-pointer">
+                    <Link to={`/dashboard/order/${order._id}`}>
+                      <SquareArrowOutUpRight size={18} />
+                    </Link>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center py-6 text-gray-400">
+                <td colSpan="7" className="text-center py-6 text-gray-400">
                   No orders found.
                 </td>
               </tr>
