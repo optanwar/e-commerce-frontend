@@ -7,6 +7,7 @@ import productUpdateReducer from '../slices/product/updateProductSlice';
 import productDeleteReducer from '../slices/product/deleteProductSlice';
 import userReducer from '../slices/users/userSlice'
 import userDetailsAdminReducer from '../slices/users/userDetailsSlice';
+import orderAdminReducer from '../slices/order/orderAdminSlice';
 
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 import { persistReducer } from 'redux-persist';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   productDelete: productDeleteReducer,
   user: userReducer,
   userDetailsAdmin: userDetailsAdminReducer,
+  ordersAdmin: orderAdminReducer,
 
 });
 

@@ -1,59 +1,42 @@
-import React, { useState } from 'react';
-import { Search, PackageCheck } from 'lucide-react';
-
-const ordersData = [
-  {
-    id: 'ORD001',
-    customer: 'Alice Smith',
-    customerId: '12',
-    date: '2025-06-01',
-    total: 49.99,
-    status: 'Pending',
-  },
-  {
-    id: 'ORD002',
-    customer: 'Bob Johnson',
-    customerId: '12',
-    date: '2025-06-02',
-    total: 89.99,
-    status: 'Shipped',
-  },
-  {
-    id: 'ORD003',
-    customer: 'Carla Brown',
-    customerId: '12',
-    date: '2025-06-03',
-    total: 24.99,
-    status: 'Delivered',
-  },
-  {
-    id: 'ORD004',
-    customer: 'David Wilson',
-    customerId: '12',
-    date: '2025-06-04',
-    total: 39.99,
-    status: 'Cancelled',
-  },
-];
+import React, { useEffect, useState } from 'react';
+import { Search, PackageCheck, SquareArrowOutUpRight } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllOrders } from '../../redux/slices/order/orderAdminSlice';
+import { Link } from 'react-router-dom';
 
 const statusOptions = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
 
 export default function DashboardOrders() {
-  const [orders, setOrders] = useState(ordersData);
+  const dispatch = useDispatch();
+  const { orders, loading, error } = useSelector((state) => state?.ordersAdmin);
+
   const [search, setSearch] = useState('');
+  const [localOrders, setLocalOrders] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchAllOrders());
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Sync Redux orders to local editable copy
+    setLocalOrders(orders);
+  }, [orders]);
 
   const handleSearch = (e) => setSearch(e.target.value);
 
   const handleStatusChange = (id, newStatus) => {
-    const updated = orders.map((order) =>
-      order.id === id ? { ...order, status: newStatus } : order
+    const updated = localOrders.map((order) =>
+      order._id === id ? { ...order, orderStatus: newStatus } : order
     );
-    setOrders(updated);
+    setLocalOrders(updated);
   };
 
-  const filteredOrders = orders.filter((order) =>
-    order.id.toLowerCase().includes(search.toLowerCase())
+  const filteredOrders = localOrders.filter((order) =>
+    order._id.toLowerCase().includes(search.toLowerCase())
   );
+
+  if (loading) return <p>Loading orders...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="space-y-6">
@@ -80,33 +63,36 @@ export default function DashboardOrders() {
             <tr>
               <th className="px-6 py-3">Order ID</th>
               <th className="px-6 py-3">Customer</th>
-              <th className="px-6 py-3">Customer Id</th>
+              <th className="px-6 py-3">User ID</th>
               <th className="px-6 py-3">Date</th>
               <th className="px-6 py-3">Total</th>
               <th className="px-6 py-3">Status</th>
+              <th className="px-6 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredOrders.length ? (
               filteredOrders.map((order) => (
-                <tr key={order.id} className="border-t hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-primary">{order.id}</td>
-                  <td className="px-6 py-4">{order.customer}</td>
-                  <td className="px-6 py-4">{order.customerId}</td>
-                  <td className="px-6 py-4 text-gray-500">{order.date}</td>
-                  <td className="px-6 py-4 font-semibold">${order.total.toFixed(2)}</td>
+                <tr key={order._id} className="border-t hover:bg-gray-50">
+                  <td className="px-6 py-4 font-medium text-primary">{order._id}</td>
+                  <td className="px-6 py-4">{order.user?.name || 'N/A'}</td>
+                  <td className="px-6 py-4">{order.user?._id || 'N/A'}</td>
+                  <td className="px-6 py-4 text-gray-500">
+                    {new Date(order.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="px-6 py-4 font-semibold">₹{order.totalPrice.toFixed(2)}</td>
                   <td className="px-6 py-4">
                     <select
-                      value={order.status}
-                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                      value={order.orderStatus}
+                      onChange={(e) => handleStatusChange(order._id, e.target.value)}
                       className={`rounded-lg px-3 py-1 text-sm border focus:outline-none focus:ring-2 focus:ring-primary ${
-                        order.status === 'Delivered'
+                        order.orderStatus === 'Delivered'
                           ? 'bg-green-100 text-green-700'
-                          : order.status === 'Pending'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : order.status === 'Cancelled'
-                              ? 'bg-red-100 text-red-600'
-                              : 'bg-blue-100 text-blue-700'
+                          : order.orderStatus === 'Pending'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : order.orderStatus === 'Cancelled'
+                          ? 'bg-red-100 text-red-600'
+                          : 'bg-blue-100 text-blue-700'
                       }`}
                     >
                       {statusOptions.map((status) => (
@@ -116,6 +102,7 @@ export default function DashboardOrders() {
                       ))}
                     </select>
                   </td>
+                   <td className="p-2 text-darkText hover:text-primary cursor-pointer"><Link to={`/dashboard/order/${order._id}`}><SquareArrowOutUpRight size={18} /></Link></td>
                 </tr>
               ))
             ) : (
