@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
 import ScrollToTop from './components/ScrollToTop';
-import { store, persistor } from './redux/store';
+import { store, persistor } from './redux/store/store';
 
 import './styles/App.css';
 import './styles/Tailwind.css';

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, logout, clearError } from '../../redux/slices/auth/loginSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function AuthPage() {
   const dispatch = useDispatch();
+   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('login');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
@@ -12,13 +14,19 @@ export default function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { user, loading, error, isAuthenticated } = useSelector(state => state.auth);
+  const { user, loading, error, isAuthenticated , token } = useSelector(state => state.auth);
+  console.log('AuthPage user:', user );
+  console.log('AuthPage token:', token );
+  console.log('AuthPage token:', isAuthenticated  );
 
   // Login form submit handler
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
+
+
+
 
   // Optional: clear error on tab change or input change
   useEffect(() => {
@@ -27,11 +35,10 @@ export default function AuthPage() {
 
   // Optional: on successful login, do something (redirect, toast, etc)
   useEffect(() => {
-    if (isAuthenticated) {
-      alert(`Welcome back, ${user?.name || user?.email || 'User'}!`);
-      // TODO: redirect to dashboard/homepage
+     if (isAuthenticated && user && token) {
+      navigate('/'); // Adjust this path as needed
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, navigate, user, token]);
 
   // Dummy social handlers remain same...
   const handleGoogleAuth = () => {
