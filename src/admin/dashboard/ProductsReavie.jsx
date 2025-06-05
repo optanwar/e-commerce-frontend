@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Pencil, Trash2 } from 'lucide-react';
+import { Search, Pencil, Trash2, MessagesSquare } from 'lucide-react';
 
 // Dummy review data (simulate backend result)
 const dummyReviews = {
@@ -54,7 +54,7 @@ const DashboardReviews = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">Product Reviews</h1>
+      <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><MessagesSquare className="text-primary" />Product Reviews</h1>
 
       {/* Search */}
       <div className="flex gap-3 items-center">

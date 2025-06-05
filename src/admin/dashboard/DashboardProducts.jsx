@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Pencil, Trash2, Plus, X } from 'lucide-react';
+import { Pencil, Trash2, Plus, X, PackageOpen } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, clearErrors } from '../../redux/slices/product/productSlice';
 import { deleteProduct } from '../../redux/slices/product/deleteProductSlice';
 import { updateProduct } from '../../redux/slices/product/updateProductSlice'; // ✅ Make sure this exists
+import { Link } from 'react-router-dom';
 
 export default function DashboardProducts() {
   const dispatch = useDispatch();
@@ -104,11 +105,11 @@ export default function DashboardProducts() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Products</h1>
-        <button className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition">
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"> <PackageOpen size={24} className="text-primary" />Products</h1>
+        <Link to={'/dashboard/create-product'} className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition">
           <Plus size={18} />
           Add Product
-        </button>
+        </Link>
       </div>
 
       <div className="mb-4">

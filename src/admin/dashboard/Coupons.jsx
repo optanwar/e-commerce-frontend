@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, TicketPercent } from 'lucide-react';
 
 const initialCoupons = [
   {
@@ -57,7 +57,7 @@ const Coupons = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Manage Coupons</h1>
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2" ><TicketPercent className="text-primary" />Manage Coupons</h1>
       </div>
 
       {/* Add Coupon */}

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Pencil, Trash2, X } from 'lucide-react';
+import { Pencil, SquareArrowOutUpRight, Trash2, User, Users, X } from 'lucide-react';
 import {
   fetchUsers,
   deleteUser,
   updateUserRole,
 } from '../../redux/slices/users/userSlice';
+import { Link } from 'react-router-dom';
 const DashboardUser = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.user);
@@ -68,7 +69,7 @@ const saveChanges = async () => {
     <div className="space-y-6 p-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Users</h1>
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><Users className="text-primary" />Users</h1>
       </div>
 
       {/* Search */}
@@ -95,6 +96,7 @@ const saveChanges = async () => {
                 <th className="p-4">Email</th>
                 <th className="p-4">Role</th>
                 <th className="p-4">Actions</th>
+                <th className="p-4">Profile</th>
               </tr>
             </thead>
             <tbody>
@@ -121,6 +123,7 @@ const saveChanges = async () => {
                         <Trash2 size={18} />
                       </button>
                     </td>
+                    <td className="p-2 text-darkText hover:text-primary cursor-pointer"><Link to={`/dashboard/users/${user._id}`}><SquareArrowOutUpRight size={18} /></Link></td>
                   </tr>
                 ))
               ) : (
@@ -184,8 +187,8 @@ const saveChanges = async () => {
                   className="w-full px-3 py-2 border rounded"
                   required
                 >
-                  <option>Admin</option>
-                  <option>User</option>
+                  <option>admin</option>
+                  <option>user</option>
                 </select>
               </div>
               <div className="flex justify-end gap-3 pt-4">

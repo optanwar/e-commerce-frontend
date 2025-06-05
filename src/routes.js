@@ -25,6 +25,7 @@ const CreateProduct = React.lazy(() => import('./admin/dashboard/CreateProducts.
 const ProductReviews = React.lazy(() => import('./admin/dashboard/ProductsReavie.jsx'));
 const Category = React.lazy(() => import('./admin/dashboard/Category.jsx'));
 const Coupons = React.lazy(() => import('./admin/dashboard/Coupons.jsx'));
+const UserDetailsAdmin = React.lazy(() => import('./admin/dashboard/userDetails.jsx'));
 
 export const route = [
   {
@@ -129,6 +130,7 @@ export const route = [
       { id: 106, path: 'reviews', component: ProductReviews },
       { id: 107, path: 'categories', component: Category },
       { id: 108, path: 'coupons', component: Coupons },
+      { id: 109, path: '/dashboard/users/:id', component: UserDetailsAdmin },
     ],
   },
 ];
