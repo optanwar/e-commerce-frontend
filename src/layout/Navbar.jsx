@@ -106,11 +106,11 @@ export default function Navbar() {
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             PaperProps={{ sx: { mt: 1, minWidth: 180 } }}
           >
-            <MenuItem component={Link} to="/profile" onClick={handleDropdownClose}>
+            <MenuItem component={Link} to="/user-profile" onClick={handleDropdownClose}>
               <User className="w-4 h-4 mr-2" /> Profile
             </MenuItem>
-            <MenuItem component={Link} to="/orders" onClick={handleDropdownClose}>
-              <ShoppingBag className="w-4 h-4 mr-2" /> Orders
+            <MenuItem component={Link} to="/my-orders" onClick={handleDropdownClose}>
+              <ShoppingBag className="w-4 h-4 mr-2" /> My Orders
             </MenuItem>
             <MenuItem component={Link} to="/wishlist" onClick={handleDropdownClose}>
               <Heart className="w-4 h-4 mr-2" /> Wishlist
@@ -214,18 +214,18 @@ export default function Navbar() {
   {token && user && (
     <div className="border-t pt-4 px-4 py-2 space-y-4">
       <Link
-        to="/profile"
+        to="/user-profile"
         onClick={handleDropdownClose}
         className="flex items-center gap-2 text-darkText hover:text-primary"
       >
         <User className="w-4 h-4" /> Profile
       </Link>
       <Link
-        to="/orders"
+        to="/my-orders"
         onClick={handleDropdownClose}
         className="flex items-center gap-2 text-darkText hover:text-primary"
       >
-        <ShoppingBag className="w-4 h-4" /> Orders
+        <ShoppingBag className="w-4 h-4" />My Orders
       </Link>
       <Link
         to="/wishlist"

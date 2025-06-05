@@ -26,7 +26,8 @@ const SubmitReview = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold text-center text-primary mb-8">Submit Your Review</h2>
+      {/* <h2 className="text-3xl font-bold text-center text-primary mb-8">Submit Your Review</h2> */}
+      <h2 className="text-3xl font-bold text-center text-primary mb-8">Tell Us What You Think About YummyGummies!</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl shadow-md">
         {/* Name */}
