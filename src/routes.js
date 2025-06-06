@@ -7,15 +7,16 @@ const Contact = React.lazy(() => import('./page/Contact.jsx'));
 const Products = React.lazy(() => import('./page/products/Products.jsx'));
 const ProductsDetails = React.lazy(() => import('./page/products/ProductDetail.jsx'));
 const Cart = React.lazy(() => import('./features/cart/Cart.jsx'));
-const Checkout = React.lazy(() => import('./page/checkout/Checkout.jsx'));
-const ConfirmOrder = React.lazy(() => import('./page/checkout/ConfirmOrder.jsx'));
-const Payment = React.lazy(() => import('./page/checkout/Payment.jsx'));
+const Checkout = React.lazy(() => import('./features/checkout/Checkout.jsx'));
+const ConfirmOrder = React.lazy(() => import('./features/checkout/ConfirmOrder.jsx'));
+const Payment = React.lazy(() => import('./features/checkout/Payment.jsx'));
 const AuthPage = React.lazy(() => import('./features/auth/AuthPage.jsx'));
 const SubmitReview = React.lazy(() => import('./page/home/SubmitReviews.jsx'));
 const FAQ = React.lazy(() => import('./page/FAQ.jsx'));
 const UserProfile = React.lazy(() => import('./components/Profile.jsx'));
 const MyOrders = React.lazy(() => import('./components/MyOrders.jsx'));
 const Wishlist = React.lazy(() => import('./components/Wishlist.jsx'));
+const StripeWrapper = React.lazy(()=> import('./features/checkout/StripeWrapper.jsx'))
 const PageNotFound = React.lazy(() => import('./page/NotFound.jsx'));
 
 // Dashboard layout + pages
@@ -93,7 +94,8 @@ export const route = [
     id: 10,
     name: 'Payment',
     path: '/payment',
-    component: Payment,
+    component: StripeWrapper,
+    stripeProtected: true,
   },
   {
     id: 11,

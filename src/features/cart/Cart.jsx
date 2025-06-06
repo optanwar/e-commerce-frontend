@@ -56,7 +56,7 @@ const CartPage = () => {
               className="flex items-center bg-white shadow rounded-xl p-4 gap-5"
             >
               <img
-                src={item.image}
+                src={'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600'}
                 alt={item.name}
                 className="w-24 h-24 object-cover rounded-lg"
               />

@@ -13,6 +13,8 @@ import orderReducer from '../slices/order/orderSlice';
 import profileReducer from '../slices/users/profileSlice';
 import reviewReducer from '../slices/reviews/reviewsSlice';
 import cartReducer from '../slices/cart/cartSlice'
+import createOrderReducer from '../slices/order/createOrderSlice'
+import stripeReducer from '../slices/order/paymentSlice'
 
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 import { persistReducer } from 'redux-persist';
@@ -20,7 +22,7 @@ import { persistReducer } from 'redux-persist';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'products', 'users','cart'], // Only persist the auth slice
+  whitelist: ['auth', 'products', 'users','cart','stripe'], // Only persist the auth slice
 };
 
 const rootReducer = combineReducers({
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   review: reviewReducer,
   cart: cartReducer,
+  stripe:stripeReducer,
+  createOrder:createOrderReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
