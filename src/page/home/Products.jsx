@@ -4,6 +4,8 @@ import { fetchProducts } from '../../redux/slices/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom';
+
+import {  addToCart,  calculateTotals } from '../../redux/slices/cart/cartSlice';
 const Projects = () => {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state?.products);
@@ -11,6 +13,11 @@ const Projects = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  const handleAddToCart = (product) => {
+  dispatch(addToCart({ ...product, quantity: 1 }));
+  dispatch(calculateTotals());
+};
 
   return (
     <>
@@ -85,7 +92,7 @@ const Projects = () => {
                 <p className="text-sm text-darkText">{product.title}</p>
 
                 {/* Add to Cart Button */}
-                <button className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition flex items-center justify-center gap-2">
+                <button onClick={() => handleAddToCart(product)} className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition flex items-center justify-center gap-2">
                   <ShoppingCart className="w-4 h-4" /> Add to Cart
                 </button>
               </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../redux/slices/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '@mui/material/Rating';
+import {  addToCart,  calculateTotals } from '../../redux/slices/cart/cartSlice';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -13,44 +14,15 @@ export default function Products() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // const products = [
-  //   {
-  //     id: 1,
-  //     name: 'Berry Blast Gummies',
-  //     price: '$14.99',
-  //     image:
-  //       'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Vitamin C Citrus Bears',
-  //     price: '$12.49',
-  //     image:
-  //       'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Omega-3 Fruity Fish',
-  //     price: '$16.00',
-  //     image:
-  //       'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Multi-Vitamin Rainbow Drops',
-  //     price: '$18.75',
-  //     image:
-  //       'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Iron + B12 Gummies',
-  //     price: '$13.50',
-  //     image:
-  //       'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //   },
-  // ];
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  const handleAddToCart = (product) => {
+  dispatch(addToCart({ ...product, quantity: 1 }));
+  dispatch(calculateTotals());
+};
   return (
     <main className="bg-lightBg text-darkText min-h-screen">
       {/* Hero Section */}
@@ -137,7 +109,7 @@ export default function Products() {
                 <p className="text-sm text-darkText">{product.title}</p>
 
                 {/* Add to Cart Button */}
-                <button className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition flex items-center justify-center gap-2">
+                <button onClick={() => handleAddToCart(product)}  className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition flex items-center justify-center gap-2">
                   <ShoppingCart className="w-4 h-4" /> Add to Cart
                 </button>
               </div>
