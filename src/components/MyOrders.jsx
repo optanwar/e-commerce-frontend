@@ -1,23 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PackageCheck, Truck } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMyOrders } from '../redux/slices/order/orderSlice';
+import { createReview, resetReviewState } from '../redux/slices/reviews/reviewsSlice';
 
 const MyOrders = () => {
-  const orders = [
-    {
-      id: 'ORD123456',
-      date: '2025-06-01',
-      total: 39.98,
-      status: 'Delivered',
-      items: 2,
-    },
-    {
-      id: 'ORD123457',
-      date: '2025-05-20',
-      total: 19.99,
-      status: 'Shipped',
-      items: 1,
-    },
-  ];
+  const dispatch = useDispatch();
+  const { myOrders, loading, error } = useSelector((state) => state.order);
+  const { loading: reviewLoading, success, error: reviewError } = useSelector((state) => state.review);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState('');
+  const [review, setReview] = useState({ rating: 0, comment: '' });
+
+  useEffect(() => {
+    dispatch(fetchMyOrders());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (success) {
+      alert('Review submitted successfully!');
+      dispatch(resetReviewState());
+      handleCloseModal();
+    }
+  }, [success, dispatch]);
+
+  useEffect(() => {
+    if (selectedOrder?.orderItems.length === 1) {
+      setSelectedItemId(selectedOrder.orderItems[0].product); // FIXED HERE
+    }
+  }, [selectedOrder]);
+
+  const handleOpenReview = (order) => {
+    setSelectedOrder(order);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedItemId('');
+    setReview({ rating: 0, comment: '' });
+  };
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (!selectedItemId || !review.rating || !review.comment.trim()) {
+      alert('Please fill all fields');
+      return;
+    }
+    dispatch(createReview({
+      productId: selectedItemId, // now correctly set to product ID
+      rating: Number(review.rating),
+      comment: review.comment.trim(),
+    }));
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -30,53 +67,140 @@ const MyOrders = () => {
     }
   };
 
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
   return (
-    <div className="px-4 md:px-10 py-8 max-w-4xl mx-auto sm:py-20 md:py-32">
-      <h2 className="text-2xl font-heading text-primary mb-6">My Orders</h2>
+    <div className="px-4 md:px-10 py-10 md:py-20 max-w-5xl mx-auto">
+      <h2 className="text-3xl font-bold text-primary mb-8">My Orders</h2>
 
-      {orders.length === 0 ? (
-        <div className="text-center text-gray-600 py-10">You haven’t placed any orders yet.</div>
+      {loading ? (
+        <p className="text-center py-10">Loading...</p>
+      ) : error ? (
+        <p className="text-center text-red-500 py-10">{error}</p>
+      ) : myOrders.length === 0 ? (
+        <div className="text-center text-gray-600 py-16">
+          You haven’t placed any orders yet.
+        </div>
       ) : (
-        <div className="space-y-4">
-          {orders.map((order) => (
+        <div className="space-y-6">
+          {myOrders.map((order) => (
             <div
-              key={order.id}
-              className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition"
+              key={order._id}
+              className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition"
             >
-              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                <div className="space-y-1">
-                  <p className="text-darkText font-semibold text-sm">
-                    Order <span className="text-primary">#{order.id}</span>
+              <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+                <div>
+                  <p className="text-sm font-semibold text-darkText">
+                    Order <span className="text-primary">#{order._id}</span>
                   </p>
-                  <p className="text-xs text-gray-500">Placed on {order.date}</p>
+                  <p className="text-xs text-gray-500">Placed on {formatDate(order.createdAt)}</p>
                 </div>
-
-                <div className="text-sm space-y-1 text-gray-700">
-                  <p>
-                    Items: <span className="font-medium">{order.items}</span>
-                  </p>
-                  <p>
-                    Total: <span className="font-semibold">${order.total.toFixed(2)}</span>
-                  </p>
+                <div className="text-sm text-gray-700 w-full md:w-auto">
+                  <p className="font-semibold mb-1">Items:</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    {order.orderItems.map((item) => (
+                      <li key={item._id}>
+                        <span className="font-medium">{item.name}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <div className="flex items-center gap-2 text-sm font-medium">
-                  {getStatusIcon(order.status)}
-                  <span
-                    className={`${
-                      order.status === 'Delivered'
-                        ? 'text-green-600'
-                        : order.status === 'Shipped'
-                        ? 'text-blue-500'
+                <div className="flex flex-col items-start md:items-end text-sm font-medium gap-2">
+                  <p>
+                    Total: <span className="font-semibold">${order.totalPrice.toFixed(2)}</span>
+                  </p>
+                  <div className="flex items-center gap-2">
+                    {getStatusIcon(order.orderStatus)}
+                    <span className={`${
+                      order.orderStatus === 'Delivered' ? 'text-green-600'
+                        : order.orderStatus === 'Shipped' ? 'text-blue-500'
                         : 'text-gray-500'
-                    }`}
-                  >
-                    {order.status}
-                  </span>
+                    }`}>
+                      {order.orderStatus}
+                    </span>
+                  </div>
+                  {order.orderStatus === 'Delivered' && (
+                    <button
+                      onClick={() => handleOpenReview(order)}
+                      className="text-sm mt-1 px-3 py-1 bg-primary text-white rounded hover:bg-primary/90"
+                    >
+                      Write Review
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-6 w-[90%] max-w-md relative">
+            <h3 className="text-lg font-bold text-darkText mb-4">Write a Review</h3>
+            <form onSubmit={handleReviewSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-darkText mb-1">Select Product</label>
+                <select
+                  value={selectedItemId}
+                  onChange={(e) => setSelectedItemId(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
+                >
+                  <option value="">Choose an item</option>
+                  {selectedOrder?.orderItems.map((item) => (
+                    <option key={item._id} value={item.product}>{item.name}</option> // FIXED HERE
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-darkText mb-1">Rating</label>
+                <select
+                  value={review.rating}
+                  onChange={(e) => setReview({ ...review, rating: e.target.value })}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
+                >
+                  <option value="">Select Rating</option>
+                  {[1, 2, 3, 4, 5].map((r) => (
+                    <option key={r} value={r}>{r} Star{r > 1 && 's'}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-darkText mb-1">Comment</label>
+                <textarea
+                  rows={3}
+                  value={review.comment}
+                  onChange={(e) => setReview({ ...review, comment: e.target.value })}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  placeholder="Share your experience"
+                  required
+                />
+              </div>
+
+              {reviewError && <p className="text-red-500 text-sm">{reviewError}</p>}
+              {reviewLoading && <p className="text-gray-500 text-sm">Submitting review...</p>}
+
+              <div className="flex justify-end gap-2">
+                <button type="button" onClick={handleCloseModal} className="px-4 py-2 bg-gray-200 text-gray-800 rounded">
+                  Cancel
+                </button>
+                <button type="submit" className="px-5 py-2 bg-primary text-white rounded hover:bg-primary/90">
+                  Submit Review
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

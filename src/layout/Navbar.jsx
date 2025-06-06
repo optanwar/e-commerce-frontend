@@ -106,16 +106,16 @@ export default function Navbar() {
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             PaperProps={{ sx: { mt: 1, minWidth: 180 } }}
           >
-            <MenuItem component={Link} to="/user-profile" onClick={handleDropdownClose}>
+            <MenuItem className='hover:text-primary' component={Link} to="/user-profile"  onClick={handleDropdownClose}>
               <User className="w-4 h-4 mr-2" /> Profile
             </MenuItem>
-            <MenuItem component={Link} to="/my-orders" onClick={handleDropdownClose}>
+            <MenuItem className='hover:text-primary' component={Link} to="/my-orders"  onClick={handleDropdownClose}>
               <ShoppingBag className="w-4 h-4 mr-2" /> My Orders
             </MenuItem>
-            <MenuItem component={Link} to="/wishlist" onClick={handleDropdownClose}>
-              <Heart className="w-4 h-4 mr-2" /> Wishlist
+            <MenuItem className='hover:text-primary' component={Link} to="/wishlist" onClick={handleDropdownClose}>
+              <Heart className="w-4 h-4 mr-2" />  Wishlist
             </MenuItem>
-            <MenuItem onClick={handleLogout}>
+            <MenuItem className='hover:text-primary' onClick={handleLogout} >
               <LogOut className="w-4 h-4 mr-2" /> Logout
             </MenuItem>
           </Menu>
