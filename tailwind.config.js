@@ -52,22 +52,28 @@ export default {
         },
       },
 
-      // 🎞️ Animations
-      animation: {
-        fadeIn: 'fadeIn 1s ease-in-out',
-        float: 'float 3s ease-in-out infinite',
-      },
-
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-      },
+  fadeIn: {
+    '0%': { opacity: 0 },
+    '100%': { opacity: 1 },
+  },
+  float: {
+    '0%, 100%': { transform: 'translateY(0)' },
+    '50%': { transform: 'translateY(-10px)' },
+  },
+  fadeInOut: {
+    '0%': { opacity: 0, transform: 'translateY(-10px)' },
+    '20%': { opacity: 1, transform: 'translateY(0)' },
+    '80%': { opacity: 1, transform: 'translateY(0)' },
+    '100%': { opacity: 0, transform: 'translateY(-10px)' },
+  },
+},
+
+animation: {
+  fadeIn: 'fadeIn 1s ease-in-out',
+  float: 'float 3s ease-in-out infinite',
+  fadeInOut: 'fadeInOut 2s ease-in-out', // 👈 New animation
+},
 
       // 🌄 Background image (optional)
       backgroundImage: {

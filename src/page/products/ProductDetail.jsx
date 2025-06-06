@@ -106,9 +106,9 @@ console.log(products,44)
         <div>
           <h2 className="text-3xl font-bold text-primary mb-4">What’s Inside</h2>
           <p className="text-md text-gray-700 leading-relaxed">
-            Each gummy is packed with essential vitamins and minerals tailored for kids' growth,
-            including Vitamin A, C, D3, E, Zinc, and Omega-3 DHA. All ingredients are natural,
-            non-GMO, and flavored with real fruit juice. Zero added sugar, no artificial dyes.
+            {
+              product.description2
+            }
           </p>
         </div>
         <img

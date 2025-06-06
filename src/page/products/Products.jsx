@@ -104,7 +104,7 @@ export default function Products() {
                   {/* Optional: Old Price if discounted */}
                   {product.price && (
                     <p className="text-sm text-gray-400 line-through">
-                      ${product.price.toFixed(2)}
+                     ${(Number(product.price) + 19).toFixed(2)}
                     </p>
                   )}
 
@@ -134,7 +134,7 @@ export default function Products() {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-darkText">{product.description}</p>
+                <p className="text-sm text-darkText">{product.title}</p>
 
                 {/* Add to Cart Button */}
                 <button className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition flex items-center justify-center gap-2">

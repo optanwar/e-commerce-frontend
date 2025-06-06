@@ -19,6 +19,8 @@ const CreateProduct = () => {
     price: '',
     category: '',
     stock: '',
+    title: '',
+    description2: '',
   });
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -27,7 +29,7 @@ const CreateProduct = () => {
     if (success) {
       alert('Product created successfully!');
       dispatch(resetCreateProductState());
-      setProduct({ name: '', description: '', price: '', category: '', stock: '' });
+      setProduct({ name: '', description: '', price: '', category: '', stock: '', title: '' ,description2: ''});
       setImages([]);
       setImagePreviews([]);
     }
@@ -62,7 +64,7 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow space-y-6">
+    <div className=" mx-auto bg-white p-6 rounded-2xl shadow space-y-6">
       <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
         <PlusCircle /> Create New Product
       </h1>
@@ -121,6 +123,29 @@ const CreateProduct = () => {
             className="mt-1 w-full border rounded-lg px-4 py-2"
           />
         </div>
+        <div className='md:col-span-2'>
+          <label className="block text-sm font-medium text-gray-700">Title</label>
+          <input
+            type="text"
+            name="title"
+            required
+            value={product.title}
+            onChange={handleChange}
+            className="mt-1 w-full border rounded-lg px-4 py-2"
+          />
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700">Additional Description</label>
+          <textarea
+            name="description2"
+            required
+            value={product.description2}
+            onChange={handleChange}
+            className="mt-1 w-full border rounded-lg px-4 py-2"
+            rows={4}
+          />
+        </div>
+
 
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Description</label>
