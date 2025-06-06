@@ -3,6 +3,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from '../slices/auth/loginSlice';
 import createProductReducer from '../slices/product/createProductSlice';
 import productReducer from '../slices/product/productSlice';
+import productDetailReducer from '../slices/product/productDetailSlice';
 import productUpdateReducer from '../slices/product/updateProductSlice';
 import productDeleteReducer from '../slices/product/deleteProductSlice';
 import userReducer from '../slices/users/userSlice'
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   createProduct: createProductReducer,
   products: productReducer,
+  productDetail: productDetailReducer,
   productUpdate: productUpdateReducer,
   productDelete: productDeleteReducer,
   user: userReducer,

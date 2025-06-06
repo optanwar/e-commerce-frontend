@@ -1,57 +1,29 @@
 import { Minus, Plus } from 'lucide-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-// Static product data
-const products = [
-  {
-    id: 1,
-    name: 'Yummy Multivitamin Gummies',
-    description:
-      'Packed with essential nutrients like Vitamin A, C, D3, and E, our multivitamin gummies support your child’s growth, immune system, and overall wellness. Naturally flavored with mixed berries, they’re as tasty as they are healthy.',
-    price: 14.99,
-    image:
-      'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  },
-  {
-    id: 2,
-    name: 'Immune Boost Gummies',
-    description:
-      'Boost your kid’s immune system with our vitamin C + zinc gummies. Formulated to help fight off colds and keep them healthy year-round. Sweetened naturally and free from artificial dyes.',
-    price: 12.99,
-    image:
-      'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  },
-  {
-    id: 3,
-    name: 'Omega-3 Brain Boost Gummies',
-    description:
-      'Our Omega-3 DHA gummies help support brain development and cognitive function. Sourced from sustainable fish oils and flavored with orange and lemon for a kid-approved taste.',
-    price: 16.49,
-    image:
-      'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  },
-  {
-    id: 4,
-    name: 'Probiotic Gummies',
-    description:
-      'Promote digestive health with our kid-friendly probiotic gummies. Each serving contains 1 billion CFUs and a natural fruit punch flavor. Great for sensitive tummies.',
-    price: 13.75,
-    image:
-      'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductDetail } from '../../redux/slices/product/productDetailSlice';
 
 export default function ProductDetail() {
-  const [qty, setQty] = React.useState(1);
-
+  const [qty, setQty] = useState(1);
   const { id } = useParams();
-  const product = products.find((p) => p.id.toString() === id);
+  const dispatch = useDispatch();
+  const { product, loading, error } = useSelector((state) => state.productDetail);
 
-  if (!product) {
+  useEffect(() => {
+    dispatch(fetchProductDetail(id));
+  }, [dispatch, id]);
+
+  console.log('Product Detail:', product);
+
+  if (loading) {
+    return <main className="min-h-screen flex items-center justify-center">Loading...</main>;
+  }
+
+  if (error || !product) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-lightBg text-darkText">
-        <p className="text-xl font-medium">Product not found</p>
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-xl font-medium text-red-500">Product not found</p>
       </main>
     );
   }
@@ -61,7 +33,7 @@ export default function ProductDetail() {
       {/* Product Main Info */}
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center mb-16">
         <img
-          src={product.image}
+          src={'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
           alt={product.name}
           className="rounded-2xl shadow-lg object-cover w-full max-h-[500px]"
         />
@@ -133,7 +105,25 @@ export default function ProductDetail() {
       <div className="max-w-6xl mx-auto py-10">
         <h2 className="text-2xl font-bold text-primary mb-6">Customer Reviews</h2>
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-xl shadow">
+
+          {
+            product.reviews && product.reviews.length > 0 ? (
+              product.reviews.map((review) => (
+                <div key={review._id} className="bg-white p-6 rounded-xl shadow">
+                  <p className="font-semibold text-lg">{'⭐'.repeat(review.rating)}</p>
+                  <p className="text-sm text-gray-600 mt-2">{review.comment}</p>
+                  <p className="mt-2 text-sm text-gray-400">– {review.name}, {new Date(review.createdAt).toLocaleDateString()}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No reviews yet. Be the first to review!</p>
+            )
+          }
+         
+         
+         
+         
+          {/* <div className="bg-white p-6 rounded-xl shadow">
             <p className="font-semibold text-lg">⭐️⭐️⭐️⭐️⭐️</p>
             <p className="text-sm text-gray-600 mt-2">
               “My kids love the taste and I love that they’re actually getting their vitamins every
@@ -148,12 +138,12 @@ export default function ProductDetail() {
               delivery.”
             </p>
             <p className="mt-2 text-sm text-gray-400">– Mike, CA</p>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Suggested Products */}
-      <div className="max-w-6xl mx-auto mt-20">
+      {/* <div className="max-w-6xl mx-auto mt-20">
         <h2 className="text-2xl font-semibold text-primary mb-6">Other Gummies You May Like</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
           {products
@@ -173,7 +163,7 @@ export default function ProductDetail() {
               </div>
             ))}
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
