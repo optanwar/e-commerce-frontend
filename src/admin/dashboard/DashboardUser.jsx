@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Pencil, SquareArrowOutUpRight, Trash2, User, Users, X } from 'lucide-react';
-import {
-  fetchUsers,
-  deleteUser,
-  updateUserRole,
-} from '../../redux/slices/users/userSlice';
+import { fetchUsers, deleteUser, updateUserRole } from '../../redux/slices/users/userSlice';
 import { Link } from 'react-router-dom';
 const DashboardUser = () => {
   const dispatch = useDispatch();
@@ -51,25 +47,29 @@ const DashboardUser = () => {
     }));
   };
 
-const saveChanges = async () => {
-  const { _id, name, email, role } = editUser;
-  await dispatch(updateUserRole({
-    id: _id,
-    updatedData: { name, email, role },
-  }));
+  const saveChanges = async () => {
+    const { _id, name, email, role } = editUser;
+    await dispatch(
+      updateUserRole({
+        id: _id,
+        updatedData: { name, email, role },
+      })
+    );
 
-  // Optionally refresh the list or update local state
-  dispatch(fetchUsers());
+    // Optionally refresh the list or update local state
+    dispatch(fetchUsers());
 
-  closeEditModal();
-   dispatch(fetchUsers());
-
-};
+    closeEditModal();
+    dispatch(fetchUsers());
+  };
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><Users className="text-primary" />Users</h1>
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <Users className="text-primary" />
+          Users
+        </h1>
       </div>
 
       {/* Search */}
@@ -123,7 +123,11 @@ const saveChanges = async () => {
                         <Trash2 size={18} />
                       </button>
                     </td>
-                    <td className="p-2 text-darkText hover:text-primary cursor-pointer"><Link to={`/dashboard/users/${user._id}`}><SquareArrowOutUpRight size={18} /></Link></td>
+                    <td className="p-2 text-darkText hover:text-primary cursor-pointer">
+                      <Link to={`/dashboard/users/${user._id}`}>
+                        <SquareArrowOutUpRight size={18} />
+                      </Link>
+                    </td>
                   </tr>
                 ))
               ) : (

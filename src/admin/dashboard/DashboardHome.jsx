@@ -74,7 +74,10 @@ const stats = [
 export default function DashboardHome() {
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"> <LayoutDashboard size={24} className="text-primary" /> Welcome back, Admin 👋</h1>
+      <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        {' '}
+        <LayoutDashboard size={24} className="text-primary" /> Welcome back, Admin 👋
+      </h1>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

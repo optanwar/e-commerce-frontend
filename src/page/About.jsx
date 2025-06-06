@@ -14,7 +14,7 @@ export default function About() {
         }}
       >
         {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-accent/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-accent/80" />
 
         {/* Text */}
         <div className="relative max-w-xl text-center md:text-left z-10">
@@ -65,7 +65,6 @@ export default function About() {
           </p>
         </div>
         <img
-          
           src="https://images.pexels.com/photos/7604368/pexels-photo-7604368.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="Kids playing outdoors"
           className="rounded-xl shadow-lg w-full object-cover max-h-96"

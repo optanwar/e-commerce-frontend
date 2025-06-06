@@ -16,17 +16,14 @@ export const loginUser = createAsyncThunk(
 );
 
 // Logout Thunk
-export const logoutUser = createAsyncThunk(
-  'auth/logoutUser',
-  async (_, { rejectWithValue }) => {
-    try {
-      await axiosInstance.get('/logout'); // Adjust path if needed
-      return true;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
-    }
+export const logoutUser = createAsyncThunk('auth/logoutUser', async (_, { rejectWithValue }) => {
+  try {
+    await axiosInstance.get('/logout'); // Adjust path if needed
+    return true;
+  } catch (error) {
+    return rejectWithValue(error.response?.data?.message || error.message);
   }
-);
+});
 
 const loginSlice = createSlice({
   name: 'auth',

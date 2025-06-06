@@ -127,9 +127,7 @@ const ChangePasswordModal = ({ onClose, onSave, loading }) => {
               type="submit"
               disabled={loading}
               className={`px-6 py-2 rounded text-white ${
-                loading
-                  ? 'bg-accent/70 cursor-not-allowed'
-                  : 'bg-accent hover:bg-accent/90'
+                loading ? 'bg-accent/70 cursor-not-allowed' : 'bg-accent hover:bg-accent/90'
               }`}
             >
               {loading ? 'Updating...' : 'Update Password'}

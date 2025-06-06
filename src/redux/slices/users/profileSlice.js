@@ -108,5 +108,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { clearUserState,clearMessages } = userSlice.actions;
+export const { clearUserState, clearMessages } = userSlice.actions;
 export default userSlice.reducer;

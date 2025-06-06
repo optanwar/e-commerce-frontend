@@ -88,9 +88,7 @@ const EditProfileModal = ({ user, onClose, onSave, loading }) => {
           <div className="flex items-center gap-4">
             <img
               src={
-                previewUrl ||
-                user?.avatar?.url ||
-                'https://randomuser.me/api/portraits/men/32.jpg'
+                previewUrl || user?.avatar?.url || 'https://randomuser.me/api/portraits/men/32.jpg'
               }
               alt="Preview"
               className="w-16 h-16 rounded-full object-cover border border-gray-300"
@@ -170,9 +168,7 @@ const EditProfileModal = ({ user, onClose, onSave, loading }) => {
               type="submit"
               disabled={loading}
               className={`px-6 py-2 rounded text-white ${
-                loading
-                  ? 'bg-primary/70 cursor-not-allowed'
-                  : 'bg-primary hover:bg-primary/90'
+                loading ? 'bg-primary/70 cursor-not-allowed' : 'bg-primary hover:bg-primary/90'
               }`}
             >
               {loading ? 'Saving...' : 'Save Changes'}

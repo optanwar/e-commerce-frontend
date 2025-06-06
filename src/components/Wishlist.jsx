@@ -49,7 +49,7 @@ const Wishlist = () => {
               <img
                 src={item.image}
                 alt={item.name}
-              className="w-full h-52 object-cover rounded-lg mb-4"
+                className="w-full h-52 object-cover rounded-lg mb-4"
               />
               <h3 className="text-lg font-semibold text-darkText">{item.name}</h3>
               <p className="text-gray-600 text-sm mb-3">${item.price.toFixed(2)}</p>

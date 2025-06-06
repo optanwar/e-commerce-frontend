@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductDetail } from '../../redux/slices/product/productDetailSlice';
-
+import { Rating } from '@mui/material';
+import { Link } from 'react-router-dom';
 export default function ProductDetail() {
   const [qty, setQty] = useState(1);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector((state) => state.productDetail);
-
+  const { products } = useSelector((state) => state.products);
+console.log(products,44)
   useEffect(() => {
     dispatch(fetchProductDetail(id));
   }, [dispatch, id]);
@@ -33,7 +35,9 @@ export default function ProductDetail() {
       {/* Product Main Info */}
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center mb-16">
         <img
-          src={'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
+          src={
+            'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+          }
           alt={product.name}
           className="rounded-2xl shadow-lg object-cover w-full max-h-[500px]"
         />
@@ -42,13 +46,26 @@ export default function ProductDetail() {
           <h1 className="text-4xl font-extrabold text-primary mb-4">{product.name}</h1>
 
           {/* ⭐ Average Rating */}
-          <div className="flex items-center gap-2 text-yellow-500 mb-4">
-            <div className="flex text-xl">
-              {'⭐'.repeat(4)}
-              <span className="opacity-50">⭐</span>
-            </div>
-            <span className="text-sm text-gray-500">(4.5 average rating)</span>
-          </div>
+         <div className="flex items-center gap-2 mb-4">
+  {/* Star Rating */}
+  <div className="flex items-center gap-1 bg-yellow-50 border border-yellow-100 px-2 py-1 rounded-full shadow-sm">
+    <Rating
+      name="read-only"
+      size="small"
+      value={product.ratings}
+      readOnly
+      precision={0.5}
+    />
+    <span className="text-sm text-yellow-700 font-medium">
+      {product.ratings.toFixed(1)}
+    </span>
+  </div>
+
+  {/* Reviews Count */}
+  <span className="text-sm text-gray-600">
+    ({product.numOfReviews} reviews)
+  </span>
+</div>
 
           <p className="text-lg text-gray-700 mb-6 leading-relaxed">{product.description}</p>
 
@@ -102,68 +119,87 @@ export default function ProductDetail() {
       </div>
 
       {/* Reviews Section */}
-      <div className="max-w-6xl mx-auto py-10">
+      {product.reviews && product.reviews.length > 0 &&(
+  <div className="max-w-6xl mx-auto py-10">
         <h2 className="text-2xl font-bold text-primary mb-6">Customer Reviews</h2>
         <div className="space-y-6">
+          {product.reviews && product.reviews.length > 0 ? (
+            product.reviews.map((review) => (
+              <div key={review._id} className="bg-white p-6 rounded-xl shadow">
+                <span className="font-semibold text-lg">
+                  <Rating
+                    name="read-only"
+                    size="medium"
+                    value={review.rating}
+                    readOnly
+                    precision={0.5}
+                  />
+                </span>
 
-          {
-            product.reviews && product.reviews.length > 0 ? (
-              product.reviews.map((review) => (
-                <div key={review._id} className="bg-white p-6 rounded-xl shadow">
-                  <p className="font-semibold text-lg">{'⭐'.repeat(review.rating)}</p>
-                  <p className="text-sm text-gray-600 mt-2">{review.comment}</p>
-                  <p className="mt-2 text-sm text-gray-400">– {review.name}, {new Date(review.createdAt).toLocaleDateString()}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-500">No reviews yet. Be the first to review!</p>
-            )
-          }
+                <p className="text-sm text-gray-600 mt-2">“{review.comment}”</p>
+                <p className="mt-2 text-sm text-gray-400">
+                  – {review?.name || 'Anonymous'},{' '}
+                  {review?.createdAt
+                    ? new Date(review.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      })
+                    : ''}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500">No reviews yet. Be the first to review!</p>
+          )}
+
          
-         
-         
-         
-          {/* <div className="bg-white p-6 rounded-xl shadow">
-            <p className="font-semibold text-lg">⭐️⭐️⭐️⭐️⭐️</p>
-            <p className="text-sm text-gray-600 mt-2">
-              “My kids love the taste and I love that they’re actually getting their vitamins every
-              day!”
-            </p>
-            <p className="mt-2 text-sm text-gray-400">– Sarah, NY</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow">
-            <p className="font-semibold text-lg">⭐️⭐️⭐️⭐️</p>
-            <p className="text-sm text-gray-600 mt-2">
-              “Finally a gummy that doesn't upset my child’s stomach. Great product and fast
-              delivery.”
-            </p>
-            <p className="mt-2 text-sm text-gray-400">– Mike, CA</p>
-          </div> */}
+          
         </div>
       </div>
+      )}
+    
 
-      {/* Suggested Products */}
-      {/* <div className="max-w-6xl mx-auto mt-20">
-        <h2 className="text-2xl font-semibold text-primary mb-6">Other Gummies You May Like</h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {products
-            .filter((p) => p.id.toString() !== id)
-            .slice(0, 4)
-            .map((p) => (
-              <div
-                key={p.id}
-                className="bg-white rounded-xl shadow hover:shadow-lg transition duration-300 overflow-hidden"
-              >
-                <img src={p.image} alt={p.name} className="h-48 w-full object-cover" />
-                <div className="p-4">
+     {/* Suggested Products */}
+{products &&
+  product &&
+  products.filter(p => p.category === product.category && p._id !== id).length > 0 && (
+    <div className="max-w-6xl mx-auto mt-20">
+      <h2 className="text-2xl font-semibold text-primary mb-6">
+        Other Gummies You May Like
+      </h2>
+
+      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {products
+          .filter(p => p.category === product.category && p._id !== id)
+          .slice(0, 4)
+          .map(p => (
+            <div
+              key={p._id}
+              className="bg-white rounded-xl shadow hover:shadow-lg transition duration-300 overflow-hidden group"
+            >
+              <img
+                src="https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt={p.name}
+                className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="p-4">
+                <Link to={`/products/${p._id}`}>
                   <h3 className="font-semibold text-lg text-darkText">{p.name}</h3>
-                  <p className="text-sm text-gray-500 line-clamp-2 mt-1">{p.description}</p>
-                  <p className="mt-2 text-accent font-bold">${p.price.toFixed(2)}</p>
-                </div>
+                </Link>
+                <p className="text-sm text-gray-500 line-clamp-2 mt-1">
+                  {p.description}
+                </p>
+                <p className="mt-2 text-accent font-bold">
+                  ${p.price?.toFixed(2) ?? '0.00'}
+                </p>
               </div>
-            ))}
-        </div>
-      </div> */}
+            </div>
+          ))}
+      </div>
+    </div>
+  )}
+
     </main>
   );
 }

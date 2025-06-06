@@ -2,19 +2,15 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../axios/axiosInstance';
 
 // ✅ Fetch all orders
-export const fetchAllOrders = createAsyncThunk(
-  'orders/fetchAll',
-  async (_, thunkAPI) => {
-    try {
-      const response = await axiosInstance.get('/admin/orders');
-      return response.data.orders;
-    } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || 'Failed to fetch orders';
-      return thunkAPI.rejectWithValue(message);
-    }
+export const fetchAllOrders = createAsyncThunk('orders/fetchAll', async (_, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get('/admin/orders');
+    return response.data.orders;
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Failed to fetch orders';
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
 // ✅ Update order status
 export const updateOrderStatus = createAsyncThunk(

@@ -19,9 +19,7 @@ const DashboardReviews = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     // Frontend only update simulation
-    const updated = reviews.map((r) =>
-      r._id === editReview._id ? editReview : r
-    );
+    const updated = reviews.map((r) => (r._id === editReview._id ? editReview : r));
     setEditReview(null);
     // Ideally dispatch updateReview thunk here for real API update
   };
@@ -142,9 +140,7 @@ const DashboardReviews = () => {
               <input
                 type="text"
                 value={editReview.name}
-                onChange={(e) =>
-                  setEditReview({ ...editReview, name: e.target.value })
-                }
+                onChange={(e) => setEditReview({ ...editReview, name: e.target.value })}
                 className="w-full border px-4 py-2 rounded-lg"
                 required
               />
@@ -172,9 +168,7 @@ const DashboardReviews = () => {
               <label className="text-sm text-gray-500">Comment</label>
               <textarea
                 value={editReview.comment}
-                onChange={(e) =>
-                  setEditReview({ ...editReview, comment: e.target.value })
-                }
+                onChange={(e) => setEditReview({ ...editReview, comment: e.target.value })}
                 className="w-full border px-4 py-2 rounded-lg"
                 rows={3}
                 required
@@ -189,10 +183,7 @@ const DashboardReviews = () => {
               >
                 Cancel
               </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-primary text-white rounded-lg"
-              >
+              <button type="submit" className="px-4 py-2 bg-primary text-white rounded-lg">
                 Save
               </button>
             </div>

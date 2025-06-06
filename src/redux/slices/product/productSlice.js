@@ -2,21 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../axios/axiosInstance'; // Your configured axios
 
 // Async thunk to fetch all products
-export const fetchProducts = createAsyncThunk(
-  'products/fetchAll',
-  async (_, thunkAPI) => {
-    try {
-      const response = await axiosInstance.get('/products');
-      // Assuming response data structure: { products: [...] }
-      return response.data.products;
-    } catch (error) {
-      // Extract a meaningful error message or fallback to error.message
-      const message =
-        error.response?.data?.message || error.message || 'Failed to fetch products';
-      return thunkAPI.rejectWithValue(message);
-    }
+export const fetchProducts = createAsyncThunk('products/fetchAll', async (_, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get('/products');
+    // Assuming response data structure: { products: [...] }
+    return response.data.products;
+  } catch (error) {
+    // Extract a meaningful error message or fallback to error.message
+    const message = error.response?.data?.message || error.message || 'Failed to fetch products';
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
 const initialState = {
   products: [],

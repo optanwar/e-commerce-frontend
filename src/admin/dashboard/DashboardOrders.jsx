@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Search, PackageCheck, SquareArrowOutUpRight } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateOrderStatus ,fetchAllOrders  } from '../../redux/slices/order/orderAdminSlice';
-import {   } from '../../redux/slices/order/orderSlice';
+import { updateOrderStatus, fetchAllOrders } from '../../redux/slices/order/orderAdminSlice';
+import {} from '../../redux/slices/order/orderSlice';
 import { Link } from 'react-router-dom';
 
 const statusOptions = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
@@ -93,10 +93,10 @@ export default function DashboardOrders() {
                         order.orderStatus === 'Delivered'
                           ? 'bg-green-100 text-green-700'
                           : order.orderStatus === 'Pending'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : order.orderStatus === 'Cancelled'
-                          ? 'bg-red-100 text-red-600'
-                          : 'bg-blue-100 text-blue-700'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : order.orderStatus === 'Cancelled'
+                              ? 'bg-red-100 text-red-600'
+                              : 'bg-blue-100 text-blue-700'
                       }`}
                     >
                       {statusOptions.map((status) => (

@@ -2,14 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusCircle } from 'lucide-react';
-import { createProduct, resetCreateProductState } from '../../redux/slices/product/createProductSlice';
+import {
+  createProduct,
+  resetCreateProductState,
+} from '../../redux/slices/product/createProductSlice';
 
 const categories = ['Immunity', 'Sleep', 'Daily Vitamins', 'Brain Health', 'Digestive Health'];
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.createProduct);
- const {token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -51,12 +54,11 @@ const CreateProduct = () => {
     // for (const key in product) formData.append(key, product[key]);
     // images.forEach((img) => formData.append('images', img));
     // dispatch(createProduct(formData));
-     const productData = {
-    ...product,
-    images: [], // Optional: Add URLs or handle uploads separately
-  };
+    const productData = {
+      ...product,
+      images: [], // Optional: Add URLs or handle uploads separately
+    };
     dispatch(createProduct({ productData, token }));
-    
   };
 
   return (
@@ -101,7 +103,9 @@ const CreateProduct = () => {
           >
             <option value="">Select Category</option>
             {categories.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
             ))}
           </select>
         </div>

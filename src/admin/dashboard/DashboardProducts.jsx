@@ -105,8 +105,15 @@ export default function DashboardProducts() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"> <PackageOpen size={24} className="text-primary" />Products</h1>
-        <Link to={'/dashboard/create-product'} className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition">
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          {' '}
+          <PackageOpen size={24} className="text-primary" />
+          Products
+        </h1>
+        <Link
+          to={'/dashboard/create-product'}
+          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition"
+        >
           <Plus size={18} />
           Add Product
         </Link>
@@ -138,9 +145,12 @@ export default function DashboardProducts() {
           <tbody>
             {filteredProducts.map((product) => (
               <tr key={product._id} className="border-t hover:bg-gray-50">
-                <td className='p-4'>
+                <td className="p-4">
                   <img
-                    src={product.images?.[0]?.url || 'https://m.media-amazon.com/images/I/719KzrpbhpL.jpg'}
+                    src={
+                      product.images?.[0]?.url ||
+                      'https://m.media-amazon.com/images/I/719KzrpbhpL.jpg'
+                    }
                     alt={product.name}
                     className="w-10 h-10 object-cover rounded"
                   />

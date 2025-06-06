@@ -9,9 +9,7 @@ export const fetchProductDetail = createAsyncThunk(
       const { data } = await axiosInstance.get(`/product/${id}`);
       return data.product;
     } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to fetch product'
-      );
+      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to fetch product');
     }
   }
 );

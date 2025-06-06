@@ -7,7 +7,11 @@ import { createReview, resetReviewState } from '../redux/slices/reviews/reviewsS
 const MyOrders = () => {
   const dispatch = useDispatch();
   const { myOrders, loading, error } = useSelector((state) => state.order);
-  const { loading: reviewLoading, success, error: reviewError } = useSelector((state) => state.review);
+  const {
+    loading: reviewLoading,
+    success,
+    error: reviewError,
+  } = useSelector((state) => state.review);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -49,11 +53,13 @@ const MyOrders = () => {
       alert('Please fill all fields');
       return;
     }
-    dispatch(createReview({
-      productId: selectedItemId, // now correctly set to product ID
-      rating: Number(review.rating),
-      comment: review.comment.trim(),
-    }));
+    dispatch(
+      createReview({
+        productId: selectedItemId, // now correctly set to product ID
+        rating: Number(review.rating),
+        comment: review.comment.trim(),
+      })
+    );
   };
 
   const getStatusIcon = (status) => {
@@ -85,9 +91,7 @@ const MyOrders = () => {
       ) : error ? (
         <p className="text-center text-red-500 py-10">{error}</p>
       ) : myOrders.length === 0 ? (
-        <div className="text-center text-gray-600 py-16">
-          You haven’t placed any orders yet.
-        </div>
+        <div className="text-center text-gray-600 py-16">You haven’t placed any orders yet.</div>
       ) : (
         <div className="space-y-6">
           {myOrders.map((order) => (
@@ -118,11 +122,15 @@ const MyOrders = () => {
                   </p>
                   <div className="flex items-center gap-2">
                     {getStatusIcon(order.orderStatus)}
-                    <span className={`${
-                      order.orderStatus === 'Delivered' ? 'text-green-600'
-                        : order.orderStatus === 'Shipped' ? 'text-blue-500'
-                        : 'text-gray-500'
-                    }`}>
+                    <span
+                      className={`${
+                        order.orderStatus === 'Delivered'
+                          ? 'text-green-600'
+                          : order.orderStatus === 'Shipped'
+                            ? 'text-blue-500'
+                            : 'text-gray-500'
+                      }`}
+                    >
                       {order.orderStatus}
                     </span>
                   </div>
@@ -147,7 +155,9 @@ const MyOrders = () => {
             <h3 className="text-lg font-bold text-darkText mb-4">Write a Review</h3>
             <form onSubmit={handleReviewSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-darkText mb-1">Select Product</label>
+                <label className="block text-sm font-medium text-darkText mb-1">
+                  Select Product
+                </label>
                 <select
                   value={selectedItemId}
                   onChange={(e) => setSelectedItemId(e.target.value)}
@@ -156,7 +166,9 @@ const MyOrders = () => {
                 >
                   <option value="">Choose an item</option>
                   {selectedOrder?.orderItems.map((item) => (
-                    <option key={item._id} value={item.product}>{item.name}</option> // FIXED HERE
+                    <option key={item._id} value={item.product}>
+                      {item.name}
+                    </option> // FIXED HERE
                   ))}
                 </select>
               </div>
@@ -171,7 +183,9 @@ const MyOrders = () => {
                 >
                   <option value="">Select Rating</option>
                   {[1, 2, 3, 4, 5].map((r) => (
-                    <option key={r} value={r}>{r} Star{r > 1 && 's'}</option>
+                    <option key={r} value={r}>
+                      {r} Star{r > 1 && 's'}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -192,10 +206,17 @@ const MyOrders = () => {
               {reviewLoading && <p className="text-gray-500 text-sm">Submitting review...</p>}
 
               <div className="flex justify-end gap-2">
-                <button type="button" onClick={handleCloseModal} className="px-4 py-2 bg-gray-200 text-gray-800 rounded">
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded"
+                >
                   Cancel
                 </button>
-                <button type="submit" className="px-5 py-2 bg-primary text-white rounded hover:bg-primary/90">
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-primary text-white rounded hover:bg-primary/90"
+                >
                   Submit Review
                 </button>
               </div>

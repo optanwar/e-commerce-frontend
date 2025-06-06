@@ -13,11 +13,10 @@ const Payment = React.lazy(() => import('./page/checkout/Payment.jsx'));
 const AuthPage = React.lazy(() => import('./features/auth/AuthPage.jsx'));
 const SubmitReview = React.lazy(() => import('./page/home/SubmitReviews.jsx'));
 const FAQ = React.lazy(() => import('./page/FAQ.jsx'));
-const UserProfile = React.lazy(()=> import('./components/Profile.jsx'));
+const UserProfile = React.lazy(() => import('./components/Profile.jsx'));
 const MyOrders = React.lazy(() => import('./components/MyOrders.jsx'));
 const Wishlist = React.lazy(() => import('./components/Wishlist.jsx'));
 const PageNotFound = React.lazy(() => import('./page/NotFound.jsx'));
-
 
 // Dashboard layout + pages
 const DashboardLayout = React.lazy(() => import('./admin/dashboard/DashboardLayout.jsx'));
@@ -119,7 +118,6 @@ export const route = [
     name: 'User Profile',
     path: '/user-profile',
     component: UserProfile,
-   
   },
   {
     id: 15,

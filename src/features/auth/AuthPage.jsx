@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AuthPage() {
   const dispatch = useDispatch();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('login');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
@@ -14,19 +14,16 @@ export default function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { user, loading, error, isAuthenticated , token } = useSelector(state => state.auth);
-  console.log('AuthPage user:', user );
-  console.log('AuthPage token:', token );
-  console.log('AuthPage token:', isAuthenticated  );
+  const { user, loading, error, isAuthenticated, token } = useSelector((state) => state.auth);
+  console.log('AuthPage user:', user);
+  console.log('AuthPage token:', token);
+  console.log('AuthPage token:', isAuthenticated);
 
   // Login form submit handler
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
-
-
-
 
   // Optional: clear error on tab change or input change
   useEffect(() => {
@@ -35,7 +32,7 @@ export default function AuthPage() {
 
   // Optional: on successful login, do something (redirect, toast, etc)
   useEffect(() => {
-     if (isAuthenticated && user && token) {
+    if (isAuthenticated && user && token) {
       navigate('/'); // Adjust this path as needed
     }
   }, [isAuthenticated, navigate, user, token]);
@@ -164,9 +161,7 @@ export default function AuthPage() {
             </button>
 
             {/* Show error if any */}
-            {error && (
-              <p className="text-red-500 text-center mt-2 font-semibold">{error}</p>
-            )}
+            {error && <p className="text-red-500 text-center mt-2 font-semibold">{error}</p>}
 
             <SocialLoginSection
               activeTab={activeTab}

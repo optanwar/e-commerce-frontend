@@ -6,34 +6,26 @@ import axiosInstance from '../../axios/axiosInstance'; // Make sure this points 
 // ----------------------
 
 // 1. Fetch all users
-export const fetchUsers = createAsyncThunk(
-  'users/fetchAll',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await axiosInstance.get('/admin/users');
-      return data.users;
-    } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || 'Failed to fetch users';
-      return rejectWithValue(message);
-    }
+export const fetchUsers = createAsyncThunk('users/fetchAll', async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.get('/admin/users');
+    return data.users;
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Failed to fetch users';
+    return rejectWithValue(message);
   }
-);
+});
 
 // 2. Delete user by ID
-export const deleteUser = createAsyncThunk(
-  'users/delete',
-  async (userId, { rejectWithValue }) => {
-    try {
-      await axiosInstance.delete(`/admin/user/${userId}`);
-      return userId;
-    } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || 'Failed to delete user';
-      return rejectWithValue(message);
-    }
+export const deleteUser = createAsyncThunk('users/delete', async (userId, { rejectWithValue }) => {
+  try {
+    await axiosInstance.delete(`/admin/user/${userId}`);
+    return userId;
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Failed to delete user';
+    return rejectWithValue(message);
   }
-);
+});
 
 // 3. Update user role/details
 export const updateUserRole = createAsyncThunk(
@@ -43,8 +35,7 @@ export const updateUserRole = createAsyncThunk(
       const { data } = await axiosInstance.put(`/admin/user/${id}`, updatedData);
       return data.user; // return updated user
     } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || 'Failed to update user';
+      const message = error.response?.data?.message || error.message || 'Failed to update user';
       return rejectWithValue(message);
     }
   }

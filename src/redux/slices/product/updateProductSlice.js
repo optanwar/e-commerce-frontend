@@ -9,9 +9,7 @@ export const updateProduct = createAsyncThunk(
       const { data } = await axiosInstance.put(`/admin/product/${id}`, updatedData);
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error?.response?.data?.message || 'Failed to update product'
-      );
+      return rejectWithValue(error?.response?.data?.message || 'Failed to update product');
     }
   }
 );

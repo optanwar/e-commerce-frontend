@@ -11,7 +11,6 @@ import { store, persistor } from './redux/store/store';
 import './styles/App.css';
 import './styles/Tailwind.css';
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>

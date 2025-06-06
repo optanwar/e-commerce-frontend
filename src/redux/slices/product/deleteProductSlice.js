@@ -2,7 +2,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../axios/axiosInstance'; // Your configured axios
 
-
 export const deleteProduct = createAsyncThunk(
   'products/deleteProduct',
   async (id, { rejectWithValue }) => {
@@ -10,9 +9,7 @@ export const deleteProduct = createAsyncThunk(
       const response = await axiosInstance.delete(`/admin/product/${id}`);
       return response.data;
     } catch (err) {
-      return rejectWithValue(
-        err?.response?.data?.message || 'Something went wrong'
-      );
+      return rejectWithValue(err?.response?.data?.message || 'Something went wrong');
     }
   }
 );

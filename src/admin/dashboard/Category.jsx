@@ -42,7 +42,9 @@ const Category = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><FolderKanban className="text-primary" /> Manage Categories</h1>
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <FolderKanban className="text-primary" /> Manage Categories
+        </h1>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 items-center">

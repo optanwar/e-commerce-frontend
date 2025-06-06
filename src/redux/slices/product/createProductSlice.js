@@ -2,19 +2,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../axios/axiosInstance';
 
-
 // ✅ Async thunk to create a product
 export const createProduct = createAsyncThunk(
   'createProduct/create',
   async ({ productData, token }, { rejectWithValue }) => {
     try {
       // productData can be a FormData object if uploading images
-   console.log('Creating product with data:', productData);
-   console.log('rt', token);
+      console.log('Creating product with data:', productData);
+      console.log('rt', token);
       const response = await axiosInstance.post('/admin/product/new', productData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          
         },
       });
       return response.data;

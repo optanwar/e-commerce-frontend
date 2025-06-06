@@ -32,9 +32,7 @@ export const deleteReview = createAsyncThunk(
   'review/deleteReview',
   async ({ productId, reviewId }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.delete(
-        `/reviews?productId=${productId}&id=${reviewId}`
-      );
+      const { data } = await axiosInstance.delete(`/reviews?productId=${productId}&id=${reviewId}`);
       return { message: data.message, reviewId };
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Failed to delete review');
@@ -96,9 +94,7 @@ const reviewSlice = createSlice({
       .addCase(deleteReview.fulfilled, (state, action) => {
         state.loading = false;
         // Remove the deleted review from the list
-        state.reviews = state.reviews.filter(
-          (review) => review._id !== action.payload.reviewId
-        );
+        state.reviews = state.reviews.filter((review) => review._id !== action.payload.reviewId);
       })
       .addCase(deleteReview.rejected, (state, action) => {
         state.loading = false;

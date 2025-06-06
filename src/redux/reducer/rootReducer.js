@@ -6,7 +6,7 @@ import productReducer from '../slices/product/productSlice';
 import productDetailReducer from '../slices/product/productDetailSlice';
 import productUpdateReducer from '../slices/product/updateProductSlice';
 import productDeleteReducer from '../slices/product/deleteProductSlice';
-import userReducer from '../slices/users/userSlice'
+import userReducer from '../slices/users/userSlice';
 import userDetailsAdminReducer from '../slices/users/userDetailsSlice';
 import orderAdminReducer from '../slices/order/orderAdminSlice';
 import orderReducer from '../slices/order/orderSlice';
@@ -19,7 +19,7 @@ import { persistReducer } from 'redux-persist';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth',"products","users"], // Only persist the auth slice
+  whitelist: ['auth', 'products', 'users'], // Only persist the auth slice
 };
 
 const rootReducer = combineReducers({
@@ -32,10 +32,9 @@ const rootReducer = combineReducers({
   user: userReducer,
   userDetailsAdmin: userDetailsAdminReducer,
   ordersAdmin: orderAdminReducer,
-  order: orderReducer ,
+  order: orderReducer,
   profile: profileReducer,
-   review: reviewReducer,
-
+  review: reviewReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
