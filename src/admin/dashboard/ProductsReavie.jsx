@@ -1,60 +1,54 @@
 import React, { useState } from 'react';
 import { Search, Pencil, Trash2, MessagesSquare } from 'lucide-react';
-
-// Dummy review data (simulate backend result)
-const dummyReviews = {
-  101: [
-    {
-      _id: 'r1',
-      user: 'u1',
-      name: 'Alice',
-      rating: 4,
-      comment: 'Great taste and helps immunity!',
-    },
-    {
-      _id: 'r2',
-      user: 'u2',
-      name: 'Bob',
-      rating: 5,
-      comment: 'My kids love them!',
-    },
-  ],
-  102: [
-    {
-      _id: 'r3',
-      user: 'u3',
-      name: 'Charlie',
-      rating: 3,
-      comment: 'Okay, could taste better.',
-    },
-  ],
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductReviews, deleteReview } from '../../redux/slices/reviews/reviewsSlice';
 
 const DashboardReviews = () => {
+  const dispatch = useDispatch();
+  const { reviews, loading, error } = useSelector((state) => state.review);
+
   const [productId, setProductId] = useState('');
-  const [reviews, setReviews] = useState([]);
   const [editReview, setEditReview] = useState(null);
 
   const handleSearch = () => {
-    const data = dummyReviews[productId];
-    setReviews(data || []);
+    if (productId.trim()) {
+      dispatch(getProductReviews(productId.trim()));
+    }
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    const updatedReviews = reviews.map((r) => (r._id === editReview._id ? editReview : r));
-    setReviews(updatedReviews);
+    // Frontend only update simulation
+    const updated = reviews.map((r) =>
+      r._id === editReview._id ? editReview : r
+    );
     setEditReview(null);
+    // Ideally dispatch updateReview thunk here for real API update
   };
 
   const handleDelete = (id) => {
-    const filtered = reviews.filter((r) => r._id !== id);
-    setReviews(filtered);
+    if (!productId) {
+      alert('Please search a product first to get its reviews.');
+      return;
+    }
+    if (window.confirm('Are you sure you want to delete this review?')) {
+      dispatch(deleteReview({ productId, reviewId: id }))
+        .unwrap()
+        .then(() => {
+          dispatch(getProductReviews(productId.trim()));
+        })
+        .catch((err) => {
+          alert(`Failed to delete review: ${err}`);
+        });
+    }
   };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><MessagesSquare className="text-primary" />Product Reviews</h1>
+      <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <MessagesSquare className="text-primary" />
+        Product Reviews
+      </h1>
 
       {/* Search */}
       <div className="flex gap-3 items-center">
@@ -86,6 +80,27 @@ const DashboardReviews = () => {
             </tr>
           </thead>
           <tbody>
+            {loading && (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  Loading reviews...
+                </td>
+              </tr>
+            )}
+            {!loading && error && (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-red-500">
+                  {error}
+                </td>
+              </tr>
+            )}
+            {!loading && reviews.length === 0 && !error && (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  No reviews found.
+                </td>
+              </tr>
+            )}
             {reviews.map((review) => (
               <tr key={review._id} className="border-t hover:bg-gray-50">
                 <td className="p-4">{review.name}</td>
@@ -109,13 +124,6 @@ const DashboardReviews = () => {
                 </td>
               </tr>
             ))}
-            {reviews.length === 0 && (
-              <tr>
-                <td colSpan="4" className="p-4 text-center text-gray-500">
-                  No reviews found.
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>
@@ -134,7 +142,9 @@ const DashboardReviews = () => {
               <input
                 type="text"
                 value={editReview.name}
-                onChange={(e) => setEditReview({ ...editReview, name: e.target.value })}
+                onChange={(e) =>
+                  setEditReview({ ...editReview, name: e.target.value })
+                }
                 className="w-full border px-4 py-2 rounded-lg"
                 required
               />
@@ -147,7 +157,12 @@ const DashboardReviews = () => {
                 min="1"
                 max="5"
                 value={editReview.rating}
-                onChange={(e) => setEditReview({ ...editReview, rating: Number(e.target.value) })}
+                onChange={(e) =>
+                  setEditReview({
+                    ...editReview,
+                    rating: Number(e.target.value),
+                  })
+                }
                 className="w-full border px-4 py-2 rounded-lg"
                 required
               />
@@ -157,7 +172,9 @@ const DashboardReviews = () => {
               <label className="text-sm text-gray-500">Comment</label>
               <textarea
                 value={editReview.comment}
-                onChange={(e) => setEditReview({ ...editReview, comment: e.target.value })}
+                onChange={(e) =>
+                  setEditReview({ ...editReview, comment: e.target.value })
+                }
                 className="w-full border px-4 py-2 rounded-lg"
                 rows={3}
                 required
@@ -172,7 +189,10 @@ const DashboardReviews = () => {
               >
                 Cancel
               </button>
-              <button type="submit" className="px-4 py-2 bg-primary text-white rounded-lg">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-primary text-white rounded-lg"
+              >
                 Save
               </button>
             </div>
