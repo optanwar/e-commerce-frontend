@@ -54,6 +54,10 @@ const userSlice = createSlice({
       state.error = null;
       state.successMessage = null;
     },
+    clearMessages(state) {
+      state.error = null;
+      state.successMessage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -104,5 +108,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { clearUserState } = userSlice.actions;
+export const { clearUserState,clearMessages } = userSlice.actions;
 export default userSlice.reducer;
