@@ -1,32 +1,39 @@
-// src/features/checkout/StripeWrapper.jsx
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import Payment from './Payment';
+import { useDispatch, useSelector } from 'react-redux';
 import { processPayment } from '../../redux/slices/order/paymentSlice';
+import Payment from './Payment';
 
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
-export default function StripeWrapper() {
-    const dispatch = useDispatch();
-      const { stripeApiKey } = useSelector((state) => state.stripe);
-    const { clientSecret, loading } = useSelector((state) => state.stripe);
-    
-    const stripePromise = loadStripe(stripeApiKey);
-  const { cartItems, totalAmount } = useSelector((state) => state.cart); // If you have real cart state
-  const amountInCents = Math.round(totalAmount * 100);
+export default function PaymentWrapper() {
+  const dispatch = useDispatch();
+  const { clientSecret, loading } = useSelector((state) => state.stripe);
+
+  const amount = 9999; // Replace with actual cart total
 
   useEffect(() => {
-    if (!clientSecret && amountInCents > 0) {
-      dispatch(processPayment(amountInCents));
+    if (!clientSecret) {
+      dispatch(processPayment(amount));
     }
-  }, [clientSecret, amountInCents, dispatch]);
-
-  if (!clientSecret) return <p className="text-center py-10">Loading payment...</p>;
+  }, [clientSecret, dispatch]);
 
   const options = {
     clientSecret,
+    appearance: {
+      theme: 'stripe',
+    },
   };
+
+  if (!clientSecret) {
+    return (
+      <div className="text-center py-10">
+        <h2 className="text-xl font-bold">Loading payment...</h2>
+        <p className="text-sm text-gray-500">Waiting for Stripe client secret</p>
+      </div>
+    );
+  }
 
   return (
     <Elements stripe={stripePromise} options={options}>

@@ -21,6 +21,7 @@ export const processPayment = createAsyncThunk(
   async (amount, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post('/payment/process', { amount });
+            console.log("Payment response:", data);
       return data.client_secret;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -64,11 +65,13 @@ const paymentSlice = createSlice({
       .addCase(processPayment.fulfilled, (state, action) => {
         state.loading = false;
         state.clientSecret = action.payload;
+        state.clientSecret = action.payload.clientSecret;
       })
       .addCase(processPayment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
+      
   },
 });
 
