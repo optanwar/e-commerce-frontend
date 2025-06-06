@@ -10,7 +10,7 @@ import {
   Store,
   Menu as MenuIcon,
   X,
-  Hand,
+  
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useSelector , useDispatch} from 'react-redux';
@@ -178,7 +178,7 @@ export default function Navbar() {
 
   <nav className="flex flex-col px-4 py-6 space-y-4 text-darkText font-medium text-base">
     {!token || !user ? ( '') : (      // If logged in, no button but you can optionally put a greeting or something else here
-      <div className="text-sm font-semibold text-darkText flex items-center gap-2"> <Hand className="w-6 h-6 text-amber-400" />  Hello, {user.name || 'User'}</div>
+      <div className="text-sm font-semibold text-darkText flex items-center gap-2"> Hello, {user.name || 'User'} <span className='text-base'>👋 </span> </div>
     )}
     <Link
       to="/about"

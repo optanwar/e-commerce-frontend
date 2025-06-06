@@ -65,7 +65,8 @@ export default function About() {
           </p>
         </div>
         <img
-          src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80"
+          
+          src="https://images.pexels.com/photos/7604368/pexels-photo-7604368.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="Kids playing outdoors"
           className="rounded-xl shadow-lg w-full object-cover max-h-96"
         />

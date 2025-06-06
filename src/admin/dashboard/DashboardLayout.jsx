@@ -46,7 +46,7 @@ export default function DashboardLayout() {
         <div className="flex flex-col h-full">
           {/* Brand */}
           <div className="p-4 text-2xl font-bold text-primary border-b font-heading">
-            <Link to="/">YummyGummies</Link>
+            <Link to="/dashboard">YummyGummies</Link>
           </div>
 
           {/* Navigation */}
