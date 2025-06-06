@@ -1,6 +1,8 @@
 // src/redux/axios/axiosInstance.js
 import axios from 'axios';
+  const token = localStorage.getItem('token'); // Or use Redux if stored there
 
+console.log('Request Config:', token);
 
 const axiosInstance = axios.create({
   baseURL: 'https://e-commerce-backend-u12r.onrender.com/api/v1', // Use env variables in production
@@ -14,8 +16,6 @@ const axiosInstance = axios.create({
 
 // ✅ Optional: Add auth token if available
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token'); // Or use Redux if stored there
-
 
  
   if (token) {
