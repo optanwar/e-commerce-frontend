@@ -24,7 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   createProduct: createProductReducer,
-  product: productReducer,
+  products: productReducer,
   productUpdate: productUpdateReducer,
   productDelete: productDeleteReducer,
   user: userReducer,

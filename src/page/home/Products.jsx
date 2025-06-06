@@ -1,16 +1,28 @@
-import React from 'react';
-import { Heart } from 'lucide-react';
-
+import React, { useEffect } from 'react';
+import { Heart} from 'lucide-react';
+import {fetchProducts} from '../../redux/slices/product/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import Rating from '@mui/material/Rating';
+import { Link } from 'react-router-dom';
 const Projects = () => {
+  const dispatch = useDispatch();
+  const {products, loading, error } = useSelector((state) => state?.products);
+
+  useEffect(()=>{
+    dispatch(fetchProducts());
+
+  }, [dispatch]);
+
+  console.log(products);
   return (
     <>
       <section className="py-10 sm:py-12 sm:px-6 md:px-8 md:py-16 lg:py-20 xl:py-24 2xl:py-28 px-4 max-w-6xl mx-auto">
         <h2 className="text-3xl font-heading text-center text-secondary mb-10">Best Sellers</h2>
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {[1, 2, 3].map((i) => (
+          {products && products?.map((product) => (
             <div
-              key={i}
+              key={product._id}
               className="bg-white rounded-xl shadow-soft p-4 relative hover:shadow-hoverCard transition border  border-primary border-dotted"
             >
               {/* Favorite Icon */}
@@ -21,32 +33,37 @@ const Projects = () => {
               {/* Product Image */}
               <img
                 src="https://images.pexels.com/photos/14433536/pexels-photo-14433536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt={`Gummy ${i}`}
+                alt={`Gummy ${product.name}`}
                 className="w-full h-52 object-cover rounded-lg mb-4"
               />
 
               {/* Product Title */}
-              <h3 className="text-lg font-heading text-accent mb-1">Strawberry Gummies</h3>
+            <Link to={`/products/${product._id}`}> <h3 className="text-lg font-heading text-accent mb-1">{product.name}</h3> </Link>
 
               {/* Price */}
-              <p className="text-md font-semibold text-darkText mb-1">$12.99</p>
+              <p className="text-md font-semibold text-darkText mb-1">{product.price}</p>
 
               {/* Rating */}
-              <div className="flex items-center gap-1 mb-2">
-                {[...Array(5)].map((_, index) => (
-                  <svg
-                    key={index}
-                    className="w-4 h-4 text-yellow-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.13 3.455a1 1 0 00.95.69h3.633c.969 0 1.371 1.24.588 1.81l-2.94 2.137a1 1 0 00-.364 1.118l1.13 3.455c.3.921-.755 1.688-1.54 1.118L10 13.347l-2.94 2.137c-.784.57-1.838-.197-1.54-1.118l1.13-3.455a1 1 0 00-.364-1.118L3.346 8.882c-.783-.57-.38-1.81.588-1.81h3.633a1 1 0 00.95-.69l1.13-3.455z" />
-                  </svg>
-                ))}
-              </div>
+             <div className="flex items-center gap-2 mb-2">
+  <div className="flex items-center gap-1 bg-yellow-50 border border-yellow-100 px-2 py-1 rounded-full">
+    <Rating 
+      name="read-only" 
+      size="small" 
+      value={product.ratings} 
+      readOnly 
+      precision={0.5} 
+    />
+    <span className="text-xs text-yellow-700 font-medium">
+      {product.ratings.toFixed(1)}
+    </span>
+  </div>
+  <span className="text-sm text-gray-600">
+    ({product.numOfReviews} reviews)
+  </span>
+</div>
 
               {/* Description */}
-              <p className="text-sm text-darkText">Delicious, fruity, and full of vitamins.</p>
+              <p className="text-sm text-darkText">{product.description}</p>
 
               {/* Add to Cart Button */}
               <button className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition">

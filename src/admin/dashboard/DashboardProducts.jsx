@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 export default function DashboardProducts() {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state?.product);
+  const { products, loading, error } = useSelector((state) => state?.products);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [isEditing, setIsEditing] = useState(false);
