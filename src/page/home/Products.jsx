@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Heart} from 'lucide-react';
+import { Heart, ShoppingCart} from 'lucide-react';
 import {fetchProducts} from '../../redux/slices/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '@mui/material/Rating';
@@ -13,14 +13,14 @@ const Projects = () => {
 
   }, [dispatch]);
 
-  console.log(products);
+  
   return (
     <>
       <section className="py-10 sm:py-12 sm:px-6 md:px-8 md:py-16 lg:py-20 xl:py-24 2xl:py-28 px-4 max-w-6xl mx-auto">
         <h2 className="text-3xl font-heading text-center text-secondary mb-10">Best Sellers</h2>
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {products && products?.map((product) => (
+          {products && products?.length > 0 && products.slice(0, 3).map((product) => (
             <div
               key={product._id}
               className="bg-white rounded-xl shadow-soft p-4 relative hover:shadow-hoverCard transition border  border-primary border-dotted"
@@ -41,8 +41,22 @@ const Projects = () => {
             <Link to={`/products/${product._id}`}> <h3 className="text-lg font-heading text-accent mb-1">{product.name}</h3> </Link>
 
               {/* Price */}
-              <p className="text-md font-semibold text-darkText mb-1">{product.price}</p>
+             <div className="flex items-center gap-2 mb-1">
+  {/* Current Price */}
+  <p className="text-lg font-bold text-primary tracking-wider">${product.price.toFixed(2)}</p>
 
+  {/* Optional: Old Price if discounted */}
+  {product.price && (
+    <p className="text-sm text-gray-400 line-through">${product.price.toFixed(2)}</p>
+  )}
+
+  {/* Optional: Sale Badge */}
+  {product.oldPrice && (
+    <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-semibold">
+      -{Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
+    </span>
+  )}
+</div>
               {/* Rating */}
              <div className="flex items-center gap-2 mb-2">
   <div className="flex items-center gap-1 bg-yellow-50 border border-yellow-100 px-2 py-1 rounded-full">
@@ -66,8 +80,8 @@ const Projects = () => {
               <p className="text-sm text-darkText">{product.description}</p>
 
               {/* Add to Cart Button */}
-              <button className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition">
-                Add to Cart
+              <button className="mt-4 bg-primary text-white w-full py-2 rounded-lg font-bold hover:bg-[#e25555] transition flex items-center justify-center gap-2">
+              <ShoppingCart className="w-4 h-4" />  Add to Cart
               </button>
             </div>
           ))}
