@@ -1,6 +1,7 @@
 // src/redux/rootReducer.js
 import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from '../slices/auth/loginSlice';
+import passwordReducer from '../slices/auth/passwordSlice';
 import createProductReducer from '../slices/product/createProductSlice';
 import productReducer from '../slices/product/productSlice';
 import productDetailReducer from '../slices/product/productDetailSlice';
@@ -27,6 +28,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  password: passwordReducer,
   createProduct: createProductReducer,
   products: productReducer,
   productDetail: productDetailReducer,

@@ -11,6 +11,7 @@ const Checkout = React.lazy(() => import('./features/checkout/Checkout.jsx'));
 const ConfirmOrder = React.lazy(() => import('./features/checkout/ConfirmOrder.jsx'));
 const Payment = React.lazy(() => import('./features/checkout/Payment.jsx'));
 const AuthPage = React.lazy(() => import('./features/auth/AuthPage.jsx'));
+const ResetPassword = React.lazy(()=> import('./features/auth/ResetPassword.jsx'))
 const SubmitReview = React.lazy(() => import('./page/home/SubmitReviews.jsx'));
 const FAQ = React.lazy(() => import('./page/FAQ.jsx'));
 const UserProfile = React.lazy(() => import('./components/Profile.jsx'));
@@ -139,6 +140,12 @@ export const route = [
     name: 'Order Success',
     path: '/order-success',
     component: OrderSuccess,
+  },
+  {
+    id: 18,
+    name: 'Reset Password',
+    path: '/password/reset/:token',
+    component: ResetPassword,
   },
   {
     id: 20,

@@ -6,9 +6,21 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post('/loginUser', credentials);
-      localStorage.setItem('token', response.data.token);
-      return response.data;
+      const { data } = await axiosInstance.post('/loginUser', credentials);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+// Register Thunk
+export const registerUser = createAsyncThunk(
+  'auth/registerUser',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post('/registerUser', userData);
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -16,23 +28,27 @@ export const loginUser = createAsyncThunk(
 );
 
 // Logout Thunk
-export const logoutUser = createAsyncThunk('auth/logoutUser', async (_, { rejectWithValue }) => {
-  try {
-    await axiosInstance.get('/logout'); // Adjust path if needed
-    return true;
-  } catch (error) {
-    return rejectWithValue(error.response?.data?.message || error.message);
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      await axiosInstance.get('/logout');
+      return true;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
-});
+);
 
-const loginSlice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
     token: null,
+    isAuthenticated: false,
     loading: false,
     error: null,
-    isAuthenticated: false,
+    registerSuccess: false,
   },
   reducers: {
     logout: (state) => {
@@ -41,13 +57,18 @@ const loginSlice = createSlice({
       state.isAuthenticated = false;
       state.error = null;
       state.loading = false;
+      state.registerSuccess = false;
     },
     clearError: (state) => {
       state.error = null;
     },
+    clearRegisterSuccess: (state) => {
+      state.registerSuccess = false;
+    },
   },
   extraReducers: (builder) => {
     builder
+      // Login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -63,6 +84,27 @@ const loginSlice = createSlice({
         state.error = action.payload || 'Login failed';
         state.isAuthenticated = false;
       })
+
+      // Register
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.registerSuccess = false;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.registerSuccess = true;
+        state.isAuthenticated = true;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Registration failed';
+        state.registerSuccess = false;
+      })
+
+      // Logout
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
       })
@@ -72,6 +114,7 @@ const loginSlice = createSlice({
         state.token = null;
         state.isAuthenticated = false;
         state.error = null;
+        state.registerSuccess = false;
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.loading = false;
@@ -80,5 +123,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { logout, clearError } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { logout, clearError, clearRegisterSuccess } = authSlice.actions;
+export default authSlice.reducer;
