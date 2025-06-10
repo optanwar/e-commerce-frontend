@@ -17,6 +17,7 @@ const UserProfile = React.lazy(() => import('./components/Profile.jsx'));
 const MyOrders = React.lazy(() => import('./components/MyOrders.jsx'));
 const Wishlist = React.lazy(() => import('./components/Wishlist.jsx'));
 const StripeWrapper = React.lazy(()=> import('./features/checkout/StripeWrapper.jsx'))
+const OrderSuccess = React.lazy(()=>import('./features/checkout/OrderSuccess.jsx'))
 const PageNotFound = React.lazy(() => import('./page/NotFound.jsx'));
 
 // Dashboard layout + pages
@@ -132,6 +133,12 @@ export const route = [
     name: 'Wishlist',
     path: '/wishlist',
     component: Wishlist,
+  },
+  {
+    id: 17,
+    name: 'Order Success',
+    path: '/order-success',
+    component: OrderSuccess,
   },
   {
     id: 20,
