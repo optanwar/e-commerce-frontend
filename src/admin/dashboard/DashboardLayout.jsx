@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, Outlet, redirect, useNavigate } from 'react-router-dom';
 import {
   Menu,
   LogOut,
@@ -12,10 +12,18 @@ import {
   ListChecks,
   Tag,
 } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 export default function DashboardLayout() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
+   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+    useEffect(() => {
+    // Ensure user exists and role is not 'admin'
+    if (!user || user.role !== 'admin') {
+      navigate('/');
+    }
+  }, [user, navigate]);
   const sidebarItems = [
     { name: 'Dashboard', icon: <LayoutDashboard size={18} />, to: '/dashboard' },
     { name: 'Orders', icon: <ShoppingCart size={18} />, to: '/dashboard/orders' },

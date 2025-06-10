@@ -10,6 +10,7 @@ import {
   Store,
   Menu as MenuIcon,
   X,
+  LayoutDashboard,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,6 +28,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { token, user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
+
+  console.log(user,5454)
  
 
   const handleUserClick = (event) => {
@@ -110,6 +113,17 @@ export default function Navbar() {
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             PaperProps={{ sx: { mt: 1, minWidth: 180 } }}
           >
+            {user?.role === "admin" && (
+      <MenuItem
+    className="hover:text-primary"
+    component={Link}
+    to="/dashboard"
+    onClick={handleDropdownClose}
+  >
+    <LayoutDashboard className="w-4 h-4 mr-2" />
+    Dashboard
+  </MenuItem>
+)}
             <MenuItem
               className="hover:text-primary"
               component={Link}

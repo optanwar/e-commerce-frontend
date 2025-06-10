@@ -1,39 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  resetPassword,
+  clearPasswordError,
+  clearPasswordMessage,
+} from '../../redux/slices/auth/passwordSlice';
 import { LockKeyhole, LoaderCircle } from 'lucide-react';
 
 const ResetPassword = () => {
   const [form, setForm] = useState({ password: '', confirmPassword: '' });
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
-  const { token } = useParams(); // URL should be like: /password/reset/:token
+  const { token } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { success ,loading, error, message } = useSelector((state) => state.password);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setMessage('');
-
-    try {
-      const { data } = await axios.put(
-        `http://localhost:4000/api/v1/password/reset/${token}`,
-        form
-      );
-      setMessage(data.message || 'Password reset successful!');
-      setTimeout(() => navigate('/login'), 2000);
-    } catch (err) {
-      setMessage(
-        err.response?.data?.message || 'Something went wrong. Please try again.'
-      );
-    } finally {
-      setLoading(false);
-    }
+    dispatch(resetPassword({ token, ...form }));
   };
+
+  // ✅ Redirect if successful
+  useEffect(() => {
+    if (success===true && !error) {
+      const timer = setTimeout(() => {
+        dispatch(clearPasswordMessage());
+        navigate('/login');
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [ error, navigate, dispatch, success]);
+
+  // ✅ Clear error on mount or path change
+  useEffect(() => {
+    dispatch(clearPasswordError());
+  }, [dispatch]);
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 bg-gradient-to-br from-yellow-50 via-white to-pink-50">
@@ -79,8 +85,11 @@ const ResetPassword = () => {
           </button>
         </form>
 
-        {message && (
-          <p className="mt-4 text-sm text-center text-red-500 font-medium">{message}</p>
+        {error && (
+          <p className="mt-4 text-sm text-center text-red-500 font-medium">{error}</p>
+        )}
+        {message && !error && (
+          <p className="mt-4 text-sm text-center text-green-600 font-medium">{message}</p>
         )}
       </div>
     </div>

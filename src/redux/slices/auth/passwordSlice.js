@@ -37,6 +37,7 @@ const passwordSlice = createSlice({
     loading: false,
     error: null,
     message: null,
+    success : false,
   },
   reducers: {
     clearPasswordError: (state) => {
@@ -72,6 +73,7 @@ const passwordSlice = createSlice({
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.loading = false;
         state.message = action.payload;
+        state.success = true;
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
