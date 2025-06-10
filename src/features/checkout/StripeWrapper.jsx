@@ -9,22 +9,29 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default function PaymentWrapper() {
   const dispatch = useDispatch();
-  const { clientSecret, loading } = useSelector((state) => state.stripe);
+  const { clientSecret, loading, error } = useSelector((state) => state.stripe);
 
-  const amount = 9999; // Replace with actual cart total
-
-  useEffect(() => {
-    if (!clientSecret) {
-      dispatch(processPayment(amount));
-    }
-  }, [clientSecret, dispatch]);
-
+  const amount = Number(9999); // Replace with actual cart total
   const options = {
     clientSecret,
     appearance: {
       theme: 'stripe',
     },
   };
+  useEffect(() => {
+    if (!clientSecret) {
+      dispatch(processPayment(amount));
+    }
+  }, [clientSecret, dispatch,amount]);
+if (error) {
+  return (
+    <div className="text-center py-10 text-red-600">
+      <h2 className="text-xl font-bold">Payment Error</h2>
+      <p className="text-sm">{error}</p>
+    </div>
+  );
+}
+
 
   if (!clientSecret) {
     return (

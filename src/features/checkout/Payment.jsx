@@ -17,6 +17,10 @@ export default function Payment() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Stripe object:", stripe);
+console.log("Elements object:", elements);
+
+
     if (!stripe || !elements) return;
 
     const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
@@ -58,7 +62,8 @@ export default function Payment() {
         <h1 className="text-3xl font-bold text-primary mb-8">Payment Details</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <PaymentElement />
+            <div className="__PrivateStripeElement"> <PaymentElement /></div>
+         
 
           <button
             type="submit"

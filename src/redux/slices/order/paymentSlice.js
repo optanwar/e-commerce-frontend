@@ -65,7 +65,8 @@ const paymentSlice = createSlice({
       .addCase(processPayment.fulfilled, (state, action) => {
         state.loading = false;
         state.clientSecret = action.payload;
-        state.clientSecret = action.payload.clientSecret;
+         
+        // state.clientSecret = action.payload.clientSecret;
       })
       .addCase(processPayment.rejected, (state, action) => {
         state.loading = false;
