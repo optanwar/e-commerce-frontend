@@ -34,7 +34,7 @@ const OrderSuccess = () => {
           to='/my-orders'
           className="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition text-sm flex items-center gap-2"
         >
-          <ShoppingBag size={16} /> View My Orders
+          <ShoppingBag size={16} /> View Orders
         </Link>
         <Link
           to="/products"

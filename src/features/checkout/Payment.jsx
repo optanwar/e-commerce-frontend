@@ -21,6 +21,9 @@ export default function Payment() {
   const [isProcessing, setIsProcessing] = useState(false);
 
 
+    const {shippingAddress} = location.state || {};
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,13 +46,13 @@ export default function Payment() {
 
     if (paymentIntent?.status === 'succeeded') {
       const orderData = {
-      shippingInfo: {
-    "address": "123 Main Street",
-    "city": "New York",
-    "state": "NY",
-    "country": "USA",
-    "pinCode": 10001,
-    "phoneNo": 1234567890
+       shippingInfo: {
+       address: shippingAddress.address,
+       city:shippingAddress.city,
+       state: shippingAddress.state,
+       country: shippingAddress.country,
+       pinCode: shippingAddress.zip,
+       phoneNo: shippingAddress.phone,
   },
         orderItems: cartItems.map((item) => ({
           name: item.name,

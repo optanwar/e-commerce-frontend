@@ -19,6 +19,7 @@ export default function CheckoutPage() {
     email: '',
     address: '',
     city: '',
+    state: '', 
     zip: '',
     country: '',
     phone: '',
@@ -147,38 +148,56 @@ export default function CheckoutPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-1 font-medium" htmlFor="city">
-                  City
-                </label>
-                <input
-                  id="city"
-                  name="city"
-                  type="text"
-                  placeholder="New York"
-                  value={formData.city}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-primary"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block mb-1 font-medium" htmlFor="country">
-                  Country
-                </label>
-                <input
-                  id="country"
-                  name="country"
-                  type="text"
-                  placeholder="USA"
-                  value={formData.country}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-primary"
-                  required
-                />
-              </div>
-            </div>
+           <div className="grid grid-cols-3 gap-4">
+  <div>
+    <label className="block mb-1 font-medium" htmlFor="city">
+      City
+    </label>
+    <input
+      id="city"
+      name="city"
+      type="text"
+      placeholder="New York"
+      value={formData.city}
+      onChange={handleChange}
+      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-primary"
+      required
+    />
+  </div>
+
+  <div>
+    <label className="block mb-1 font-medium" htmlFor="state">
+      State
+    </label>
+    <input
+      id="state"
+      name="state"
+      type="text"
+      placeholder="NY"
+      value={formData.state}
+      onChange={handleChange}
+      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-primary"
+      required
+    />
+  </div>
+
+  <div>
+    <label className="block mb-1 font-medium" htmlFor="country">
+      Country
+    </label>
+    <input
+      id="country"
+      name="country"
+      type="text"
+      placeholder="USA"
+      value={formData.country}
+      onChange={handleChange}
+      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-primary"
+      required
+    />
+  </div>
+</div>
+
           </form>
         </div>
 
