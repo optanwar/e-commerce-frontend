@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { createOrder } from '../../redux/slices/order/createOrderSlice';
+import { clearCart } from '../../redux/slices/cart/cartSlice'; // ✅ Import clearCart
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Payment() {
-
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
-    
-   
 
   const { loading: orderLoading, error: orderError } = useSelector((state) => state.order);
   const { cartItems, totalPrice } = useSelector((state) => state.cart);
-
   const [isProcessing, setIsProcessing] = useState(false);
 
-
-    const {shippingAddress} = location.state || {};
-
+  const { shippingAddress } = location.state || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,31 +40,32 @@ export default function Payment() {
 
     if (paymentIntent?.status === 'succeeded') {
       const orderData = {
-       shippingInfo: {
-       address: shippingAddress.address,
-       city:shippingAddress.city,
-       state: shippingAddress.state,
-       country: shippingAddress.country,
-       pinCode: shippingAddress.zip,
-       phoneNo: shippingAddress.phone,
-  },
+        shippingInfo: {
+          address: shippingAddress.address,
+          city: shippingAddress.city,
+          state: shippingAddress.state,
+          country: shippingAddress.country,
+          pinCode: shippingAddress.zip,
+          phoneNo: shippingAddress.phone,
+        },
         orderItems: cartItems.map((item) => ({
           name: item.name,
           price: item.price,
           quantity: item.quantity,
           // image: item.image || '', // fallback if missing
-          image: 'https://images.pexels.com/photos/14433536/pexels-photo-14433536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', // fallback if missing
+          image: 'https://images.pexels.com/photos/14433536/pexels-photo-14433536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
           product: item._id,
         })),
         paymentInfo: {
           id: paymentIntent.id,
           status: paymentIntent.status,
         },
-        totalPrice, // ✅ using from Redux
+        totalPrice,
       };
 
       const res = await dispatch(createOrder(orderData));
       if (res.meta.requestStatus === 'fulfilled') {
+        dispatch(clearCart()); // ✅ Clear cart on success
         navigate('/order-success');
       } else {
         alert('Order creation failed. Try again!');
