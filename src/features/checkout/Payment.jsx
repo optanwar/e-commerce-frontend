@@ -52,7 +52,7 @@ export default function Payment() {
           name: item.name,
           price: item.price,
           quantity: item.quantity,
-          // image: item.image || '', // fallback if missing
+          // image: item.image || 'https://images.pexels.com/photos/14433536/pexels-photo-14433536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', // fallback if missing
           image: 'https://images.pexels.com/photos/14433536/pexels-photo-14433536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
           product: item._id,
         })),
