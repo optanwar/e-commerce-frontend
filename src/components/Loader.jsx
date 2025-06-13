@@ -2,8 +2,13 @@ import React from 'react';
 
 const Loader = () => {
   return (
-    <div className="w-screen h-screen bg-white grid place-items-center max-w-full">
-      <div className="w-[10vmax] h-[10vmax] border-b-4 border-black/70 rounded-full animate-[loadingRotate_800ms_linear_infinite]"></div>
+    <div className="w-screen h-screen bg-pink-50 flex items-center justify-center">
+      <div className="relative">
+        <div className="w-20 h-20 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+        <span className="absolute inset-0 flex items-center justify-center text-primary font-bold animate-pulse text-sm">
+          Loading...
+        </span>
+      </div>
     </div>
   );
 };

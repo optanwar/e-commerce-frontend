@@ -41,11 +41,7 @@ export default function Navbar() {
   };
 
 
-  useEffect(() => {
-  if (! token && !user) {
-    navigate('/login');
-  }
-}, [ token, user, navigate]);
+
 
   const handleLogout = () => {
     dispatch(logoutUser());
