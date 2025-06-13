@@ -7,6 +7,7 @@ import {
   clearPasswordMessage,
 } from '../../redux/slices/auth/passwordSlice';
 import { LockKeyhole, LoaderCircle } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const ResetPassword = () => {
   const [form, setForm] = useState({ password: '', confirmPassword: '' });
@@ -14,7 +15,9 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { success ,loading, error, message } = useSelector((state) => state.password);
+  const { success, loading, error, message } = useSelector(
+    (state) => state.password
+  );
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,18 +28,35 @@ const ResetPassword = () => {
     dispatch(resetPassword({ token, ...form }));
   };
 
-  // ✅ Redirect if successful
+  // ✅ Show success popup & redirect
   useEffect(() => {
-    if (success===true && !error) {
-      const timer = setTimeout(() => {
+    if (success === true && !error) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Password Reset Successfully',
+        text: 'You will be redirected to login',
+        timer: 2000,
+        showConfirmButton: false,
+      }).then(() => {
         dispatch(clearPasswordMessage());
         navigate('/login');
-      }, 100);
-      return () => clearTimeout(timer);
+      });
     }
-  }, [ error, navigate, dispatch, success]);
+  }, [success, error, dispatch, navigate]);
 
-  // ✅ Clear error on mount or path change
+  // ❌ Show error popup
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Reset Failed',
+        text: error,
+      });
+      dispatch(clearPasswordError());
+    }
+  }, [error, dispatch]);
+
+  // 🔄 Clear error on mount
   useEffect(() => {
     dispatch(clearPasswordError());
   }, [dispatch]);
@@ -51,7 +71,9 @@ const ResetPassword = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-darkText mb-1">New Password</label>
+            <label className="block text-sm font-medium text-darkText mb-1">
+              New Password
+            </label>
             <input
               type="password"
               name="password"
@@ -64,7 +86,9 @@ const ResetPassword = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-darkText mb-1">Confirm Password</label>
+            <label className="block text-sm font-medium text-darkText mb-1">
+              Confirm Password
+            </label>
             <input
               type="password"
               name="confirmPassword"
@@ -79,18 +103,15 @@ const ResetPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-white py-2 rounded hover:bg-primary/90 transition flex items-center justify-center"
+            className="w-full bg-primary text-white py-2 rounded hover:bg-primary/90 transition flex items-center justify-center disabled:opacity-70"
           >
-            {loading ? <LoaderCircle className="animate-spin w-5 h-5" /> : 'Reset Password'}
+            {loading ? (
+              <LoaderCircle className="animate-spin w-5 h-5" />
+            ) : (
+              'Reset Password'
+            )}
           </button>
         </form>
-
-        {error && (
-          <p className="mt-4 text-sm text-center text-red-500 font-medium">{error}</p>
-        )}
-        {message && !error && (
-          <p className="mt-4 text-sm text-center text-green-600 font-medium">{message}</p>
-        )}
       </div>
     </div>
   );

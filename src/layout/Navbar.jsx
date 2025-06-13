@@ -40,9 +40,18 @@ export default function Navbar() {
     }
   };
 
+
+  useEffect(() => {
+  if (! token && !user) {
+    navigate('/login');
+  }
+}, [ token, user, navigate]);
+
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(logout()); // Clear user state in Redux
+    navigate('/login');
+
     handleDropdownClose();
   };
 

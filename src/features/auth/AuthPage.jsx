@@ -7,6 +7,7 @@ import {
 } from '../../redux/slices/auth/loginSlice';
 import { forgotPassword } from '../../redux/slices/auth/passwordSlice';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function AuthPage() {
   const dispatch = useDispatch();
@@ -14,60 +15,86 @@ export default function AuthPage() {
   const [activeTab, setActiveTab] = useState('login');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-
-  // Login form
+  // Login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Register form
+  // Register
   const [name, setName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
 
-  // Forget Password
+  // Forgot Password
   const [forgotEmail, setForgotEmail] = useState('');
 
   const { user, loading, error, isAuthenticated, token } = useSelector(
     (state) => state.auth
   );
 
-  // Redirect on successful login or registration
+  // Redirect to homepage on login/register success
   useEffect(() => {
     if (isAuthenticated && user && token) {
+      Swal.fire({
+        icon: 'success',
+        title: `Welcome ${user.name || 'back'}!`,
+        text: 'You are now logged in.',
+        timer: 2000,
+        showConfirmButton: false,
+      });
       navigate('/');
     }
-  }, [isAuthenticated, navigate, user, token]);
+  }, [isAuthenticated, user, token, navigate]);
+
+  // Show error popup
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: error,
+        timer: 2500,
+        showConfirmButton: false,
+      });
+    }
+  }, [error]);
 
   // Clear error on tab switch
   useEffect(() => {
     dispatch(clearError());
   }, [activeTab, dispatch]);
 
-  // Submit: Login
+  // Handle Login
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
 
-  // Submit: Register
+  // Handle Register
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser({ name, email: regEmail, password: regPassword }));
   };
 
-  // Dummy forgot password
-  const handleForgotSubmit = (e) => {
+  // Handle Forgot Password
+  const handleForgotSubmit = async (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(forgotEmail));
-    alert(`Reset link sent to: ${forgotEmail}`);
+    await dispatch(forgotPassword(forgotEmail));
+    Swal.fire({
+      icon: 'info',
+      title: 'Check your inbox',
+      text: `Reset link sent to ${forgotEmail}`,
+      timer: 2500,
+      showConfirmButton: false,
+    });
+    setShowForgotPassword(false);
   };
 
   const handleGoogleAuth = () => {
-    alert(`${activeTab === 'login' ? 'Log in' : 'Sign up'} with Google`);
+    Swal.fire('Info', 'Google Auth is not implemented.', 'info');
   };
 
   const handleFacebookAuth = () => {
-    alert(`${activeTab === 'login' ? 'Log in' : 'Sign up'} with Facebook`);
+    Swal.fire('Info', 'Facebook Auth is not implemented.', 'info');
   };
 
   return (
@@ -185,12 +212,6 @@ export default function AuthPage() {
               {loading ? 'Logging in...' : 'Log In'}
             </button>
 
-            {error && (
-              <p className="text-red-500 text-center mt-2 font-semibold">
-                {error}
-              </p>
-            )}
-
             <SocialLoginSection
               activeTab={activeTab}
               onGoogle={handleGoogleAuth}
@@ -246,12 +267,6 @@ export default function AuthPage() {
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
-
-            {error && (
-              <p className="text-red-500 text-center mt-2 font-semibold">
-                {error}
-              </p>
-            )}
 
             <SocialLoginSection
               activeTab={activeTab}
