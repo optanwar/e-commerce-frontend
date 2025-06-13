@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductDetail } from '../../redux/slices/product/productDetailSlice';
 import { addToCart, calculateTotals } from '../../redux/slices/cart/cartSlice';
 import { Rating } from '@mui/material';
-
+import Swal from 'sweetalert2';
 export default function ProductDetail() {
   const [qty, setQty] = useState(1);
   const { id } = useParams();
@@ -29,6 +29,15 @@ export default function ProductDetail() {
     }));
 
     dispatch(calculateTotals());
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: `${product.name} added to cart!`,
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      });
   };
 
   if (loading) {

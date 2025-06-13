@@ -4,7 +4,7 @@ import { fetchProducts } from '../../redux/slices/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 import {  addToCart,  calculateTotals } from '../../redux/slices/cart/cartSlice';
 const Projects = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,15 @@ const Projects = () => {
   const handleAddToCart = (product) => {
   dispatch(addToCart({ ...product, quantity: 1 }));
   dispatch(calculateTotals());
+   Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'success',
+    title: `${product.name} added to cart!`,
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+  });
 };
 
   return (
