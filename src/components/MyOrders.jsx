@@ -3,6 +3,7 @@ import { PackageCheck, Truck } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMyOrders } from '../redux/slices/order/orderSlice';
 import { createReview, resetReviewState } from '../redux/slices/reviews/reviewsSlice';
+import Swal from 'sweetalert2';
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -24,15 +25,33 @@ const MyOrders = () => {
 
   useEffect(() => {
     if (success) {
-      alert('Review submitted successfully!');
-      dispatch(resetReviewState());
-      handleCloseModal();
+      Swal.fire({
+        icon: 'success',
+        title: 'Thank you for your review!',
+        text: 'Your feedback has been submitted successfully.',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        dispatch(resetReviewState());
+        handleCloseModal();
+      });
     }
   }, [success, dispatch]);
 
   useEffect(() => {
+    if (reviewError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: reviewError || 'Something went wrong while submitting your review.',
+        confirmButtonColor: '#d33',
+      });
+    }
+  }, [reviewError]);
+
+  useEffect(() => {
     if (selectedOrder?.orderItems.length === 1) {
-      setSelectedItemId(selectedOrder.orderItems[0].product); // FIXED HERE
+      setSelectedItemId(selectedOrder.orderItems[0].product);
     }
   }, [selectedOrder]);
 
@@ -50,12 +69,18 @@ const MyOrders = () => {
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     if (!selectedItemId || !review.rating || !review.comment.trim()) {
-      alert('Please fill all fields');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Incomplete Form',
+        text: 'Please fill all fields before submitting your review.',
+        confirmButtonColor: '#f59e0b',
+      });
       return;
     }
+
     dispatch(
       createReview({
-        productId: selectedItemId, // now correctly set to product ID
+        productId: selectedItemId,
         rating: Number(review.rating),
         comment: review.comment.trim(),
       })
@@ -127,8 +152,8 @@ const MyOrders = () => {
                         order.orderStatus === 'Delivered'
                           ? 'text-green-600'
                           : order.orderStatus === 'Shipped'
-                            ? 'text-blue-500'
-                            : 'text-gray-500'
+                          ? 'text-blue-500'
+                          : 'text-gray-500'
                       }`}
                     >
                       {order.orderStatus}
@@ -168,7 +193,7 @@ const MyOrders = () => {
                   {selectedOrder?.orderItems.map((item) => (
                     <option key={item._id} value={item.product}>
                       {item.name}
-                    </option> // FIXED HERE
+                    </option>
                   ))}
                 </select>
               </div>
@@ -202,7 +227,6 @@ const MyOrders = () => {
                 />
               </div>
 
-              {reviewError && <p className="text-red-500 text-sm">{reviewError}</p>}
               {reviewLoading && <p className="text-gray-500 text-sm">Submitting review...</p>}
 
               <div className="flex justify-end gap-2">
