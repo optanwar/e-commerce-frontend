@@ -92,7 +92,7 @@ export default function Navbar() {
         <div className="hidden md:flex gap-6 items-center relative">
           <Link to="/my-cart" className="relative">
             <ShoppingCart className="w-6 h-6 text-darkText hover:text-primary" />
-            <span className="absolute -top-1.5 -right-1.5 bg-primary text-white text-xs px-1.5 rounded-full">
+            <span className="absolute -top-1.5 -right-1.5 bg-primary text-white text-xs px-1.5 py-0.5 rounded-full">
               {cartItems.length > 0 ? cartItems.length : 0}
             </span>
           </Link>
@@ -190,7 +190,7 @@ export default function Navbar() {
               className="relative hover:text-primary flex items-center gap-1"
             >
               <ShoppingCart className="inline-block w-5 h-5" />
-              <span className="absolute -top-1 -right-2.5 bg-primary text-white text-xs px-1 rounded-full">
+              <span className="absolute -top-1 -right-2.5 bg-primary text-white text-xs px-1.5 py-0.5 rounded-full">
               {cartItems.length > 0 ? cartItems.length : 0}
               </span>
             </Link>
