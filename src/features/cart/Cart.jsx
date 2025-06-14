@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  removeFromCart,
-  updateQuantity,
+  removeFromCartGuest,
+  updateQuantityGuest,
   calculateTotals,
-  clearCart,
+  clearGuestCart,
+  removeCartItem,
+  addOrUpdateCart,
+  clearServerCart,
 } from '../../redux/slices/cart/cartSlice';
 import { Link } from 'react-router-dom';
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartItems, totalItems, totalPrice } = useSelector((state) => state.cart);
+  const { cartItems, totalItems, totalPrice, isGuest } = useSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(calculateTotals());
@@ -24,15 +27,30 @@ const CartPage = () => {
     if (type === 'increment') newQuantity++;
     if (type === 'decrement' && newQuantity > 1) newQuantity--;
 
-    dispatch(updateQuantity({ id, quantity: newQuantity }));
+    // Optional: stock check here if needed
+    // if (newQuantity > item.stock) return alert("Only few left in stock!");
+
+    if (isGuest) {
+      dispatch(updateQuantityGuest({ id, quantity: newQuantity }));
+    } else {
+      dispatch(addOrUpdateCart({ productId: id, quantity: newQuantity }));
+    }
   };
 
   const handleRemove = (id) => {
-    dispatch(removeFromCart(id));
+    if (isGuest) {
+      dispatch(removeFromCartGuest(id));
+    } else {
+      dispatch(removeCartItem(id));
+    }
   };
 
   const handleClearCart = () => {
-    dispatch(clearCart());
+    if (isGuest) {
+      dispatch(clearGuestCart());
+    } else {
+      dispatch(clearServerCart());
+    }
   };
 
   if (cartItems.length === 0) {
@@ -56,7 +74,10 @@ const CartPage = () => {
               className="flex items-center bg-white shadow rounded-xl p-4 gap-5"
             >
               <img
-                src={'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600'}
+                src={
+                  item.image ||
+                  'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600'
+                }
                 alt={item.name}
                 className="w-24 h-24 object-cover rounded-lg"
               />
