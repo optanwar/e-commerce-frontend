@@ -1,59 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  removeFromCartGuest,
-  updateQuantityGuest,
+  removeFromCart,
+  updateQuantity,
   calculateTotals,
-  clearGuestCart,
-  removeCartItem,
-  addOrUpdateCart,
-  clearServerCart,
+  clearCart,
 } from '../../redux/slices/cart/cartSlice';
 import { Link } from 'react-router-dom';
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartItems, totalItems, totalPrice, isGuest } = useSelector((state) => state.cart);
+  const { cartItems, totalItems, totalPrice } = useSelector((state) => state.cart);
 
+  // Recalculate totals on cart item change
   useEffect(() => {
-    dispatch(calculateTotals());
+    if (cartItems.length > 0) {
+      dispatch(calculateTotals());
+    }
   }, [cartItems, dispatch]);
 
-  const handleQuantityChange = (id, type) => {
-    const item = cartItems.find((item) => item._id === id);
-    if (!item) return;
+  const handleQuantityChange = useCallback(
+    (id, type) => {
+      const item = cartItems.find((item) => item._id === id);
+      if (!item) return;
 
-    let newQuantity = item.quantity;
-    if (type === 'increment') newQuantity++;
-    if (type === 'decrement' && newQuantity > 1) newQuantity--;
+      let newQuantity = item.quantity;
+      if (type === 'increment') newQuantity++;
+      if (type === 'decrement' && newQuantity > 1) newQuantity--;
 
-    // Optional: stock check here if needed
-    // if (newQuantity > item.stock) return alert("Only few left in stock!");
+      if (newQuantity !== item.quantity) {
+        dispatch(updateQuantity({ id, quantity: newQuantity }));
+      }
+    },
+    [cartItems, dispatch]
+  );
 
-    if (isGuest) {
-      dispatch(updateQuantityGuest({ id, quantity: newQuantity }));
-    } else {
-      dispatch(addOrUpdateCart({ productId: id, quantity: newQuantity }));
-    }
-  };
+  const handleRemove = useCallback(
+    (id) => {
+      dispatch(removeFromCart(id));
+    },
+    [dispatch]
+  );
 
-  const handleRemove = (id) => {
-    if (isGuest) {
-      dispatch(removeFromCartGuest(id));
-    } else {
-      dispatch(removeCartItem(id));
-    }
-  };
+  const handleClearCart = useCallback(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
 
-  const handleClearCart = () => {
-    if (isGuest) {
-      dispatch(clearGuestCart());
-    } else {
-      dispatch(clearServerCart());
-    }
-  };
-
-  if (cartItems.length === 0) {
+  if (!cartItems || cartItems.length === 0) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center bg-lightBg text-darkText text-center px-4">
         <h1 className="text-3xl font-bold mb-3 text-primary">Your Cart is Empty</h1>
@@ -75,7 +68,7 @@ const CartPage = () => {
             >
               <img
                 src={
-                  item.image ||
+                  item.imageUrl ||
                   'https://images.pexels.com/photos/14433531/pexels-photo-14433531.jpeg?auto=compress&cs=tinysrgb&w=600'
                 }
                 alt={item.name}
